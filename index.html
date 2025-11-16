@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registrar Paquete</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
+    <style>
+      /* Import Custom Fonts */
+      @font-face {
+        font-family: "NewBlackTypeface-Light";
+        src: url("typefaces/NewBlackTypeface-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "NewBlackTypeface-Regular";
+        src: url("typefaces/NewBlackTypeface-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "NewBlackTypeface-Bold";
+        src: url("typefaces/NewBlackTypeface-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Light";
+        src: url("typefaces/VastagoGrotesk-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Regular";
+        src: url("typefaces/VastagoGrotesk-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Bold";
+        src: url("typefaces/VastagoGrotesk-Bold.otf") format("opentype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      body {
+        margin: 0;
+        background: #01183d;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow-x: hidden;
+        min-height: 140vh;
+        padding-top: 20px; /* Added top padding for the page */
+      }
+
+      /* Background images */
+      .bg-image {
+        position: absolute;
+        z-index: -1;
+        opacity: 0.9;
+      }
+
+      .bg-left-top {
+        top: 120px;
+        left: -20px;
+        width: 150px;
+      }
+
+      .bg-right-top {
+        top: 350px;
+        right: -50px;
+        width: 150px;
+      }
+
+      .bg-right-bottom {
+        bottom: 150px;
+        right: 260px;
+        width: 180px;
+      }
+
+      /* Navbar container */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 0;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0034c4;
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .logo {
+        padding: 0 80px 0 50px;
+      }
+
+      .logo img {
+        height: 70px;
+      }
+
+      .navbar ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar ul li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Navigation items */
+      }
+
+      .navbar ul li a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: white;
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .navbar ul li ul.dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0034c4;
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar ul li ul.dropdown-menu li {
+        margin: 0;
+      }
+
+      .navbar ul li ul.dropdown-menu li a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        font-size: 14px;
+        white-space: nowrap;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Dropdown items */
+      }
+
+      .navbar ul li ul.dropdown-menu li a:hover {
+        background: #002a99;
+        color: #ffd700;
+      }
+
+      /* Show dropdown on hover */
+      .navbar ul li:hover > ul.dropdown-menu {
+        display: block;
+      }
+
+      .profile {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px 6px;
+      }
+
+      /* Form Card */
+      .card-custom {
+        background-color: #0034c4;
+        border-radius: 60px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+        font-weight: 600;
+        min-height: 650px;
+      }
+
+      .card-custom input,
+      .card-custom textarea {
+        background-color: #6c7ecb;
+        border: none;
+        border-radius: 15px;
+        padding: 12px;
+        color: white;
+        width: 100%;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Placeholders */
+      }
+
+      .card-custom input::placeholder,
+      .card-custom textarea::placeholder {
+        color: #d9ddf5;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Placeholders */
+      }
+
+      /* Form labels */
+      .card-custom label {
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Form section labels */
+      }
+
+      /* Custom width for specific inputs - FULL LENGTH */
+      .tracking-input {
+        width: 100% !important; /* Full length */
+      }
+
+      .valor-input {
+        width: 100% !important; /* Full length */
+      }
+
+      .cupon-input {
+        width: 50% !important;
+      }
+
+      /* Upload box - Increased height */
+      .upload-box {
+        background-color: #7b8ee0;
+        border: 2px solid #bfc7f3;
+        border-radius: 12px;
+        padding: 60px 15px;
+        text-align: center;
+        color: #e5e8ff;
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: 0.3s;
+        cursor: pointer;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Upload box text */
+      }
+      .upload-box:hover {
+        background-color: #6a7ad8;
+      }
+
+      /* Toggle boxes - EVEN SMALLER checkboxes/radio buttons */
+      .toggle-box {
+        display: flex;
+        align-items: center;
+        background: #6c7ecb;
+        border-radius: 20px;
+        padding: 10px 16px;
+        color: #00205d;
+        margin: 5px 0;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.2s;
+        font-family: "NewBlackTypeface-Regular", Arial, sans-serif; /* Toggle box labels */
+      }
+
+      .toggle-box input[type="checkbox"],
+      .toggle-box input[type="radio"] {
+        width: 10px !important; /* Reduced from 12px to 10px */
+        height: 10px !important; /* Reduced from 12px to 10px */
+        margin-right: 10px;
+        cursor: pointer;
+        /* Hide default appearance */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 2px solid #fff;
+        border-radius: 3px;
+        outline: none;
+        position: relative;
+        background-color: #fff;
+      }
+
+      .toggle-box input[type="radio"] {
+        border-radius: 50%;
+      }
+
+      .toggle-box input[type="checkbox"]:checked,
+      .toggle-box input[type="radio"]:checked {
+        background-color: #ff9900;
+        border-color: #fff;
+      }
+
+      /* Save button */
+      .btn-save {
+        background-color: #ce0505;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+        padding: 5px 50px;
+        border: none;
+        transition: 0.3s;
+        margin-top: 20px;
+        font-family: "NewBlackTypeface-Bold", Arial, sans-serif; /* Guardar button */
+      }
+      .btn-save:hover {
+        background-color: #93021a;
+        color: white;
+      }
+
+      /* Casillero */
+      .mi-casillero {
+        background-color: #0084f8;
+        border-radius: 50px;
+        padding: 15px;
+        color: white;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+        width: 100%;
+      }
+
+      .mi-casillero h5 {
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Mi casillero heading */
+      }
+
+      .casillero-box {
+        background-color: white;
+        border-radius: 0px 0px 35px 35px;
+        padding: 12px;
+        color: black;
+      }
+
+      .field {
+        padding: 4px 0;
+      }
+
+      .item-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        font-size: 13px;
+        color: #00205d;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Nombre, Dirección, etc. */
+      }
+
+      .item-sub {
+        font-size: 12px;
+        color: #00205d;
+        margin-top: 2px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif; /* Address details */
+      }
+
+      .casillero-box hr {
+        border: none;
+        height: 1px;
+        background-color: #007bff;
+        margin: 6px -12px;
+        width: calc(100% + 24px);
+      }
+
+      .copy-btn {
+        background-color: #ffcc00;
+        border: none;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .copy-btn img {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Dropdown card positioning - FIXED */
+      .dropdown-card {
+        position: absolute;
+        top: 80px; /* Increased from 60px to move it further down */
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 220px; /* Slightly smaller width */
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 12px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+        font-size: 13px; /* Slightly smaller font */
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif; /* Dropdown card text */
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 13px; /* Slightly smaller heading */
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Dropdown card headings */
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c4;
+        font-weight: 500;
+        padding: 4px 0; /* Reduced padding */
+        text-decoration: none;
+        font-size: 12px; /* Slightly smaller font */
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif; /* Dropdown card links */
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Custom alert style */
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        border-left: 4px solid #28a745;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+
+      .custom-alert.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      /* Page heading */
+      .page-heading {
+        text-align: center;
+        color: white;
+        margin-top: 2rem;
+        margin-bottom: 1rem !important; /* Small bottom padding only */
+        font-weight: bold;
+        padding-bottom: 1.5rem; /* Small bottom padding */
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Registrar paquete heading */
+      }
+
+      /* Main content container */
+      .main-container {
+        padding: 0 40px;
+        max-width: 1700px;
+        margin: 0 auto;
+      }
+
+      /* Custom layout */
+      .custom-layout {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+      }
+
+      .form-section {
+        flex: 0 0 72%;
+      }
+
+      .casillero-section {
+        flex: 0 0 25%;
+        padding-right: 15px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1200px) {
+        .custom-layout {
+          flex-direction: column;
+        }
+        .form-section,
+        .casillero-section {
+          flex: 0 0 100%;
+        }
+        .casillero-section {
+          padding-right: 0;
+        }
+        .card-custom {
+          min-height: auto;
+        }
+        .tracking-input,
+        .valor-input,
+        .cupon-input {
+          width: 100% !important;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .navbar {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+          width: 100%;
+        }
+        .navbar ul {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .bg-image {
+          display: none;
+        }
+        .main-container {
+          padding: 0 20px;
+        }
+        .logo {
+          padding: 0 40px 0 30px;
+        }
+        .navbar-container {
+          padding: 10px 15px;
+        }
+        .page-heading {
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .navbar ul li {
+          margin: 6px 0;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+        .custom-alert {
+          left: 20px;
+          right: 20px;
+          min-width: auto;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar {
+          border-radius: 20px;
+        }
+        .logo {
+          padding: 10px 0;
+        }
+        body {
+          padding-top: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Images -->
+    <img
+      src="images/whitespark.png"
+      alt="Background 1"
+      class="bg-image bg-left-top"
+    />
+    <img
+      src="images/whitespark.png"
+      alt="Background 2"
+      class="bg-image bg-right-top"
+    />
+    <img
+      src="images/redstar.png"
+      alt="Background 3"
+      class="bg-image bg-right-bottom"
+    />
+
+    <!-- Custom Alert Container -->
+    <div
+      id="alertContainer"
+      class="custom-alert alert alert-success"
+      role="alert"
+      style="display: none"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="alertMessage"></span>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar">
+        <ul>
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Registrar paquete</a></li>
+              <li><a href="#">Estado de paquetes</a></li>
+              <li><a href="#">Asociados</a></li>
+              <li><a href="#">Cupos</a></li>
+            </ul>
+          </li>
+
+          <!-- Liquidación with dropdown -->
+          <li class="dropdown">
+            <a href="#">Liquidación <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Liquidaciones Pendientes</a></li>
+              <li><a href="#">Liquidaciones Canceladas</a></li>
+              <li><a href="#">Cuentas Bancarias</a></li>
+            </ul>
+          </li>
+
+          <!-- Programas de Recompensa (normal) -->
+          <li><a href="#">Programas de Recompensa</a></li>
+
+          <!-- Historial de Tracking (normal) -->
+          <li><a href="#">Historial de Tracking</a></li>
+        </ul>
+
+        <!-- Nav icons -->
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn">
+            <img
+              src="https://img.icons8.com/ios/50/ffffff/high-importance.png"
+              alt="Alert"
+            />
+          </a>
+          <a href="javascript:void(0)" id="bellBtn">
+            <img
+              src="https://img.icons8.com/ios/50/ffffff/appointment-reminders.png"
+              alt="Notifications"
+            />
+          </a>
+          <a href="javascript:void(0)" id="mailBtn">
+            <img
+              src="https://img.icons8.com/ios/50/ffffff/new-post.png"
+              alt="Mail"
+            />
+          </a>
+          <a href="javascript:void(0)" id="userBtn" class="profile">
+            <img
+              src="https://courier.riocargoexpress.com/assets/images/users/user.png"
+              alt="profileLogo"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Dropdown cards - moved outside navbar -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Heading with small bottom padding only -->
+    <h2 class="page-heading">Registrar paquete</h2>
+
+    <!-- Main content container with custom layout -->
+    <div class="main-container">
+      <div class="custom-layout">
+        <!-- Form Section -->
+        <div class="form-section">
+          <div class="card-custom">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-8">
+                  <label for="tracking">Número de tracking</label>
+                  <input
+                    type="text"
+                    id="tracking"
+                    class="form-control tracking-input"
+                    placeholder="Ingrese número de tracking"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="valor">Valor de la compra</label>
+                  <input
+                    type="text"
+                    id="valor"
+                    class="form-control valor-input"
+                    placeholder="Ingrese valor de compra"
+                  />
+                </div>
+              </div>
+
+              <label>Por favor suba su factura de compra</label>
+              <div
+                class="upload-box"
+                id="uploadBox"
+                onclick="document.getElementById('fileInput').click()"
+              >
+                Suelte los archivos aquí o haga click para cargar.
+              </div>
+              <input
+                type="file"
+                id="fileInput"
+                multiple
+                style="display: none"
+              />
+
+              <div class="form-row mt-3">
+                <div class="form-group col-md-4">
+                  <label>Gestión de pedido*</label><br />
+                  <label class="toggle-box">
+                    <input type="radio" name="pedido" /> Agrupar compras
+                  </label>
+                  <label class="toggle-box">
+                    <input type="radio" name="pedido" /> Embarque Inmediato
+                  </label>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Detalles del empaque</label><br />
+                  <label class="toggle-box">
+                    <input type="checkbox" /> Más protección
+                  </label>
+                  <label class="toggle-box">
+                    <input type="checkbox" /> Revisión detallada
+                  </label>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Categoría</label><br />
+                  <label class="toggle-box">
+                    <input type="checkbox" /> Categoría B
+                  </label>
+                  <label class="toggle-box">
+                    <input type="checkbox" /> Categoría C
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="nota">Nota</label>
+                <input
+                  type="text"
+                  id="nota"
+                  class="form-control"
+                  placeholder="Agregue una nota"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="cupon">Cupón de descuento</label>
+                <input
+                  type="text"
+                  id="cupon"
+                  class="form-control cupon-input"
+                  placeholder="Ingrese cupón de descuento"
+                />
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-save">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Mi Casillero -->
+        <div class="casillero-section">
+          <div class="mi-casillero">
+            <h5 class="mb-3 text-center font-weight-bold">Mi casillero</h5>
+
+            <div class="casillero-box">
+              <div class="field">
+                <div class="item-main">
+                  Nombre
+                  <button class="copy-btn">
+                    <img
+                      src="https://img.icons8.com/ios/50/000000/copy.png"
+                      alt="Copy"
+                    />
+                  </button>
+                </div>
+                <div class="item-sub">
+                  571017 - Roxana Maria Castillo Ottati
+                </div>
+              </div>
+              <hr />
+
+              <div class="field">
+                <div class="item-main">
+                  Dirección
+                  <button class="copy-btn">
+                    <img
+                      src="https://img.icons8.com/ios/50/000000/copy.png"
+                      alt="Copy"
+                    />
+                  </button>
+                </div>
+                <div class="item-sub">12992 NW 42 Ave Ste 126</div>
+              </div>
+              <hr />
+
+              <div class="field">
+                <div class="item-main">
+                  Ciudad
+                  <button class="copy-btn">
+                    <img
+                      src="https://img.icons8.com/ios/50/000000/copy.png"
+                      alt="Copy"
+                    />
+                  </button>
+                </div>
+                <div class="item-sub">OPA LOCKA</div>
+              </div>
+              <hr />
+
+              <div class="field">
+                <div class="item-main">
+                  Estado
+                  <button class="copy-btn">
+                    <img
+                      src="https://img.icons8.com/ios/50/000000/copy.png"
+                      alt="Copy"
+                    />
+                  </button>
+                </div>
+                <div class="item-sub">FLORIDA</div>
+              </div>
+              <hr />
+
+              <div class="field">
+                <div class="item-main">
+                  Código Postal
+                  <button class="copy-btn">
+                    <img
+                      src="https://img.icons8.com/ios/50/000000/copy.png"
+                      alt="Copy"
+                    />
+                  </button>
+                </div>
+                <div class="item-sub">33054-4403</div>
+              </div>
+              <hr />
+
+              <div class="field">
+                <div class="item-main">
+                  Teléfono
+                  <button class="copy-btn">
+                    <img
+                      src="https://img.icons8.com/ios/50/000000/copy.png"
+                      alt="Copy"
+                    />
+                  </button>
+                </div>
+                <div class="item-sub">305 967 8269</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        // Function to show custom alert
+        function showAlert(message) {
+          const alertContainer = document.getElementById("alertContainer");
+          const alertMessage = document.getElementById("alertMessage");
+
+          alertMessage.textContent = message;
+          alertContainer.style.display = "block";
+
+          // Trigger reflow to enable animation
+          void alertContainer.offsetWidth;
+
+          alertContainer.classList.add("show");
+
+          // Auto hide after 3 seconds
+          setTimeout(() => {
+            alertContainer.classList.remove("show");
+            setTimeout(() => {
+              alertContainer.style.display = "none";
+            }, 500);
+          }, 3000);
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              showAlert("Texto copiado: " + text);
+            })
+            .catch((err) => {
+              console.error("Error al copiar: ", err);
+              showAlert("Error al copiar el texto");
+            });
+        }
+
+        function toggleCard(cardId) {
+          // Close other cards
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          // Toggle the clicked card
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation(); // Stop event from bubbling to document
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", function (e) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        // Prevent closing when clicking inside the card
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+
+        // Add copy functionality to all copy buttons
+        document.querySelectorAll(".copy-btn").forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent closing dropdowns if any are open
+            const textToCopy = this.closest(".field")
+              .querySelector(".item-sub")
+              .textContent.trim();
+            copyToClipboard(textToCopy);
+          });
+        });
+      });
+    </script>
+
+    <!-- Scripts -->
+    <script src="./js/security.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1/slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
