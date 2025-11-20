@@ -70,7 +70,7 @@
         position: relative;
         overflow-x: hidden;
         min-height: 140vh;
-        padding-top: 20px; /* Added top padding for the page */
+        padding-top: 20px;
       }
 
       /* Background images */
@@ -147,7 +147,7 @@
         font-weight: 500;
         transition: color 0.3s;
         font-size: 15px;
-        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Navigation items */
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
 
       .navbar ul li a:hover {
@@ -199,7 +199,7 @@
         color: #fff;
         font-size: 14px;
         white-space: nowrap;
-        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Dropdown items */
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
 
       .navbar ul li ul.dropdown-menu li a:hover {
@@ -215,7 +215,7 @@
       .profile {
         background: #007bff;
         border-radius: 50%;
-        padding: 6px 6px;
+        padding: 8px 8px;
       }
 
       /* Form Card */
@@ -230,6 +230,77 @@
         min-height: 650px;
       }
 
+      /* Country Flag Selector */
+      .country-selector {
+        margin-bottom: 15px;
+      }
+
+      .country-selector .d-flex {
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .country-flag {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .country-flag:hover {
+        transform: scale(1.1);
+      }
+
+      .country-flag.active {
+        border-color: #ff0808;
+        transform: scale(1.1);
+      }
+
+      .flag-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* NEW: White rectangle with half circle for active flag */
+      .flag-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: -10px;
+        position: relative;
+        z-index: 5;
+      }
+
+      .flag {
+        position: relative;
+      }
+
+      .flag.active .flag-indicator {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) scale(1.1);
+        width: 35px;
+        height: 50px;
+        background: white;
+        border-radius: 20px 20px 0 0;
+        z-index: -1;
+      }
+
+      /* Address Content */
+      .address-content {
+        transition: opacity 0.3s ease;
+      }
       .card-custom input,
       .card-custom textarea {
         background-color: #6c7ecb;
@@ -238,27 +309,27 @@
         padding: 12px;
         color: white;
         width: 100%;
-        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Placeholders */
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
 
       .card-custom input::placeholder,
       .card-custom textarea::placeholder {
         color: #d9ddf5;
-        font-family: "NewBlackTypeface-Light", Arial, sans-serif; /* Placeholders */
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
 
       /* Form labels */
       .card-custom label {
-        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Form section labels */
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
 
       /* Custom width for specific inputs - FULL LENGTH */
       .tracking-input {
-        width: 100% !important; /* Full length */
+        width: 100% !important;
       }
 
       .valor-input {
-        width: 100% !important; /* Full length */
+        width: 100% !important;
       }
 
       .cupon-input {
@@ -267,12 +338,12 @@
 
       /* Upload box - Increased height */
       .upload-box {
-        background-color: #7b8ee0;
+        background-color: #92a1e0;
         border: 2px solid #bfc7f3;
         border-radius: 12px;
         padding: 60px 15px;
         text-align: center;
-        color: #e5e8ff;
+        color: #43608a;
         font-size: 14px;
         margin-bottom: 20px;
         transition: 0.3s;
@@ -281,7 +352,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Upload box text */
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
       .upload-box:hover {
         background-color: #6a7ad8;
@@ -299,16 +370,15 @@
         cursor: pointer;
         font-size: 15px;
         transition: 0.2s;
-        font-family: "NewBlackTypeface-Regular", Arial, sans-serif; /* Toggle box labels */
+        font-family: "NewBlackTypeface-Regular", Arial, sans-serif;
       }
 
       .toggle-box input[type="checkbox"],
       .toggle-box input[type="radio"] {
-        width: 10px !important; /* Reduced from 12px to 10px */
-        height: 10px !important; /* Reduced from 12px to 10px */
+        width: 10px !important;
+        height: 10px !important;
         margin-right: 10px;
         cursor: pointer;
-        /* Hide default appearance */
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -339,14 +409,13 @@
         border: none;
         transition: 0.3s;
         margin-top: 20px;
-        font-family: "NewBlackTypeface-Bold", Arial, sans-serif; /* Guardar button */
+        font-family: "NewBlackTypeface-Bold", Arial, sans-serif;
       }
       .btn-save:hover {
         background-color: #93021a;
         color: white;
       }
 
-      /* Casillero */
       .mi-casillero {
         background-color: #0084f8;
         border-radius: 50px;
@@ -355,17 +424,22 @@
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
         margin-bottom: 20px;
         width: 100%;
+        position: relative;
       }
 
-      .mi-casillero h5 {
-        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Mi casillero heading */
-      }
-
+      /* Adjust casillero-box to have less width and touch the container */
       .casillero-box {
         background-color: white;
         border-radius: 0px 0px 35px 35px;
         padding: 12px;
         color: black;
+        margin: 0 -5px;
+        width: calc(100% + 10px);
+        margin-top: 20px; /* Added margin to separate from flags */
+      }
+
+      .mi-casillero h5 {
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
 
       .field {
@@ -379,14 +453,14 @@
         font-weight: 600;
         font-size: 13px;
         color: #00205d;
-        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Nombre, Dirección, etc. */
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
 
       .item-sub {
         font-size: 12px;
         color: #00205d;
         margin-top: 2px;
-        font-family: "VastagoGrotesk-Regular", Arial, sans-serif; /* Address details */
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
       }
 
       .casillero-box hr {
@@ -418,26 +492,26 @@
       /* Dropdown card positioning - FIXED */
       .dropdown-card {
         position: absolute;
-        top: 80px; /* Increased from 60px to move it further down */
+        top: 80px;
         right: 20px;
         background: #ffffff;
         color: #000;
-        width: 220px; /* Slightly smaller width */
+        width: 220px;
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         padding: 12px;
         display: none;
         z-index: 2000;
         animation: fadeInUp 0.3s ease;
-        font-size: 13px; /* Slightly smaller font */
-        font-family: "VastagoGrotesk-Regular", Arial, sans-serif; /* Dropdown card text */
+        font-size: 13px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
       }
 
       .dropdown-card h6 {
         font-weight: bold;
         margin-bottom: 5px;
-        font-size: 13px; /* Slightly smaller heading */
-        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Dropdown card headings */
+        font-size: 13px;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
 
       .dropdown-card hr {
@@ -448,10 +522,10 @@
         display: block;
         color: #0034c4;
         font-weight: 500;
-        padding: 4px 0; /* Reduced padding */
+        padding: 4px 0;
         text-decoration: none;
-        font-size: 12px; /* Slightly smaller font */
-        font-family: "VastagoGrotesk-Regular", Arial, sans-serif; /* Dropdown card links */
+        font-size: 12px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
       }
 
       .dropdown-card a:hover {
@@ -500,10 +574,10 @@
         text-align: center;
         color: white;
         margin-top: 2rem;
-        margin-bottom: 1rem !important; /* Small bottom padding only */
+        margin-bottom: 1rem !important;
         font-weight: bold;
-        padding-bottom: 1.5rem; /* Small bottom padding */
-        font-family: "VastagoGrotesk-Bold", Arial, sans-serif; /* Registrar paquete heading */
+        padding-bottom: 1.5rem;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
 
       /* Main content container */
@@ -694,28 +768,16 @@
         <!-- Nav icons -->
         <div class="nav-icons">
           <a href="javascript:void(0)" id="alertBtn">
-            <img
-              src="https://img.icons8.com/ios/50/ffffff/high-importance.png"
-              alt="Alert"
-            />
+            <img src="./images/alert.png" alt="Alert" />
           </a>
           <a href="javascript:void(0)" id="bellBtn">
-            <img
-              src="https://img.icons8.com/ios/50/ffffff/appointment-reminders.png"
-              alt="Notifications"
-            />
+            <img src="./images/bell.png" alt="Notifications" />
           </a>
           <a href="javascript:void(0)" id="mailBtn">
-            <img
-              src="https://img.icons8.com/ios/50/ffffff/new-post.png"
-              alt="Mail"
-            />
+            <img src="./images/message.png" alt="Mail" />
           </a>
           <a href="javascript:void(0)" id="userBtn" class="profile">
-            <img
-              src="https://courier.riocargoexpress.com/assets/images/users/user.png"
-              alt="profileLogo"
-            />
+            <img src="./images/user.png" alt="profileLogo" />
           </a>
         </div>
       </nav>
@@ -797,7 +859,7 @@
                 id="uploadBox"
                 onclick="document.getElementById('fileInput').click()"
               >
-                Suelte los archivos aquí o haga click para cargar.
+                Suelte los archivos aqui o haga click para cargar.
               </div>
               <input
                 type="file"
@@ -868,96 +930,334 @@
           <div class="mi-casillero">
             <h5 class="mb-3 text-center font-weight-bold">Mi casillero</h5>
 
+            <!-- Country Selection Circles -->
+            <div class="flag-wrapper">
+              <!-- USA Flag (Miami) -->
+              <div class="flag active" data-country="miami">
+                <div class="flag-indicator"></div>
+                <div class="country-flag">
+                  <img
+                    src="https://flagcdn.com/w40/us.png"
+                    alt="USA Flag"
+                    class="flag-img"
+                  />
+                </div>
+              </div>
+              <!-- Spain Flag (Madrid) -->
+              <div class="flag" data-country="madrid">
+                <div class="flag-indicator"></div>
+                <div class="country-flag">
+                  <img
+                    src="https://flagcdn.com/w40/es.png"
+                    alt="Spain Flag"
+                    class="flag-img"
+                  />
+                </div>
+              </div>
+              <!-- China Flag (Shenzhen) -->
+              <div class="flag" data-country="shenzhen">
+                <div class="flag-indicator"></div>
+                <div class="country-flag">
+                  <img
+                    src="https://flagcdn.com/w40/cn.png"
+                    alt="China Flag"
+                    class="flag-img"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div class="casillero-box">
-              <div class="field">
-                <div class="item-main">
-                  Nombre
-                  <button class="copy-btn">
-                    <img
-                      src="https://img.icons8.com/ios/50/000000/copy.png"
-                      alt="Copy"
-                    />
-                  </button>
+              <!-- Miami Address (Default) -->
+              <div class="address-content" id="miami-address">
+                <div class="field">
+                  <div class="item-main">
+                    Nombre
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">
+                    571017 - Roxana Maria Castillo Ottati
+                  </div>
                 </div>
-                <div class="item-sub">
-                  571017 - Roxana Maria Castillo Ottati
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Dirección
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">12992 NW 42 Ave Ste 126</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Ciudad
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">OPA LOCKA</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Estado
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">FLORIDA</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Código Postal
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">33054-4403</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Teléfono
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">305 967 8269</div>
                 </div>
               </div>
-              <hr />
 
-              <div class="field">
-                <div class="item-main">
-                  Dirección
-                  <button class="copy-btn">
-                    <img
-                      src="https://img.icons8.com/ios/50/000000/copy.png"
-                      alt="Copy"
-                    />
-                  </button>
+              <!-- Madrid Address (Hidden by default) -->
+              <div
+                class="address-content"
+                id="madrid-address"
+                style="display: none"
+              >
+                <div class="field">
+                  <div class="item-main">
+                    Nombre
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">Roxana Maria Castillo Ottati</div>
                 </div>
-                <div class="item-sub">12992 NW 42 Ave Ste 126</div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Dirección
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">
+                    Calle de Albasanz 52, Local B Izq 571017
+                  </div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Apartamento/Piso/Unidad
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">RIOCARGO 571017</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Ciudad
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">Madrid</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Estado/Provincia
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">Madrid</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Código Postal
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">28037</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Teléfono
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">+34 646552799</div>
+                </div>
               </div>
-              <hr />
 
-              <div class="field">
-                <div class="item-main">
-                  Ciudad
-                  <button class="copy-btn">
-                    <img
-                      src="https://img.icons8.com/ios/50/000000/copy.png"
-                      alt="Copy"
-                    />
-                  </button>
+              <!-- Shenzhen Address (Hidden by default) -->
+              <div
+                class="address-content"
+                id="shenzhen-address"
+                style="display: none"
+              >
+                <div class="field">
+                  <div class="item-main">
+                    Nombre
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">
+                    Macro Logistics - RIOCARGO Roxana Maria Castillo Ottati
+                  </div>
                 </div>
-                <div class="item-sub">OPA LOCKA</div>
-              </div>
-              <hr />
-
-              <div class="field">
-                <div class="item-main">
-                  Estado
-                  <button class="copy-btn">
-                    <img
-                      src="https://img.icons8.com/ios/50/000000/copy.png"
-                      alt="Copy"
-                    />
-                  </button>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Dirección
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">
+                    JINXIU GARDEN, XIXIANG STREET, BAOAN DISTRICT
+                  </div>
                 </div>
-                <div class="item-sub">FLORIDA</div>
-              </div>
-              <hr />
-
-              <div class="field">
-                <div class="item-main">
-                  Código Postal
-                  <button class="copy-btn">
-                    <img
-                      src="https://img.icons8.com/ios/50/000000/copy.png"
-                      alt="Copy"
-                    />
-                  </button>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Apartamento/Piso/Unidad
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">118-120, 1st floor, building 3</div>
                 </div>
-                <div class="item-sub">33054-4403</div>
-              </div>
-              <hr />
-
-              <div class="field">
-                <div class="item-main">
-                  Teléfono
-                  <button class="copy-btn">
-                    <img
-                      src="https://img.icons8.com/ios/50/000000/copy.png"
-                      alt="Copy"
-                    />
-                  </button>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Ciudad
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">Shenzhen</div>
                 </div>
-                <div class="item-sub">305 967 8269</div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Estado/Provincia
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">Guangdong Province</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Código Postal
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">518100</div>
+                </div>
+                <hr />
+                <div class="field">
+                  <div class="item-main">
+                    Teléfono
+                    <button class="copy-btn">
+                      <img
+                        src="https://img.icons8.com/ios/50/000000/copy.png"
+                        alt="Copy"
+                      />
+                    </button>
+                  </div>
+                  <div class="item-sub">+86 13430587809</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const cards = {
@@ -1042,12 +1342,40 @@
             copyToClipboard(textToCopy);
           });
         });
+
+        // Country flag selection functionality
+        const flags = document.querySelectorAll(".flag");
+        const addressContents = document.querySelectorAll(".address-content");
+
+        flags.forEach((flag) => {
+          flag.addEventListener("click", function () {
+            const country = this.getAttribute("data-country");
+
+            // Remove active class from all flags
+            flags.forEach((f) => f.classList.remove("active"));
+            // Add active class to clicked flag
+            this.classList.add("active");
+
+            // Hide all address contents
+            addressContents.forEach((content) => {
+              content.style.display = "none";
+            });
+
+            // Show selected address content
+            const selectedAddress = document.getElementById(
+              `${country}-address`
+            );
+            if (selectedAddress) {
+              selectedAddress.style.display = "block";
+            }
+          });
+        });
       });
     </script>
 
     <!-- Scripts -->
     <script src="./js/security.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1/slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
