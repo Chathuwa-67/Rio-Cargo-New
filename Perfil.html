@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfil</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Bootstrap Datepicker -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
+    <style>
+      /* Import Custom Fonts */
+      @font-face {
+        font-family: "NewBlackTypeface-Light";
+        src: url("typefaces/NewBlackTypeface-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "NewBlackTypeface-Regular";
+        src: url("typefaces/NewBlackTypeface-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "NewBlackTypeface-Bold";
+        src: url("typefaces/NewBlackTypeface-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Light";
+        src: url("typefaces/VastagoGrotesk-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Regular";
+        src: url("typefaces/VastagoGrotesk-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Bold";
+        src: url("typefaces/VastagoGrotesk-Bold.otf") format("opentype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      body {
+        margin: 0;
+        background: #01183d;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow-x: hidden;
+        min-height: 140vh;
+        padding-top: 20px;
+      }
+
+      /* Background images */
+      .bg-image {
+        position: absolute;
+        z-index: -1;
+        opacity: 0.9;
+      }
+
+      .bg-left-top {
+        top: 120px;
+        left: -20px;
+        width: 150px;
+      }
+
+      .bg-right-top {
+        top: 350px;
+        right: -50px;
+        width: 150px;
+      }
+
+      .bg-right-bottom {
+        bottom: 150px;
+        right: 260px;
+        width: 180px;
+      }
+
+      /* Navbar container */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 0;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0034c4;
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .logo {
+        padding: 0 80px 0 50px;
+      }
+
+      .logo img {
+        height: 70px;
+      }
+
+      .navbar ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar ul li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
+      }
+
+      .navbar ul li a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: white;
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .navbar ul li ul.dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0034c4;
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar ul li ul.dropdown-menu li {
+        margin: 0;
+      }
+
+      .navbar ul li ul.dropdown-menu li a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        font-size: 14px;
+        white-space: nowrap;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
+      }
+
+      .navbar ul li ul.dropdown-menu li a:hover {
+        background: #002a99;
+        color: #ffd700;
+      }
+
+      /* Show dropdown on hover */
+      .navbar ul li:hover > ul.dropdown-menu {
+        display: block;
+      }
+
+      .profile {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px 6px;
+      }
+
+      /* Form Card - Made Wider */
+      .card-custom {
+        background-color: #0034c4;
+        border-radius: 60px;
+        padding: 40px;
+        color: white;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+        font-weight: 600;
+        max-width: 98%; /* Increased from 95% to 98% */
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Reduced height for text fields */
+      .form-control-custom {
+        background-color: #6c7ecb;
+        border: none;
+        border-radius: 15px;
+        padding: 8px 12px; /* Reduced padding for smaller height */
+        color: white;
+        width: 100%;
+        height: 38px; /* Fixed height for consistency */
+        line-height: 1.2;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      .form-control-custom select {
+        height: 38px;
+        padding: 8px 12px;
+        font-size: 13px; /* Reduced dropdown font size */
+      }
+
+      .form-control-custom option:checked,
+      .form-control-custom option:selected {
+        background-color: #6c7ecb;
+        color: white;
+        padding: 8px;
+        font-size: 13px; /* Reduced dropdown font size */
+      }
+
+      .form-control-custom::placeholder,
+      .form-control-custom select {
+        color: #d9ddf5;
+        font-size: 13px; /* Reduced placeholder font size */
+      }
+
+      .form-control-custom:focus {
+        background-color: #6c7ecb;
+        color: white;
+        box-shadow: none;
+        border: none;
+      }
+
+      .form-control-custom option {
+        background-color: #6c7ecb;
+        color: white;
+        padding: 8px;
+        font-size: 13px; /* Reduced dropdown font size */
+      }
+
+      .form-control-custom:invalid {
+        color: #d9ddf5;
+        font-size: 13px;
+      }
+
+      .form-control-custom option[value=""][disabled] {
+        display: none;
+      }
+
+      /* Labels with VastagoGrotesk-Bold */
+      .card-custom label {
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        font-size: 14px;
+        margin-bottom: 6px; /* Reduced margin for smaller fields */
+      }
+
+      /* Datepicker customization */
+      .datepicker {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 0;
+        border: none;
+      }
+
+      .datepicker table tr td,
+      .datepicker table tr th {
+        border-radius: 5px;
+      }
+
+      .datepicker table tr td.active,
+      .datepicker table tr td.active:hover {
+        background-color: #ffcc00;
+        color: #000;
+      }
+
+      .datepicker table tr td.day:hover {
+        background-color: #8a9de0;
+      }
+
+      .input-group-append {
+        margin-left: -40px;
+        z-index: 10;
+      }
+
+      .input-group-append .btn {
+        background: transparent;
+        border: none;
+        color: #d9ddf5;
+      }
+
+      /* Toggle boxes - Updated radio buttons */
+      .toggle-box {
+        display: flex;
+        align-items: center;
+        background: #6c7ecb;
+        border-radius: 20px;
+        padding: 8px 16px; /* Reduced padding */
+        color: #00205d;
+        margin: 5px 0;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.2s;
+        width: 220px;
+        flex: 0 0 auto;
+        font-family: "NewBlackTypeface-Regular", Arial, sans-serif;
+        height: 40px; /* Fixed height */
+      }
+
+      .toggle-box input[type="checkbox"],
+      .toggle-box input[type="radio"] {
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 2px solid #fff;
+        border-radius: 3px;
+        outline: none;
+        position: relative;
+        background-color: #fff;
+      }
+
+      .toggle-box input[type="radio"] {
+        border-radius: 50%;
+      }
+
+      .toggle-box input[type="checkbox"]:checked,
+      .toggle-box input[type="radio"]:checked {
+        background-color: #ff9900;
+        border-color: #fff;
+      }
+
+      .toggle-box.active {
+        background: #ffcc00;
+        color: black;
+        font-weight: bold;
+      }
+
+      /* Save button with NewBlackTypeface-Bold */
+      .btn-save {
+        background-color: #ce0505;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+        padding: 8px 50px; /* Slightly reduced padding */
+        border: none;
+        transition: 0.3s;
+        white-space: nowrap;
+        min-width: 150px;
+        font-family: "NewBlackTypeface-Bold", Arial, sans-serif;
+        font-size: 16px;
+        height: 42px; /* Fixed height */
+      }
+      .btn-save:hover {
+        background-color: #93021a;
+        color: white;
+      }
+
+      /* Profile image column */
+      .profile-image-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+      }
+
+      .profile-image-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #6c7ecb;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+      }
+
+      .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .camera-icon {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background: #007bff;
+        color: white;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+      }
+
+      .casillero-text {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+      }
+
+      .casillero-number {
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        font-size: 24px;
+        margin-top: 5px;
+      }
+
+      /* Preference section */
+      .preference-section {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #6c7ecb;
+      }
+
+      .preference-section h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+      }
+
+      .preference-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .preference-label {
+        min-width: 180px;
+        margin-right: 15px;
+      }
+
+      .agency-select {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .note-text {
+        font-size: 14px;
+        color: #d9ddf5;
+        margin-top: 10px;
+        margin-left: 195px;
+      }
+
+      /* Dropdown cards */
+      .dropdown-card {
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 220px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 12px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+        font-size: 13px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 13px;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c4;
+        font-weight: 500;
+        padding: 4px 0;
+        text-decoration: none;
+        font-size: 12px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Custom alert style */
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        border-left: 4px solid #28a745;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+
+      .custom-alert.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      /* Modern Calendar Styles */
+      .datepicker-dropdown {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        border: none;
+        padding: 10px;
+      }
+
+      .datepicker table {
+        width: 100%;
+      }
+
+      .datepicker table tr td,
+      .datepicker table tr th {
+        text-align: center;
+        padding: 8px 5px;
+        border-radius: 50%;
+      }
+
+      .datepicker table tr td.day:hover {
+        background: #6c7ecb;
+        color: white;
+      }
+
+      .datepicker table tr td.active.active {
+        background: #ffcc00;
+        color: #000;
+        text-shadow: none;
+      }
+
+      .datepicker table tr td.today {
+        background: #0034c4;
+        color: white;
+      }
+
+      .datepicker table tr td.today:hover {
+        background: #002a99;
+        color: white;
+      }
+
+      .datepicker .datepicker-switch,
+      .datepicker .prev,
+      .datepicker .next {
+        color: #0034c4;
+        font-weight: bold;
+      }
+
+      /* Page heading with VastagoGrotesk-Bold */
+      .page-heading {
+        text-align: center;
+        color: white;
+        margin-top: 2rem;
+        margin-bottom: 1rem !important;
+        font-weight: bold;
+        padding-bottom: 1.5rem;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        font-size: 2.5rem;
+      }
+
+      /* Form group spacing adjustments */
+      .form-group {
+        margin-bottom: 1rem; /* Reduced spacing between form groups */
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1200px) {
+        .card-custom {
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .navbar {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+          width: 100%;
+        }
+        .navbar ul {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .profile-image-col {
+          order: -1;
+          margin-bottom: 20px;
+        }
+
+        .preference-section {
+          margin-left: 0;
+        }
+
+        .note-text {
+          margin-left: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .navbar ul li {
+          margin: 6px 0;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+        .custom-alert {
+          left: 20px;
+          right: 20px;
+          min-width: auto;
+        }
+
+        .preference-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .preference-label {
+          min-width: auto;
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+
+        .toggle-box {
+          width: 100%;
+        }
+
+        .note-text {
+          margin-left: 0;
+        }
+
+        .page-heading {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar {
+          border-radius: 20px;
+        }
+        .page-heading {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Images -->
+    <img
+      src="images/whitespark.png"
+      alt="Background 1"
+      class="bg-image bg-left-top"
+    />
+    <img
+      src="images/whitespark.png"
+      alt="Background 2"
+      class="bg-image bg-right-top"
+    />
+    <img
+      src="images/redstar.png"
+      alt="Background 3"
+      class="bg-image bg-right-bottom"
+    />
+
+    <!-- Custom Alert Container -->
+    <div
+      id="alertContainer"
+      class="custom-alert alert alert-success"
+      role="alert"
+      style="display: none"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="alertMessage"></span>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar">
+        <ul>
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Registrar paquete</a></li>
+              <li><a href="#">Estado de paquetes</a></li>
+              <li><a href="#">Asociados</a></li>
+              <li><a href="#">Cupos</a></li>
+            </ul>
+          </li>
+
+          <!-- Liquidación with dropdown -->
+          <li class="dropdown">
+            <a href="#">Liquidación <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Liquidaciones Pendientes</a></li>
+              <li><a href="#">Liquidaciones Canceladas</a></li>
+              <li><a href="#">Cuentas Bancarias</a></li>
+            </ul>
+          </li>
+
+          <!-- Programas de Recompensa (normal) -->
+          <li><a href="#">Programas de Recompensa</a></li>
+
+          <!-- Historial de Tracking (normal) -->
+          <li><a href="#">Historial de Tracking</a></li>
+        </ul>
+
+        <!-- Nav icons -->
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn">
+            <img src="./images/alert.png" alt="Alert" />
+          </a>
+          <a href="javascript:void(0)" id="bellBtn">
+            <img src="./images/bell.png" alt="Notifications" />
+          </a>
+          <a href="javascript:void(0)" id="mailBtn">
+            <img src="./images/message.png" alt="Mail" />
+          </a>
+          <a href="javascript:void(0)" id="userBtn" class="profile">
+            <img src="./images/user.png" alt="profileLogo" />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Dropdown cards -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Heading with VastagoGrotesk-Bold -->
+    <h2 class="page-heading">Perfil</h2>
+
+    <div class="container mt-3">
+      <div class="row">
+        <!-- Form Section -->
+        <div class="col-12">
+          <div class="card-custom">
+            <form>
+              <div class="row">
+                <!-- First Column: Profile Image -->
+                <div class="col-md-3 profile-image-col">
+                  <div class="casillero-text">
+                    Casillero<br />
+                    <span class="casillero-number">000000</span>
+                  </div>
+                  <div
+                    class="profile-image-container"
+                    id="profileImageContainer"
+                  >
+                    <div class="profile-image">
+                      <img src="./images/user.png" alt="User Profile" />
+                    </div>
+                    <div class="camera-icon">
+                      <i class="fas fa-camera"></i>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-save mt-3">
+                    Guardar información
+                  </button>
+                </div>
+
+                <!-- Second Column: Nombres, Cédula/RUC, Dirección, Ciudad, Género -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="nombres">Nombres*</label>
+                    <input
+                      type="text"
+                      id="nombres"
+                      class="form-control form-control-custom"
+                      placeholder="Nombres"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="cedula">Cédula/RUC*</label>
+                    <input
+                      type="text"
+                      id="cedula"
+                      class="form-control form-control-custom"
+                      placeholder="0000000000"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="direccion">Dirección*</label>
+                    <input
+                      type="text"
+                      id="direccion"
+                      class="form-control form-control-custom"
+                      placeholder="Dirección"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="ciudad">Ciudad*</label>
+                    <select
+                      id="ciudad"
+                      class="form-control form-control-custom"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Seleccionar ciudad
+                      </option>
+                      <option value="guayaquil">Guayaquil</option>
+                      <option value="alto-tambo">Alto Tambo</option>
+                      <option value="balao">Balao</option>
+                      <option value="balzar">Balzar</option>
+                      <option value="colimes">Colimes</option>
+                      <option value="coronel-marcelino-mariduena">
+                        Coronel Marcelino Maridueña
+                      </option>
+                      <option value="daule">Daule</option>
+                      <option value="duran">Durán</option>
+                      <option value="el-empalme">El Empalme</option>
+                      <option value="el-triunfo">El Triunfo</option>
+                      <option value="general-antonio-elizalde">
+                        General Antonio Elizalde
+                      </option>
+                      <option value="guayaquil">Guayaquil</option>
+                      <option value="isidro-ayora">Isidro Ayora</option>
+                      <option value="lomas-de-sargentillo">
+                        Lomas de Sargentillo
+                      </option>
+                      <option value="milagro">Milagro</option>
+                      <option value="naranjal">Naranjal</option>
+                      <option value="naranjito">Naranjito</option>
+                      <option value="nobol">Nobol</option>
+                      <option value="palestina">Palestina</option>
+                      <option value="pedro-carbo">Pedro Carbo</option>
+                      <option value="playas">Playas</option>
+                      <option value="salitre">Salitre</option>
+                      <option value="samborondon">Samborondón</option>
+                      <option value="san-jacinto-de-yaguachi">
+                        San Jacinto de Yaguachi
+                      </option>
+                      <option value="santa-lucia">Santa Lucía</option>
+                      <option value="simon-bolivar">Simón Bolívar</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="genero">Género*</label>
+                    <select
+                      id="genero"
+                      class="form-control form-control-custom"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Seleccionar género
+                      </option>
+                      <option value="masculino">Masculino</option>
+                      <option value="femenino">Femenino</option>
+                      <option value="otro">Otro</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Third Column: Apellidos, Celular, Provincia, Fecha de nacimiento, Referencia -->
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="apellidos">Apellidos*</label>
+                    <input
+                      type="text"
+                      id="apellidos"
+                      class="form-control form-control-custom"
+                      placeholder="Apellidos"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="celular">Celular*</label>
+                    <input
+                      type="text"
+                      id="celular"
+                      class="form-control form-control-custom"
+                      placeholder="0000000000"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="provincia">Provincia*</label>
+                    <select
+                      id="provincia"
+                      class="form-control form-control-custom"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Seleccionar provincia
+                      </option>
+                      <option value="">-- Select a Province --</option>
+                      <option value="azuay">Azuay</option>
+                      <option value="bolivar">Bolívar</option>
+                      <option value="canar">Cañar</option>
+                      <option value="carchi">Carchi</option>
+                      <option value="chimborazo">Chimborazo</option>
+                      <option value="cotopaxi">Cotopaxi</option>
+                      <option value="el-oro">El Oro</option>
+                      <option value="esmeraldas">Esmeraldas</option>
+                      <option value="galapagos">Galápagos</option>
+                      <option value="guayas">Guayas</option>
+                      <option value="imbabura">Imbabura</option>
+                      <option value="loja">Loja</option>
+                      <option value="los-rios">Los Ríos</option>
+                      <option value="manabi">Manabí</option>
+                      <option value="morona-santiago">Morona Santiago</option>
+                      <option value="napo">Napo</option>
+                      <option value="orellana">Orellana</option>
+                      <option value="pastaza">Pastaza</option>
+                      <option value="pichincha">Pichincha</option>
+                      <option value="santa-elena">Santa Elena</option>
+                      <option value="santo-domingo">
+                        Santo Domingo de los Tsáchilas
+                      </option>
+                      <option value="sucumbios">Sucumbíos</option>
+                      <option value="tungurahua">Tungurahua</option>
+                      <option value="zamora-chinchipe">Zamora Chinchipe</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento*</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="fecha_nacimiento"
+                        class="form-control form-control-custom"
+                        placeholder="Seleccionar fecha"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text"
+                          ><i class="fas fa-calendar-alt"></i
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="referencia">¿Cómo escuchó de nosotros?*</label>
+                    <select
+                      id="referencia"
+                      class="form-control form-control-custom"
+                      required
+                    >
+                      <option value="" selected disabled>
+                        Seleccionar una opción
+                      </option>
+                      <option value="instagram">Instagram</option>
+                      <option value="facebook">Facebook</option>
+                      <option value="tiktok">TikTok</option>
+                      <option value="google">Google</option>
+                      <option value="recomendado">Recomendado</option>
+                      <option value="otros">Otros</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preference Section - aligned with columns 2 and 3 -->
+              <div class="row">
+                <div class="col-md-3"></div>
+                <!-- Empty column to offset -->
+                <div class="col-md-8">
+                  <div class="preference-section">
+                    <h4>Preferencia de retiro</h4>
+
+                    <!-- First row: Retiro en agencia + Seleccionar agencia -->
+                    <div class="preference-row">
+                      <div class="preference-label">
+                        <label class="toggle-box">
+                          <input type="radio" name="retiro" /> Retiro en agencia
+                        </label>
+                      </div>
+                      <div class="agency-select">
+                        <select
+                          class="form-control form-control-custom"
+                          required
+                        >
+                          <option value="" selected disabled>
+                            Seleccionar agencia
+                          </option>
+                          <option value="agencia1">
+                            Agencia Principal - Guayaquil
+                          </option>
+                          <option value="agencia2">
+                            Agencia Norte - Quito
+                          </option>
+                          <option value="agencia3">Agencia Sur - Cuenca</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Second row: Envío a domicilio + Tus direcciones -->
+                    <div class="preference-row">
+                      <div class="preference-label">
+                        <label class="toggle-box">
+                          <input type="radio" name="retiro" /> Envío a domicilio
+                        </label>
+                      </div>
+                      <div class="agency-select">
+                        <select
+                          class="form-control form-control-custom"
+                          required
+                        >
+                          <option value="" selected disabled>
+                            Tus direcciones
+                          </option>
+                          <option value="direccion1">
+                            Dirección Principal
+                          </option>
+                          <option value="direccion2">
+                            Dirección de Trabajo
+                          </option>
+                          <option value="direccion3">Otra Dirección</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <p class="note-text pl-5">
+                      El servicio a domicilio tiene un costo adicional. Para
+                      confirmar los valores, por favor comunicarse al Whatsapp
+                      +593 98 65 9819.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+
+    <script src="./js/security.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        // Initialize datepicker with modern styling
+        $("#fecha_nacimiento").datepicker({
+          format: "dd/mm/yyyy",
+          language: "es",
+          autoclose: true,
+          todayHighlight: true,
+          endDate: new Date(),
+          templates: {
+            leftArrow: '<i class="fas fa-chevron-left"></i>',
+            rightArrow: '<i class="fas fa-chevron-right"></i>',
+          },
+        });
+
+        // Function to show custom alert
+        function showAlert(message) {
+          const alertContainer = document.getElementById("alertContainer");
+          const alertMessage = document.getElementById("alertMessage");
+
+          alertMessage.textContent = message;
+          alertContainer.style.display = "block";
+
+          // Trigger reflow to enable animation
+          void alertContainer.offsetWidth;
+
+          alertContainer.classList.add("show");
+
+          // Auto hide after 3 seconds
+          setTimeout(() => {
+            alertContainer.classList.remove("show");
+            setTimeout(() => {
+              alertContainer.style.display = "none";
+            }, 500);
+          }, 3000);
+        }
+
+        function toggleCard(cardId) {
+          // Close other cards
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          // Toggle the clicked card
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation(); // Stop event from bubbling to document
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", function (e) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        // Prevent closing when clicking inside the card
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+
+        // Profile image upload functionality
+        const profileImageContainer = document.getElementById(
+          "profileImageContainer"
+        );
+
+        profileImageContainer.addEventListener("click", function () {
+          const input = document.createElement("input");
+          input.type = "file";
+          input.accept = "image/*";
+
+          input.onchange = function (e) {
+            const file = e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function (event) {
+                const profileImage =
+                  profileImageContainer.querySelector(".profile-image");
+                profileImage.innerHTML = "";
+                const img = document.createElement("img");
+                img.src = event.target.result;
+                img.className = "w-100 h-100";
+                profileImage.appendChild(img);
+                showAlert("Foto de perfil actualizada correctamente");
+              };
+              reader.readAsDataURL(file);
+            }
+          };
+
+          input.click();
+        });
+
+        // Form submission
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          showAlert("Información guardada correctamente");
+        });
+      });
+    </script>
+    <script src="./js/security.js"></script>
+  </body>
+</html>
