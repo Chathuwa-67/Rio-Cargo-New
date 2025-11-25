@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cupo Cliente - Rio Cargo Express</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary-blue: #0034c5;
+        --dark-blue: #00205d;
+        --light-blue: #0048ff;
+        --gold: #ffd700;
+        --white: #ffffff;
+      }
+
+      body {
+        background: var(--dark-blue);
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Navbar Styles */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 15px;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar-custom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--primary-blue);
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 10px;
+      }
+
+      .logo img {
+        height: 100px;
+        margin-right: 15px;
+      }
+
+      .navbar-nav-custom {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar-nav-custom li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar-nav-custom li a {
+        text-decoration: none;
+        color: var(--white);
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+      }
+
+      .navbar-nav-custom li a:hover {
+        color: var(--gold);
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: var(--white);
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: var(--gold);
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: var(--primary-blue);
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li {
+        margin: 0;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li a {
+        display: block;
+        padding: 8px 15px;
+        color: var(--white);
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li a:hover {
+        background: #002a99;
+        color: var(--gold);
+      }
+
+      /* Show dropdown on hover */
+      .navbar-nav-custom li:hover > ul.dropdown-menu-custom {
+        display: block;
+      }
+
+      .profile-icon {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px;
+      }
+
+      .nav-icons img {
+        width: 30px;
+      }
+
+      /* Main Content Styles */
+      .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      .card-custom {
+        background-color: var(--white);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .page-title {
+        color: var(--white);
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .client-info {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+      }
+
+      .client-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .client-total {
+        font-size: 18px;
+        color: #666;
+      }
+
+      .quota-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        align-items: center;
+      }
+
+      .quota-item {
+        flex: 1;
+        padding: 15px;
+        background: #3582cf5a;
+        border-radius: 10px;
+        margin: 0 10px;
+      }
+
+      .quota-item:first-child {
+        margin-left: 0;
+      }
+
+      .quota-item:last-child {
+        margin-right: 0;
+      }
+
+      .quota-label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 5px;
+      }
+
+      .quota-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .quota-used {
+        color: #e74c3c;
+      }
+
+      .quota-available {
+        color: #27ae60;
+      }
+
+      .progress {
+        height: 10px;
+        margin-top: 10px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        background-color: var(--primary-blue);
+      }
+
+      .chart-container {
+        flex: 0 0 180px;
+        height: 180px;
+        margin: 0 15px;
+      }
+
+      .section-divider {
+        border-top: 2px solid #eee;
+        margin: 30px 0;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .associated-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .associated-table th {
+        background-color: var(--primary-blue);
+        padding: 12px 15px;
+        text-align: left;
+        font-weight: bold;
+        color: #ffffff;
+        border-bottom: 2px solid #dee2e6;
+      }
+
+      .associated-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .associated-table tr:hover {
+        background-color: #3582cf5a;
+      }
+
+      .view-quota-btn {
+        background: var(--primary-blue);
+        color: var(--white);
+        border: none;
+        border-radius: 5px;
+        padding: 6px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .view-quota-btn:hover {
+        background: var(--light-blue);
+      }
+
+      .view-quota-btn.active {
+        background: var(--light-blue);
+      }
+
+      .view-quota-btn .fa-chevron-down {
+        transition: transform 0.3s;
+      }
+
+      .view-quota-btn.active .fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      /* Expanded row styles */
+      .expanded-row {
+        background-color: #f8f9fa;
+        display: none;
+      }
+
+      .expanded-row.active {
+        display: table-row;
+      }
+
+      .expanded-content {
+        padding: 15px;
+        background-color: #f0f8ff;
+        border-left: 4px solid var(--primary-blue);
+      }
+
+      .expanded-quota-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .expanded-quota-item {
+        flex: 1;
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        margin: 0 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .expanded-quota-item:first-child {
+        margin-left: 0;
+      }
+
+      .expanded-quota-item:last-child {
+        margin-right: 0;
+      }
+
+      .expanded-quota-label {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 5px;
+      }
+
+      .expanded-quota-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .expanded-progress {
+        height: 8px;
+        margin-top: 8px;
+        background-color: #b2b5b8;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .expanded-progress-bar {
+        background-color: var(--primary-blue);
+        height: 100%;
+      }
+
+      /* Dropdown cards */
+      .dropdown-card {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 280px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c5;
+        font-weight: 500;
+        padding: 5px 0;
+        text-decoration: none;
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .quota-section {
+          flex-direction: column;
+        }
+
+        .quota-item {
+          margin: 5px 0;
+          width: 100%;
+        }
+
+        .chart-container {
+          margin: 15px 0;
+          order: -1;
+        }
+
+        .associated-table {
+          display: block;
+          overflow-x: auto;
+        }
+
+        .expanded-quota-section {
+          flex-direction: column;
+        }
+
+        .expanded-quota-item {
+          margin: 5px 0;
+        }
+
+        .navbar-custom {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+        }
+
+        .navbar-nav-custom {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar-custom">
+        <ul class="navbar-nav-custom">
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li><a href="./index.html">Registrar paquete</a></li>
+              <li>
+                <a href="./Estado de Paquetes.html">Estado de paquetes</a>
+              </li>
+              <li><a href="./Asociados.html">Asociados</a></li>
+              <li><a href="./Cupos.html">Cupos</a></li>
+            </ul>
+          </li>
+
+          <!-- Liquidación with dropdown -->
+          <li class="dropdown">
+            <a href="#">Liquidación <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li>
+                <a href="./Liquidaciones_Pendientes.html"
+                  >Liquidaciones Pendientes</a
+                >
+              </li>
+              <li>
+                <a href="./Liquidaciones_Canceladas.html"
+                  >Liquidaciones Canceladas</a
+                >
+              </li>
+              <li><a href="./Cuentas_Bancarias.html">Cuentas Bancarias</a></li>
+            </ul>
+          </li>
+
+          <!-- Programas de Recompensa (normal) -->
+          <li class="dropdown">
+            <a href="#">Guías y Casilleros <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li><a href="./casilleros.html">Casilleros</a></li>
+              <li><a href="./tutoriales.html">Tutoriales</a></li>
+              <li><a href="#">Tiendas</a></li>
+              <li><a href="./cotizar.html">Cotizador</a></li>
+            </ul>
+          </li>
+
+          <!-- Historial de Tracking (normal) -->
+          <li><a href="#">Wishlist</a></li>
+        </ul>
+
+        <!-- Nav icons -->
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn"
+            ><i class="fas fa-exclamation"></i
+          ></a>
+          <a href="javascript:void(0)" id="bellBtn"
+            ><i class="fas fa-bell"></i
+          ></a>
+          <a href="javascript:void(0)" id="mailBtn"
+            ><i class="fas fa-envelope"></i
+          ></a>
+          <a href="javascript:void(0)" id="userBtn" class="profile-icon">
+            <img
+              src="https://courier.riocargoexpress.com/assets/images/users/user.png"
+              alt="profileLogo"
+              style="cursor: pointer"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Dropdown cards -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="./Perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+      <h1 class="page-title">Cupo Cliente</h1>
+
+      <div class="card-custom">
+        <div class="client-info">
+          <div class="client-name">María Teresa Silva Pinoargote</div>
+          <div class="client-total">Total 100.00%</div>
+        </div>
+
+        <div class="quota-section">
+          <div class="quota-item">
+            <div class="quota-label">Cupo Usado</div>
+            <div class="quota-value quota-used">45.50% / 100.00%</div>
+            <div class="progress">
+              <div class="progress-bar" style="width: 45.5%"></div>
+            </div>
+          </div>
+
+          <div class="quota-item">
+            <div class="quota-label">Cupo Disponible</div>
+            <div class="quota-value quota-available">54.50%</div>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                style="width: 54.5%; background-color: #27ae60"
+              ></div>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="quotaPieChart"></canvas>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="section-title">Cupos Asociados</div>
+
+        <table class="associated-table">
+          <thead>
+            <tr>
+              <th>Nombre Asociado</th>
+              <th>Ver Cupo</th>
+            </tr>
+          </thead>
+          <tbody id="associatedTableBody">
+            <!-- Associated items will be dynamically generated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Complete data for all 30 associated quotas from the image
+        const associatedQuotas = [
+          {
+            name: "R Gunathilaka",
+            total: "99.06%",
+            used: "99.06%",
+            available: "0.94%",
+          },
+          {
+            name: "María Sol Pinoargote Vera",
+            total: "85.20%",
+            used: "85.20%",
+            available: "14.80%",
+          },
+          {
+            name: "María Auxiliadora Pinoargote Vera",
+            total: "72.45%",
+            used: "72.45%",
+            available: "27.55%",
+          },
+          {
+            name: "Diego Pinoargote Vera",
+            total: "63.10%",
+            used: "63.10%",
+            available: "36.90%",
+          },
+          {
+            name: "Diego Pinoargote Torres",
+            total: "91.25%",
+            used: "91.25%",
+            available: "8.75%",
+          },
+          {
+            name: "Luciana Pinoargote Torres",
+            total: "78.30%",
+            used: "78.30%",
+            available: "21.70%",
+          },
+          {
+            name: "Kiefer Gomez Cederio",
+            total: "55.60%",
+            used: "55.60%",
+            available: "44.40%",
+          },
+          {
+            name: "Angel Johnny Goyes Mendoza",
+            total: "67.80%",
+            used: "67.80%",
+            available: "32.20%",
+          },
+          {
+            name: "Pierina Renata Lopez Doylet",
+            total: "88.15%",
+            used: "88.15%",
+            available: "11.85%",
+          },
+          {
+            name: "María Mantuano Becerra",
+            total: "76.90%",
+            used: "76.90%",
+            available: "23.10%",
+          },
+          {
+            name: "Francisco Xavier Pinoargote Camacho",
+            total: "82.40%",
+            used: "82.40%",
+            available: "17.60%",
+          },
+          {
+            name: "Elena Karina Aumala Peña",
+            total: "69.75%",
+            used: "69.75%",
+            available: "30.25%",
+          },
+          {
+            name: "Diego Francisco Pinoargote Aumala",
+            total: "94.20%",
+            used: "94.20%",
+            available: "5.80%",
+          },
+          {
+            name: "Valeria Jaramillo",
+            total: "58.30%",
+            used: "58.30%",
+            available: "41.70%",
+          },
+          {
+            name: "Juan Pablo Sanchez",
+            total: "81.65%",
+            used: "81.65%",
+            available: "18.35%",
+          },
+          {
+            name: "Karla Tenezaca Nachipucha",
+            total: "73.80%",
+            used: "73.80%",
+            available: "26.20%",
+          },
+          {
+            name: "Joseph Calderon",
+            total: "66.45%",
+            used: "66.45%",
+            available: "33.55%",
+          },
+          {
+            name: "Carlos Silva",
+            total: "89.10%",
+            used: "89.10%",
+            available: "10.90%",
+          },
+          {
+            name: "Karina Hernandez",
+            total: "77.25%",
+            used: "77.25%",
+            available: "22.75%",
+          },
+          {
+            name: "María José Varas",
+            total: "62.80%",
+            used: "62.80%",
+            available: "37.20%",
+          },
+          {
+            name: "Antonio Borja Ricaurte",
+            total: "83.95%",
+            used: "83.95%",
+            available: "16.05%",
+          },
+          {
+            name: "Arianna Angelina Baquerizo Pena",
+            total: "71.40%",
+            used: "71.40%",
+            available: "28.60%",
+          },
+          {
+            name: "Irma Alexandra Del A Torre Rodriguez",
+            total: "95.50%",
+            used: "95.50%",
+            available: "4.50%",
+          },
+          {
+            name: "Isaac Alexander Rodriguez Lucas",
+            total: "59.85%",
+            used: "59.85%",
+            available: "40.15%",
+          },
+          {
+            name: "Kevin Paul Cuesta Sigcha",
+            total: "84.70%",
+            used: "84.70%",
+            available: "15.30%",
+          },
+          {
+            name: "Pierina Michelle Farfan Castro",
+            total: "68.35%",
+            used: "68.35%",
+            available: "31.65%",
+          },
+          {
+            name: "Gabriela Tatiana Moreno Orrala",
+            total: "79.90%",
+            used: "79.90%",
+            available: "20.10%",
+          },
+          {
+            name: "Nelson Urdanell Soledispa De La Torre",
+            total: "87.60%",
+            used: "87.60%",
+            available: "12.40%",
+          },
+          {
+            name: "Carla Asunción Torres Ureta",
+            total: "74.15%",
+            used: "74.15%",
+            available: "25.85%",
+          },
+        ];
+
+        // Populate associated table
+        const associatedTableBody = document.getElementById(
+          "associatedTableBody"
+        );
+
+        associatedQuotas.forEach((item, index) => {
+          // Main row
+          const tableRow = document.createElement("tr");
+          tableRow.className = "main-row";
+          tableRow.setAttribute("data-index", index);
+
+          tableRow.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>
+                        <button class="view-quota-btn" data-index="${index}">
+                            <i class="fas fa-eye"></i> Ver Cupo <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </td>
+                `;
+
+          associatedTableBody.appendChild(tableRow);
+
+          // Expanded row
+          const expandedRow = document.createElement("tr");
+          expandedRow.className = "expanded-row";
+          expandedRow.setAttribute("data-index", index);
+
+          expandedRow.innerHTML = `
+                    <td colspan="2">
+                        <div class="expanded-content">
+                            <div class="mb-2">
+                                <strong>${item.name}</strong> - Total: ${item.total}
+                            </div>
+                            <div class="expanded-quota-section">
+                                <div class="expanded-quota-item">
+                                    <div class="expanded-quota-label">Cupo Usado</div>
+                                    <div class="expanded-quota-value quota-used">${item.used} / 100.00%</div>
+                                    <div class="expanded-progress">
+                                        <div class="expanded-progress-bar" style="width: ${item.used}"></div>
+                                    </div>
+                                </div>
+                                <div class="expanded-quota-item">
+                                    <div class="expanded-quota-label">Cupo Disponible</div>
+                                    <div class="expanded-quota-value quota-available">${item.available}</div>
+                                    <div class="expanded-progress">
+                                        <div class="expanded-progress-bar" style="width: ${item.available}; background-color: #27ae60"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                `;
+
+          associatedTableBody.appendChild(expandedRow);
+        });
+
+        // Nav dropdown functionality
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        function toggleCard(cardId) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+
+        // Add functionality to view quota buttons
+        document.addEventListener("click", function (e) {
+          if (e.target.closest(".view-quota-btn")) {
+            const button = e.target.closest(".view-quota-btn");
+            const index = button.getAttribute("data-index");
+            const expandedRow = document.querySelector(
+              `.expanded-row[data-index="${index}"]`
+            );
+
+            // Toggle active class on button
+            button.classList.toggle("active");
+
+            // Toggle expanded row
+            expandedRow.classList.toggle("active");
+          }
+        });
+
+        // Create pie chart
+        const ctx = document.getElementById("quotaPieChart").getContext("2d");
+        const quotaPieChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Cupo Usado", "Cupo Disponible"],
+            datasets: [
+              {
+                data: [45.5, 54.5],
+                backgroundColor: [
+                  "#e74c3c", // Red for used
+                  "#27ae60", // Green for available
+                ],
+                borderColor: "#fff",
+                borderWidth: 2,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  padding: 15,
+                  usePointStyle: true,
+                  font: {
+                    size: 12,
+                  },
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return `${context.label}: ${context.parsed}%`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

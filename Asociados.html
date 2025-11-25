@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liquidación - Rio Cargo Express</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Bootstrap Datepicker -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
+    <style>
+      body {
+        background: #00205d;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Navbar Styles */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 15px;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar-custom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0034c5;
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 10px;
+      }
+
+      .logo img {
+        height: 100px;
+        margin-right: 15px;
+      }
+
+      .navbar-nav-custom {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar-nav-custom li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar-nav-custom li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+      }
+
+      .navbar-nav-custom li a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: white;
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: #ffd700;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0034c5;
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li {
+        margin: 0;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li a:hover {
+        background: #002a99;
+        color: #ffd700;
+      }
+
+      /* Show dropdown on hover */
+      .navbar-nav-custom li:hover > ul.dropdown-menu-custom {
+        display: block;
+      }
+
+      .profile-icon {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px;
+      }
+
+      .nav-icons img {
+        width: 30px;
+      }
+
+      /* Form Card */
+      .card-custom {
+        background-color: #0034c5;
+        border-radius: 25px;
+        padding: 25px;
+        color: white;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      /* Dropdown cards */
+      .dropdown-card {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 280px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c5;
+        font-weight: 500;
+        padding: 5px 0;
+        text-decoration: none;
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Custom alert style */
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        border-left: 4px solid #28a745;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+
+      .custom-alert.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      /* Liquidación specific styles */
+      .filter-section {
+        background: #0034c5;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .filter-item {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .filter-item label {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .table-custom {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table-custom th {
+        background: #0034c5;
+        color: white;
+        padding: 12px 15px;
+        text-align: left;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+      }
+
+      .table-custom th:hover {
+        background: #002a99;
+      }
+
+      .table-custom td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .table-custom tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .pagination-info {
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .pagination-custom .page-link {
+        color: #0034c5;
+        border: 1px solid #0034c5;
+      }
+
+      .pagination-custom .page-item.active .page-link {
+        background: #0034c5;
+        border-color: #0034c5;
+      }
+
+      .entries-select {
+        width: 80px;
+        display: inline-block;
+        margin: 0 10px;
+      }
+
+      /* Form controls styling */
+      .form-control-custom {
+        background: #002a99;
+        border: 1px solid #0048ff;
+        border-radius: 8px;
+        color: white;
+        padding: 8px 12px;
+      }
+
+      .form-control-custom::placeholder {
+        color: #a0c0ff;
+      }
+
+      .form-control-custom:focus {
+        background: #002a99;
+        border-color: #ffd700;
+        color: white;
+        box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+      }
+
+      /* Sorting arrows */
+      .sort-arrows {
+        display: inline-block;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+
+      .sort-arrow {
+        display: block;
+        font-size: 10px;
+        line-height: 8px;
+        color: #ccc;
+      }
+
+      .sort-arrow.active {
+        color: #ffd700;
+      }
+
+      .sort-arrow.up {
+        margin-bottom: 1px;
+      }
+
+      /* Filter controls row */
+      .filter-controls-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 250px;
+        max-width: 400px;
+      }
+
+      .filter-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      /* Currency styling */
+      .currency {
+        text-align: right;
+        font-family: "Courier New", monospace;
+        font-weight: 600;
+      }
+
+      /* Total row styling */
+      .total-row {
+        background-color: #f0f8ff;
+        font-weight: bold;
+      }
+
+      .total-row td {
+        border-top: 2px solid #0034c5;
+        padding: 12px 15px;
+      }
+
+      /* Edit icon styling */
+      .edit-icon {
+        color: #007bff;
+        cursor: pointer;
+        font-size: 18px;
+        transition: color 0.3s;
+      }
+
+      .edit-icon:hover {
+        color: #0056b3;
+      }
+
+      /* Modal header styling */
+      .modal-header-custom {
+        background-color: #0034c5;
+        color: white;
+        text-align: center;
+        border-bottom: none;
+        border-radius: 0.3rem 0.3rem 0 0;
+      }
+
+      .modal-header-custom .modal-title {
+        width: 100%;
+        font-weight: bold;
+      }
+
+      .modal-header-custom .close {
+        color: white;
+        opacity: 0.8;
+      }
+
+      .modal-header-custom .close:hover {
+        color: #ffd700;
+        opacity: 1;
+      }
+
+      /* Form validation styling */
+      .is-invalid {
+        border-color: #dc3545 !important;
+      }
+
+      .invalid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #dc3545;
+      }
+
+      .was-validated .form-control:invalid ~ .invalid-feedback,
+      .was-validated .form-control:invalid ~ .invalid-tooltip,
+      .form-control.is-invalid ~ .invalid-feedback,
+      .form-control.is-invalid ~ .invalid-tooltip {
+        display: block;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 992px) {
+        .navbar-custom {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+        }
+        .navbar-nav-custom {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .filter-item {
+          min-width: 150px;
+        }
+        .filter-controls-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .search-box {
+          max-width: 100%;
+        }
+        .filter-buttons {
+          justify-content: flex-end;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .navbar-nav-custom li {
+          margin: 6px 0;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+        .custom-alert {
+          left: 20px;
+          right: 20px;
+          min-width: auto;
+        }
+        .table-container {
+          overflow-x: auto;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar-custom {
+          margin-left: 0;
+          border-radius: 20px;
+        }
+        .filter-item {
+          min-width: 100%;
+        }
+        .filter-buttons {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Alert Container -->
+    <div
+      id="alertContainer"
+      class="custom-alert alert alert-success"
+      role="alert"
+      style="display: none"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="alertMessage"></span>
+      </div>
+    </div>
+
+    <!-- Asociado Modal -->
+    <div
+      class="modal fade"
+      id="asociadoModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="asociadoModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header modal-header-custom">
+            <h5 class="modal-title" id="asociadoModalLabel">Nuevo Asociado</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Validation Alert -->
+            <div
+              id="formValidationAlert"
+              class="alert alert-danger d-none"
+              role="alert"
+            >
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              <span id="validationMessage"
+                >Por favor, complete todos los campos obligatorios
+                correctamente.</span
+              >
+            </div>
+
+            <form id="asociadoForm" class="needs-validation" novalidate>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="nombres">Nombres *</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombres"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese los nombres.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="apellidos">Apellidos *</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="apellidos"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese los apellidos.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="cedula">Cédula *</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cedula"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese la cédula.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="tipoAsociado">Tipo de asociado *</label>
+                    <select class="form-control" id="tipoAsociado" required>
+                      <option value="">Seleccione</option>
+                      <option value="Cliente">Cliente</option>
+                      <option value="Familiar">Familiar</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Por favor, seleccione un tipo de asociado.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="direccion">Dirección *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="direccion"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Por favor, ingrese la dirección.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" class="form-control" id="email" required />
+                <div class="invalid-feedback">
+                  Por favor, ingrese un email válido.
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="provincia">Provincia *</label>
+                    <select class="form-control" id="provincia" required>
+                      <option value="">Seleccione</option>
+                      <option value="Azuay">Azuay</option>
+                      <option value="Bolívar">Bolívar</option>
+                      <option value="Cañar">Cañar</option>
+                      <option value="Carchi">Carchi</option>
+                      <option value="Chimborazo">Chimborazo</option>
+                      <option value="Cotopaxi">Cotopaxi</option>
+                      <option value="El Oro">El Oro</option>
+                      <option value="Esmeraldas">Esmeraldas</option>
+                      <option value="Galápagos">Galápagos</option>
+                      <option value="Guayas">Guayas</option>
+                      <option value="Imbabura">Imbabura</option>
+                      <option value="Loja">Loja</option>
+                      <option value="Los Ríos">Los Ríos</option>
+                      <option value="Manabí">Manabí</option>
+                      <option value="Morona Santiago">Morona Santiago</option>
+                      <option value="Napo">Napo</option>
+                      <option value="Orellana">Orellana</option>
+                      <option value="Pastaza">Pastaza</option>
+                      <option value="Pichincha">Pichincha</option>
+                      <option value="Santa Elena">Santa Elena</option>
+                      <option value="Santo Domingo">Santo Domingo</option>
+                      <option value="Sucumbíos">Sucumbíos</option>
+                      <option value="Tungurahua">Tungurahua</option>
+                      <option value="Zamora Chinchipe">Zamora Chinchipe</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Por favor, seleccione una provincia.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="ciudad">Selecciona la Ciudad *</label>
+                    <select class="form-control" id="ciudad" required>
+                      <option value="">Seleccione</option>
+                      <!-- Cities will be populated based on province selection -->
+                    </select>
+                    <div class="invalid-feedback">
+                      Por favor, seleccione una ciudad.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="celular">Celular *</label>
+                <input type="text" class="form-control" id="celular" required />
+                <div class="invalid-feedback">
+                  Por favor, ingrese un número de celular.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" id="guardarAsociado">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar-custom">
+        <ul class="navbar-nav-custom">
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li><a href="./index.html">Registrar paquete</a></li>
+              <li>
+                <a href="./Estado de Paquetes.html">Estado de paquetes</a>
+              </li>
+              <li><a href="./Asociados.html">Asociados</a></li>
+              <li><a href="./Cupos.html">Cupos</a></li>
+            </ul>
+          </li>
+
+          <!-- Liquidación with dropdown -->
+          <li class="dropdown">
+            <a href="#">Liquidación <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li>
+                <a href="./Liquidaciones_Pendientes.html"
+                  >Liquidaciones Pendientes</a
+                >
+              </li>
+              <li>
+                <a href="./Liquidaciones_Canceladas.html"
+                  >Liquidaciones Canceladas</a
+                >
+              </li>
+              <li><a href="./Cuentas_Bancarias.html">Cuentas Bancarias</a></li>
+            </ul>
+          </li>
+
+          <!-- Programas de Recompensa (normal) -->
+          <li class="dropdown">
+            <a href="#">Guías y Casilleros <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li><a href="./casilleros.html">Casilleros</a></li>
+              <li><a href="./tutoriales.html">Tutoriales</a></li>
+              <li><a href="./tiendas.html">Tiendas</a></li>
+              <li><a href="./cotizar.html">Cotizador</a></li>
+            </ul>
+          </li>
+
+          <!-- Historial de Tracking (normal) -->
+          <li><a href="./wishlist.html">Wishlist</a></li>
+        </ul>
+
+        <!-- Nav icons -->
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn"
+            ><i class="fas fa-exclamation"></i
+          ></a>
+          <a href="javascript:void(0)" id="bellBtn"
+            ><i class="fas fa-bell"></i
+          ></a>
+          <a href="javascript:void(0)" id="mailBtn"
+            ><i class="fas fa-envelope"></i
+          ></a>
+          <a href="javascript:void(0)" id="userBtn" class="profile-icon">
+            <img
+              src="https://courier.riocargoexpress.com/assets/images/users/user.png"
+              alt="profileLogo"
+              style="cursor: pointer"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Dropdown cards -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="./Perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="text-center text-white mt-5 font-weight-bold pb-3">Asociados</h2>
+
+    <div class="container mt-3">
+      <!-- Filter Section -->
+      <div class="filter-section">
+        <!-- Filter Controls Row -->
+        <div class="filter-controls-row">
+          <div class="search-box">
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="searchBox"
+              placeholder="Buscar..."
+            />
+          </div>
+          <div class="filter-buttons">
+            <button
+              class="btn btn-warning"
+              id="nuevoAsociadoBtn"
+              data-toggle="modal"
+              data-target="#asociadoModal"
+            >
+              <i class="fas fa-plus"></i> Nuevo Asociado
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="table-container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <label for="entriesSelect" class="mr-2">Show</label>
+            <select class="form-control entries-select" id="entriesSelect">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="all">All</option>
+            </select>
+            <span>entries</span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th data-sort="tipo">
+                  Tipo
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="nombres">
+                  Nombres
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="apellidos">
+                  Apellidos
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="cedula">
+                  Cédula
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="direccion">
+                  Dirección
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="email">
+                  Email
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="pagination-info" id="paginationInfo">
+            Showing 0 to 0 of 0 entries
+          </div>
+          <nav>
+            <ul class="pagination pagination-custom" id="pagination">
+              <!-- Pagination will be generated by JavaScript -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Sample data for asociados
+        const sampleData = [
+          {
+            id: 1,
+            tipo: "Cliente",
+            nombres: "María",
+            apellidos: "Silva",
+            cedula: "1234567890",
+            direccion: "Av. Principal 123",
+            email: "maria.silva@example.com",
+            provincia: "Pichincha",
+            ciudad: "Quito",
+            celular: "0991234567",
+          },
+          {
+            id: 2,
+            tipo: "Familiar",
+            nombres: "Carlos",
+            apellidos: "Rodríguez",
+            cedula: "0987654321",
+            direccion: "Calle Secundaria 456",
+            email: "carlos.rodriguez@example.com",
+            provincia: "Guayas",
+            ciudad: "Guayaquil",
+            celular: "0987654321",
+          },
+          {
+            id: 3,
+            tipo: "Cliente",
+            nombres: "Ana",
+            apellidos: "García",
+            cedula: "1122334455",
+            direccion: "Av. Central 789",
+            email: "ana.garcia@example.com",
+            provincia: "Azuay",
+            ciudad: "Cuenca",
+            celular: "0976543210",
+          },
+          {
+            id: 4,
+            tipo: "Familiar",
+            nombres: "Juan",
+            apellidos: "Pérez",
+            cedula: "5566778899",
+            direccion: "Calle Norte 101",
+            email: "juan.perez@example.com",
+            provincia: "Manabí",
+            ciudad: "Manta",
+            celular: "0965432109",
+          },
+          {
+            id: 5,
+            tipo: "Cliente",
+            nombres: "Laura",
+            apellidos: "Martínez",
+            cedula: "6677889900",
+            direccion: "Av. Sur 202",
+            email: "laura.martinez@example.com",
+            provincia: "El Oro",
+            ciudad: "Machala",
+            celular: "0954321098",
+          },
+        ];
+
+        // Cities data based on provinces
+        const citiesByProvince = {
+          Azuay: ["Cuenca", "Gualaceo", "Paute", "Santa Isabel"],
+          Bolívar: ["Guaranda", "Chillanes", "Chimbo", "San Miguel"],
+          Cañar: ["Azogues", "Biblián", "Cañar", "La Troncal"],
+          Carchi: ["Tulcán", "Bolívar", "Espejo", "Mira"],
+          Chimborazo: ["Riobamba", "Alausí", "Colta", "Guano"],
+          Cotopaxi: ["Latacunga", "La Maná", "Pujilí", "Salcedo"],
+          "El Oro": ["Machala", "Huaquillas", "Pasaje", "Santa Rosa"],
+          Esmeraldas: ["Esmeraldas", "Atacames", "Muisne", "Rosa Zárate"],
+          Galápagos: [
+            "Puerto Baquerizo Moreno",
+            "Puerto Ayora",
+            "Puerto Villamil",
+          ],
+          Guayas: ["Guayaquil", "Daule", "Durán", "Samborondón"],
+          Imbabura: ["Ibarra", "Otavalo", "Atuntaqui", "Cotacachi"],
+          Loja: ["Loja", "Catamayo", "Cariamanga", "Zapotillo"],
+          "Los Ríos": ["Babahoyo", "Quevedo", "Ventanas", "Vinces"],
+          Manabí: ["Portoviejo", "Manta", "Chone", "Bahía de Caráquez"],
+          "Morona Santiago": ["Macas", "Gualaquiza", "Sucúa", "Palora"],
+          Napo: [
+            "Tena",
+            "Archidona",
+            "El Chaco",
+            "Carlos Julio Arosemena Tola",
+          ],
+          Orellana: [
+            "Puerto Francisco de Orellana",
+            "La Joya de los Sachas",
+            "Loreto",
+          ],
+          Pastaza: ["Puyo", "Mera", "Santa Clara", "Arajuno"],
+          Pichincha: ["Quito", "Sangolquí", "Cayambe", "Machachi"],
+          "Santa Elena": ["Santa Elena", "Salinas", "La Libertad"],
+          "Santo Domingo": ["Santo Domingo", "La Concordia", "Alluriquín"],
+          Sucumbíos: [
+            "Nueva Loja",
+            "Shushufindi",
+            "Cuyabeno",
+            "Gonzalo Pizarro",
+          ],
+          Tungurahua: ["Ambato", "Baños", "Pelileo", "Píllaro"],
+          "Zamora Chinchipe": ["Zamora", "Yantzaza", "Zumba", "El Pangui"],
+        };
+
+        // State management
+        let currentData = [...sampleData];
+        let currentPage = 1;
+        let entriesPerPage = 10;
+        let filteredData = [...sampleData];
+        let sortColumn = "nombres";
+        let sortDirection = "asc";
+        let editingId = null;
+
+        // Nav dropdown functionality
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        function showAlert(message) {
+          const alertContainer = document.getElementById("alertContainer");
+          const alertMessage = document.getElementById("alertMessage");
+
+          alertMessage.textContent = message;
+          alertContainer.style.display = "block";
+          void alertContainer.offsetWidth;
+          alertContainer.classList.add("show");
+
+          setTimeout(() => {
+            alertContainer.classList.remove("show");
+            setTimeout(() => {
+              alertContainer.style.display = "none";
+            }, 500);
+          }, 3000);
+        }
+
+        function toggleCard(cardId) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+
+        // Sorting functionality
+        function sortData(column, direction) {
+          filteredData.sort((a, b) => {
+            let aValue = a[column];
+            let bValue = b[column];
+
+            aValue = String(aValue).toLowerCase();
+            bValue = String(bValue).toLowerCase();
+
+            if (direction === "asc") {
+              return aValue > bValue ? 1 : -1;
+            } else {
+              return aValue < bValue ? 1 : -1;
+            }
+          });
+        }
+
+        function updateSortArrows(column, direction) {
+          // Reset all arrows
+          document.querySelectorAll(".sort-arrow").forEach((arrow) => {
+            arrow.classList.remove("active");
+          });
+
+          // Activate current sort arrows
+          const currentTh = document.querySelector(`th[data-sort="${column}"]`);
+          if (currentTh) {
+            const upArrow = currentTh.querySelector(".sort-arrow.up");
+            const downArrow = currentTh.querySelector(".sort-arrow.down");
+
+            if (direction === "asc") {
+              upArrow.classList.add("active");
+            } else {
+              downArrow.classList.add("active");
+            }
+          }
+        }
+
+        function setupSorting() {
+          document.querySelectorAll("th[data-sort]").forEach((th) => {
+            th.addEventListener("click", function () {
+              const column = this.getAttribute("data-sort");
+
+              if (sortColumn === column) {
+                // Toggle direction if same column
+                sortDirection = sortDirection === "asc" ? "desc" : "asc";
+              } else {
+                // New column, default to ascending
+                sortColumn = column;
+                sortDirection = "asc";
+              }
+
+              sortData(sortColumn, sortDirection);
+              updateSortArrows(sortColumn, sortDirection);
+              currentPage = 1;
+              renderTable();
+            });
+          });
+        }
+
+        // Table functionality
+        function renderTable() {
+          const tableBody = document.getElementById("tableBody");
+          const startIndex = (currentPage - 1) * entriesPerPage;
+          const endIndex = Math.min(
+            startIndex + entriesPerPage,
+            filteredData.length
+          );
+          const pageData =
+            entriesPerPage === "all"
+              ? filteredData
+              : filteredData.slice(startIndex, endIndex);
+
+          tableBody.innerHTML = "";
+
+          if (pageData.length === 0) {
+            tableBody.innerHTML =
+              '<tr><td colspan="7" class="text-center">No data available in table</td></tr>';
+          } else {
+            pageData.forEach((item) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${item.tipo}</td>
+                <td>${item.nombres}</td>
+                <td>${item.apellidos}</td>
+                <td>${item.cedula}</td>
+                <td>${item.direccion}</td>
+                <td>${item.email}</td>
+                <td>
+                  <i class="fas fa-edit edit-icon" data-id="${item.id}"></i>
+                </td>
+              `;
+              tableBody.appendChild(row);
+            });
+          }
+
+          // Add event listeners to edit icons
+          document.querySelectorAll(".edit-icon").forEach((icon) => {
+            icon.addEventListener("click", function () {
+              const id = parseInt(this.getAttribute("data-id"));
+              editAsociado(id);
+            });
+          });
+
+          updatePaginationInfo();
+          renderPagination();
+        }
+
+        function updatePaginationInfo() {
+          const totalEntries = filteredData.length;
+          const startIndex = (currentPage - 1) * entriesPerPage + 1;
+          const endIndex = Math.min(currentPage * entriesPerPage, totalEntries);
+          const infoText =
+            entriesPerPage === "all"
+              ? `Showing all ${totalEntries} entries`
+              : `Showing ${
+                  totalEntries === 0 ? 0 : startIndex
+                } to ${endIndex} of ${totalEntries} entries`;
+
+          document.getElementById("paginationInfo").textContent = infoText;
+        }
+
+        function renderPagination() {
+          if (
+            entriesPerPage === "all" ||
+            filteredData.length <= entriesPerPage
+          ) {
+            document.getElementById("pagination").innerHTML = "";
+            return;
+          }
+
+          const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+          const pagination = document.getElementById("pagination");
+          pagination.innerHTML = "";
+
+          // Previous button
+          const prevLi = document.createElement("li");
+          prevLi.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
+          prevLi.innerHTML = `<a class="page-link" href="#">Previous</a>`;
+          prevLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+              currentPage--;
+              renderTable();
+            }
+          });
+          pagination.appendChild(prevLi);
+
+          // Page numbers - show limited pages with ellipsis
+          const maxVisiblePages = 5;
+          let startPage = Math.max(
+            1,
+            currentPage - Math.floor(maxVisiblePages / 2)
+          );
+          let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+          if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+          }
+
+          // First page and ellipsis
+          if (startPage > 1) {
+            const firstLi = document.createElement("li");
+            firstLi.className = "page-item";
+            firstLi.innerHTML = `<a class="page-link" href="#">1</a>`;
+            firstLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = 1;
+              renderTable();
+            });
+            pagination.appendChild(firstLi);
+
+            if (startPage > 2) {
+              const ellipsisLi = document.createElement("li");
+              ellipsisLi.className = "page-item disabled";
+              ellipsisLi.innerHTML = `<span class="page-link">...</span>`;
+              pagination.appendChild(ellipsisLi);
+            }
+          }
+
+          // Page numbers
+          for (let i = startPage; i <= endPage; i++) {
+            const pageLi = document.createElement("li");
+            pageLi.className = `page-item ${i === currentPage ? "active" : ""}`;
+            pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            pageLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = i;
+              renderTable();
+            });
+            pagination.appendChild(pageLi);
+          }
+
+          // Last page and ellipsis
+          if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+              const ellipsisLi = document.createElement("li");
+              ellipsisLi.className = "page-item disabled";
+              ellipsisLi.innerHTML = `<span class="page-link">...</span>`;
+              pagination.appendChild(ellipsisLi);
+            }
+
+            const lastLi = document.createElement("li");
+            lastLi.className = "page-item";
+            lastLi.innerHTML = `<a class="page-link" href="#">${totalPages}</a>`;
+            lastLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = totalPages;
+              renderTable();
+            });
+            pagination.appendChild(lastLi);
+          }
+
+          // Next button
+          const nextLi = document.createElement("li");
+          nextLi.className = `page-item ${
+            currentPage === totalPages ? "disabled" : ""
+          }`;
+          nextLi.innerHTML = `<a class="page-link" href="#">Next</a>`;
+          nextLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderTable();
+            }
+          });
+          pagination.appendChild(nextLi);
+        }
+
+        function filterData() {
+          const searchTerm = $("#searchBox").val().toLowerCase();
+
+          filteredData = sampleData.filter((item) => {
+            // Global search across multiple fields
+            const searchMatch =
+              searchTerm === "" ||
+              item.tipo.toLowerCase().includes(searchTerm) ||
+              item.nombres.toLowerCase().includes(searchTerm) ||
+              item.apellidos.toLowerCase().includes(searchTerm) ||
+              item.cedula.toLowerCase().includes(searchTerm) ||
+              item.direccion.toLowerCase().includes(searchTerm) ||
+              item.email.toLowerCase().includes(searchTerm);
+
+            return searchMatch;
+          });
+
+          // Apply current sorting
+          sortData(sortColumn, sortDirection);
+          currentPage = 1;
+          renderTable();
+        }
+
+        // Asociado form functionality
+        function populateCities(province) {
+          const citySelect = document.getElementById("ciudad");
+          citySelect.innerHTML = '<option value="">Seleccione</option>';
+
+          if (province && citiesByProvince[province]) {
+            citiesByProvince[province].forEach((city) => {
+              const option = document.createElement("option");
+              option.value = city;
+              option.textContent = city;
+              citySelect.appendChild(option);
+            });
+          }
+        }
+
+        function clearForm() {
+          document.getElementById("asociadoForm").reset();
+          document.getElementById("ciudad").innerHTML =
+            '<option value="">Seleccione</option>';
+          editingId = null;
+          document.getElementById("asociadoModalLabel").textContent =
+            "Nuevo Asociado";
+
+          // Remove validation classes
+          const form = document.getElementById("asociadoForm");
+          form.classList.remove("was-validated");
+
+          // Hide validation alert
+          document
+            .getElementById("formValidationAlert")
+            .classList.add("d-none");
+        }
+
+        function fillForm(asociado) {
+          document.getElementById("nombres").value = asociado.nombres;
+          document.getElementById("apellidos").value = asociado.apellidos;
+          document.getElementById("cedula").value = asociado.cedula;
+          document.getElementById("tipoAsociado").value = asociado.tipo;
+          document.getElementById("direccion").value = asociado.direccion;
+          document.getElementById("email").value = asociado.email;
+          document.getElementById("provincia").value = asociado.provincia;
+          populateCities(asociado.provincia);
+          document.getElementById("ciudad").value = asociado.ciudad;
+          document.getElementById("celular").value = asociado.celular;
+        }
+
+        function validateForm() {
+          const form = document.getElementById("asociadoForm");
+
+          // Check if form is valid using Bootstrap validation
+          if (!form.checkValidity()) {
+            form.classList.add("was-validated");
+
+            // Show validation alert
+            document
+              .getElementById("formValidationAlert")
+              .classList.remove("d-none");
+
+            return false;
+          }
+
+          // Hide validation alert if form is valid
+          document
+            .getElementById("formValidationAlert")
+            .classList.add("d-none");
+          return true;
+        }
+
+        function saveAsociado() {
+          // Validate form
+          if (!validateForm()) {
+            return;
+          }
+
+          // Get form values
+          const nombres = document.getElementById("nombres").value;
+          const apellidos = document.getElementById("apellidos").value;
+          const cedula = document.getElementById("cedula").value;
+          const tipo = document.getElementById("tipoAsociado").value;
+          const direccion = document.getElementById("direccion").value;
+          const email = document.getElementById("email").value;
+          const provincia = document.getElementById("provincia").value;
+          const ciudad = document.getElementById("ciudad").value;
+          const celular = document.getElementById("celular").value;
+
+          if (editingId) {
+            // Update existing asociado
+            const index = sampleData.findIndex((item) => item.id === editingId);
+            if (index !== -1) {
+              sampleData[index] = {
+                id: editingId,
+                tipo,
+                nombres,
+                apellidos,
+                cedula,
+                direccion,
+                email,
+                provincia,
+                ciudad,
+                celular,
+              };
+            }
+            showAlert("Asociado actualizado exitosamente");
+          } else {
+            // Add new asociado
+            const newId = Math.max(...sampleData.map((item) => item.id)) + 1;
+            sampleData.push({
+              id: newId,
+              tipo,
+              nombres,
+              apellidos,
+              cedula,
+              direccion,
+              email,
+              provincia,
+              ciudad,
+              celular,
+            });
+            showAlert("Asociado guardado exitosamente");
+          }
+
+          // Update table and close modal
+          filterData();
+          $("#asociadoModal").modal("hide");
+        }
+
+        function editAsociado(id) {
+          const asociado = sampleData.find((item) => item.id === id);
+          if (asociado) {
+            editingId = id;
+            document.getElementById("asociadoModalLabel").textContent =
+              "Editar Asociado";
+            fillForm(asociado);
+            $("#asociadoModal").modal("show");
+          }
+        }
+
+        // Event listeners
+        document
+          .getElementById("searchBox")
+          .addEventListener("input", filterData);
+
+        document
+          .getElementById("entriesSelect")
+          .addEventListener("change", function () {
+            entriesPerPage =
+              this.value === "all" ? "all" : parseInt(this.value);
+            currentPage = 1;
+            renderTable();
+          });
+
+        document
+          .getElementById("provincia")
+          .addEventListener("change", function () {
+            populateCities(this.value);
+          });
+
+        document
+          .getElementById("guardarAsociado")
+          .addEventListener("click", saveAsociado);
+
+        // Reset form when modal is closed
+        $("#asociadoModal").on("hidden.bs.modal", function () {
+          clearForm();
+        });
+
+        // Initialize
+        sortData(sortColumn, sortDirection);
+        updateSortArrows(sortColumn, sortDirection);
+        setupSorting();
+        renderTable();
+
+        // Make showAlert function available globally
+        window.showAlert = showAlert;
+      });
+    </script>
+  </body>
+</html>

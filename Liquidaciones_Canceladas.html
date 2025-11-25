@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liquidación - Rio Cargo Express</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Bootstrap Datepicker -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
+    <style>
+      body {
+        background: #00205d;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Navbar Styles */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 15px;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar-custom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0034c5;
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 10px;
+      }
+
+      .logo img {
+        height: 100px;
+        margin-right: 15px;
+      }
+
+      .navbar-nav-custom {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar-nav-custom li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar-nav-custom li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+      }
+
+      .navbar-nav-custom li a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: white;
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: #ffd700;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0034c5;
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li {
+        margin: 0;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .navbar-nav-custom li ul.dropdown-menu-custom li a:hover {
+        background: #002a99;
+        color: #ffd700;
+      }
+
+      /* Show dropdown on hover */
+      .navbar-nav-custom li:hover > ul.dropdown-menu-custom {
+        display: block;
+      }
+
+      .profile-icon {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px;
+      }
+
+      .nav-icons img {
+        width: 30px;
+      }
+
+      /* Form Card */
+      .card-custom {
+        background-color: #0034c5;
+        border-radius: 25px;
+        padding: 25px;
+        color: white;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      /* Dropdown cards */
+      .dropdown-card {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 280px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c5;
+        font-weight: 500;
+        padding: 5px 0;
+        text-decoration: none;
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Custom alert style */
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        border-left: 4px solid #28a745;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+
+      .custom-alert.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      /* Liquidación specific styles */
+      .filter-section {
+        background: #0034c5;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .filter-item {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .filter-item label {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .table-custom {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table-custom th {
+        background: #0034c5;
+        color: white;
+        padding: 12px 15px;
+        text-align: left;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+      }
+
+      .table-custom th:hover {
+        background: #002a99;
+      }
+
+      .table-custom td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .table-custom tr:hover {
+        background-color: #0044ff18;
+      }
+
+      .pagination-info {
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .pagination-custom .page-link {
+        color: #0034c5;
+        border: 1px solid #0034c5;
+      }
+
+      .pagination-custom .page-item.active .page-link {
+        background: #0034c5;
+        border-color: #0034c5;
+      }
+
+      .entries-select {
+        width: 80px;
+        display: inline-block;
+        margin: 0 10px;
+      }
+
+      /* Form controls styling */
+      .form-control-custom {
+        background: #002a99;
+        border: 1px solid #0048ff;
+        border-radius: 8px;
+        color: white;
+        padding: 8px 12px;
+      }
+
+      .form-control-custom::placeholder {
+        color: #a0c0ff;
+      }
+
+      .form-control-custom:focus {
+        background: #002a99;
+        border-color: #ffd700;
+        color: white;
+        box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+      }
+
+      /* Sorting arrows */
+      .sort-arrows {
+        display: inline-block;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+
+      .sort-arrow {
+        display: block;
+        font-size: 10px;
+        line-height: 8px;
+        color: #ccc;
+      }
+
+      .sort-arrow.active {
+        color: #ffd700;
+      }
+
+      .sort-arrow.up {
+        margin-bottom: 1px;
+      }
+
+      /* Filter controls row */
+      .filter-controls-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 250px;
+        max-width: 400px;
+      }
+
+      .filter-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 992px) {
+        .navbar-custom {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+        }
+        .navbar-nav-custom {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .filter-item {
+          min-width: 150px;
+        }
+        .filter-controls-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .search-box {
+          max-width: 100%;
+        }
+        .filter-buttons {
+          justify-content: flex-end;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .navbar-nav-custom li {
+          margin: 6px 0;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+        .custom-alert {
+          left: 20px;
+          right: 20px;
+          min-width: auto;
+        }
+        .table-container {
+          overflow-x: auto;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar-custom {
+          margin-left: 0;
+          border-radius: 20px;
+        }
+        .filter-item {
+          min-width: 100%;
+        }
+        .filter-buttons {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Alert Container -->
+    <div
+      id="alertContainer"
+      class="custom-alert alert alert-success"
+      role="alert"
+      style="display: none"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="alertMessage"></span>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar-custom">
+        <ul class="navbar-nav-custom">
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li><a href="./index.html">Registrar paquete</a></li>
+              <li>
+                <a href="./Estado de Paquetes.html">Estado de paquetes</a>
+              </li>
+              <li><a href="./Asociados.html">Asociados</a></li>
+              <li><a href="./Cupos.html">Cupos</a></li>
+            </ul>
+          </li>
+
+          <!-- Liquidación with dropdown -->
+          <li class="dropdown">
+            <a href="#">Liquidación <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li>
+                <a href="./Liquidaciones_Pendientes.html"
+                  >Liquidaciones Pendientes</a
+                >
+              </li>
+              <li>
+                <a href="./Liquidaciones_Canceladas.html"
+                  >Liquidaciones Canceladas</a
+                >
+              </li>
+              <li><a href="./Cuentas_Bancarias.html">Cuentas Bancarias</a></li>
+            </ul>
+          </li>
+          <!-- Liquidación with dropdown -->
+          <li class="dropdown">
+            <a href="#">Guías y Casilleros <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu-custom">
+              <li><a href="./casilleros.html">Casilleros</a></li>
+              <li><a href="./tutoriales.html">Tutoriales</a></li>
+              <li><a href="./tiendas.html">Tiendas</a></li>
+              <li><a href="./cotizar.html">Cotizador</a></li>
+            </ul>
+          </li>
+
+          <!-- Wishlist (normal) -->
+          <li><a href="./wishlist.html">Wishlist</a></li>
+        </ul>
+
+        <!-- Nav icons -->
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn"
+            ><i class="fas fa-exclamation"></i
+          ></a>
+          <a href="javascript:void(0)" id="bellBtn"
+            ><i class="fas fa-bell"></i
+          ></a>
+          <a href="javascript:void(0)" id="mailBtn"
+            ><i class="fas fa-envelope"></i
+          ></a>
+          <a href="javascript:void(0)" id="userBtn" class="profile-icon">
+            <img
+              src="https://courier.riocargoexpress.com/assets/images/users/user.png"
+              alt="profileLogo"
+              style="cursor: pointer"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- Dropdown cards -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="./Perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="text-center text-white mt-5 font-weight-bold pb-3">
+      Liquidaciones Canceladas
+    </h2>
+
+    <div class="container mt-3 mb-5">
+      <!-- Filter Section -->
+      <div class="filter-section">
+        <!-- Date Filters Row (1st Row) -->
+        <div class="filter-row">
+          <div class="filter-item">
+            <label for="desde">Desde</label>
+            <input
+              type="text"
+              class="form-control form-control-custom datepicker"
+              id="desde"
+              placeholder="Seleccionar fecha"
+            />
+          </div>
+          <div class="filter-item">
+            <label for="hasta">Hasta</label>
+            <input
+              type="text"
+              class="form-control form-control-custom datepicker"
+              id="hasta"
+              placeholder="Seleccionar fecha"
+            />
+          </div>
+          <div class="filter-item">
+            <label for="tracking">Tracking</label>
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="tracking"
+              placeholder="Número de tracking"
+            />
+          </div>
+          <div class="filter-item">
+            <label for="descripcion">Descripción</label>
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="descripcion"
+              placeholder="Descripción del paquete"
+            />
+          </div>
+        </div>
+
+        <!-- Search and Buttons Row (2nd Row) -->
+        <div class="filter-controls-row">
+          <div class="search-box">
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="searchBox"
+              placeholder="Search..."
+            />
+          </div>
+          <div class="filter-buttons">
+            <button class="btn btn-warning" id="filtrarBtn">
+              <i class="fas fa-filter"></i> Filtrar
+            </button>
+            <button class="btn btn-outline-light" id="limpiarBtn">
+              <i class="fas fa-broom"></i> Limpiar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="table-container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <label for="entriesSelect" class="mr-2">Show</label>
+            <select class="form-control entries-select" id="entriesSelect">
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="all">All</option>
+            </select>
+            <span>entries</span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th data-sort="fecha">
+                  Fecha
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="tracking">
+                  Tracking
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="asociado">
+                  Asociado
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="contenido">
+                  Contenido
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+                <th data-sort="retirar">
+                  Retirar por
+                  <span class="sort-arrows">
+                    <i class="fas fa-caret-up sort-arrow up"></i>
+                    <i class="fas fa-caret-down sort-arrow down"></i>
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="pagination-info" id="paginationInfo">
+            Showing 0 to 0 of 0 entries
+          </div>
+          <nav>
+            <ul class="pagination pagination-custom" id="pagination">
+              <!-- Pagination will be generated by JavaScript -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Extended sample data with 25 records
+        const sampleData = [
+          {
+            fecha: "2025-09-01",
+            tracking: "RCX785412369",
+            asociado: "María Silva",
+            contenido: "Ropa y accesorios",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-02",
+            tracking: "RCX963258741",
+            asociado: "Carlos Rodríguez",
+            contenido: "Electrónicos",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-03",
+            tracking: "RCX147852369",
+            asociado: "Ana García",
+            contenido: "Documentos",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-04",
+            tracking: "RCX258741963",
+            asociado: "Juan Pérez",
+            contenido: "Herramientas",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-05",
+            tracking: "RCX369852147",
+            asociado: "Laura Martínez",
+            contenido: "Libros",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-06",
+            tracking: "RCX741852963",
+            asociado: "Miguel López",
+            contenido: "Juguetes",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-07",
+            tracking: "RCX852963741",
+            asociado: "Sofía Hernández",
+            contenido: "Cosméticos",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-08",
+            tracking: "RCX963741852",
+            asociado: "David González",
+            contenido: "Deportes",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-09",
+            tracking: "RCX159753486",
+            asociado: "Elena Castro",
+            contenido: "Muebles pequeños",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-10",
+            tracking: "RCX357159486",
+            asociado: "Roberto Sánchez",
+            contenido: "Instrumentos musicales",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-11",
+            tracking: "RCX486357159",
+            asociado: "Patricia Ruiz",
+            contenido: "Arte",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-12",
+            tracking: "RCX753159486",
+            asociado: "Fernando Díaz",
+            contenido: "Equipo médico",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-13",
+            tracking: "RCX159486753",
+            asociado: "Carmen Vargas",
+            contenido: "Joyeria",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-14",
+            tracking: "RCX486753159",
+            asociado: "Javier Morales",
+            contenido: "Repuestos automotrices",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-15",
+            tracking: "RCX753486159",
+            asociado: "Isabel Torres",
+            contenido: "Material educativo",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-16",
+            tracking: "RCX123456789",
+            asociado: "Ricardo Mendez",
+            contenido: "Calzado deportivo",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-17",
+            tracking: "RCX987654321",
+            asociado: "Gabriela Rios",
+            contenido: "Bolsos y carteras",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-18",
+            tracking: "RCX456123789",
+            asociado: "Oscar Fuentes",
+            contenido: "Herramientas eléctricas",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-19",
+            tracking: "RCX789123456",
+            asociado: "Lucia Mendoza",
+            contenido: "Suplementos nutricionales",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-20",
+            tracking: "RCX321654987",
+            asociado: "Pedro Alvarado",
+            contenido: "Equipo de camping",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-21",
+            tracking: "RCX654987321",
+            asociado: "Valeria Cordova",
+            contenido: "Material de oficina",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-22",
+            tracking: "RCX147258369",
+            asociado: "Diego Herrera",
+            contenido: "Piezas de computadora",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-23",
+            tracking: "RCX258369147",
+            asociado: "Camila Ortiz",
+            contenido: "Productos de belleza",
+            retirar: "Cliente directo",
+          },
+          {
+            fecha: "2025-09-24",
+            tracking: "RCX369147258",
+            asociado: "Raul Jimenez",
+            contenido: "Repuestos industriales",
+            retirar: "Asociado",
+          },
+          {
+            fecha: "2025-09-25",
+            tracking: "RCX951753824",
+            asociado: "Natalia Vega",
+            contenido: "Material textil",
+            retirar: "Cliente directo",
+          },
+        ];
+
+        // State management
+        let currentData = [...sampleData];
+        let currentPage = 1;
+        let entriesPerPage = 20;
+        let filteredData = [...sampleData];
+        let sortColumn = "fecha";
+        let sortDirection = "asc";
+
+        // Initialize datepickers
+        $(".datepicker").datepicker({
+          format: "yyyy-mm-dd",
+          language: "es",
+          autoclose: true,
+        });
+
+        // Set initial dates
+        $("#desde").datepicker("update", "2025-09-01");
+        $("#hasta").datepicker("update", "2025-09-26");
+
+        // Nav dropdown functionality
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        function showAlert(message) {
+          const alertContainer = document.getElementById("alertContainer");
+          const alertMessage = document.getElementById("alertMessage");
+
+          alertMessage.textContent = message;
+          alertContainer.style.display = "block";
+          void alertContainer.offsetWidth;
+          alertContainer.classList.add("show");
+
+          setTimeout(() => {
+            alertContainer.classList.remove("show");
+            setTimeout(() => {
+              alertContainer.style.display = "none";
+            }, 500);
+          }, 3000);
+        }
+
+        function toggleCard(cardId) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+
+        // Sorting functionality
+        function sortData(column, direction) {
+          filteredData.sort((a, b) => {
+            let aValue = a[column];
+            let bValue = b[column];
+
+            if (column === "fecha") {
+              aValue = new Date(aValue);
+              bValue = new Date(bValue);
+            } else {
+              aValue = String(aValue).toLowerCase();
+              bValue = String(bValue).toLowerCase();
+            }
+
+            if (direction === "asc") {
+              return aValue > bValue ? 1 : -1;
+            } else {
+              return aValue < bValue ? 1 : -1;
+            }
+          });
+        }
+
+        function updateSortArrows(column, direction) {
+          // Reset all arrows
+          document.querySelectorAll(".sort-arrow").forEach((arrow) => {
+            arrow.classList.remove("active");
+          });
+
+          // Activate current sort arrows
+          const currentTh = document.querySelector(`th[data-sort="${column}"]`);
+          if (currentTh) {
+            const upArrow = currentTh.querySelector(".sort-arrow.up");
+            const downArrow = currentTh.querySelector(".sort-arrow.down");
+
+            if (direction === "asc") {
+              upArrow.classList.add("active");
+            } else {
+              downArrow.classList.add("active");
+            }
+          }
+        }
+
+        function setupSorting() {
+          document.querySelectorAll("th[data-sort]").forEach((th) => {
+            th.addEventListener("click", function () {
+              const column = this.getAttribute("data-sort");
+
+              if (sortColumn === column) {
+                // Toggle direction if same column
+                sortDirection = sortDirection === "asc" ? "desc" : "asc";
+              } else {
+                // New column, default to ascending
+                sortColumn = column;
+                sortDirection = "asc";
+              }
+
+              sortData(sortColumn, sortDirection);
+              updateSortArrows(sortColumn, sortDirection);
+              currentPage = 1;
+              renderTable();
+            });
+          });
+        }
+
+        // Table functionality
+        function renderTable() {
+          const tableBody = document.getElementById("tableBody");
+          const startIndex = (currentPage - 1) * entriesPerPage;
+          const endIndex = Math.min(
+            startIndex + entriesPerPage,
+            filteredData.length
+          );
+          const pageData =
+            entriesPerPage === "all"
+              ? filteredData
+              : filteredData.slice(startIndex, endIndex);
+
+          tableBody.innerHTML = "";
+
+          if (pageData.length === 0) {
+            tableBody.innerHTML =
+              '<tr><td colspan="5" class="text-center">No data available in table</td></tr>';
+          } else {
+            pageData.forEach((item) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${item.fecha}</td>
+                <td>${item.tracking}</td>
+                <td>${item.asociado}</td>
+                <td>${item.contenido}</td>
+                <td>${item.retirar}</td>
+              `;
+              tableBody.appendChild(row);
+            });
+          }
+
+          updatePaginationInfo();
+          renderPagination();
+        }
+
+        function updatePaginationInfo() {
+          const totalEntries = filteredData.length;
+          const startIndex = (currentPage - 1) * entriesPerPage + 1;
+          const endIndex = Math.min(currentPage * entriesPerPage, totalEntries);
+          const infoText =
+            entriesPerPage === "all"
+              ? `Showing all ${totalEntries} entries`
+              : `Showing ${
+                  totalEntries === 0 ? 0 : startIndex
+                } to ${endIndex} of ${totalEntries} entries`;
+
+          document.getElementById("paginationInfo").textContent = infoText;
+        }
+
+        function renderPagination() {
+          if (
+            entriesPerPage === "all" ||
+            filteredData.length <= entriesPerPage
+          ) {
+            document.getElementById("pagination").innerHTML = "";
+            return;
+          }
+
+          const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+          const pagination = document.getElementById("pagination");
+          pagination.innerHTML = "";
+
+          // Previous button
+          const prevLi = document.createElement("li");
+          prevLi.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
+          prevLi.innerHTML = `<a class="page-link" href="#">Previous</a>`;
+          prevLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+              currentPage--;
+              renderTable();
+            }
+          });
+          pagination.appendChild(prevLi);
+
+          // Page numbers - show limited pages with ellipsis
+          const maxVisiblePages = 5;
+          let startPage = Math.max(
+            1,
+            currentPage - Math.floor(maxVisiblePages / 2)
+          );
+          let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+          if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+          }
+
+          // First page and ellipsis
+          if (startPage > 1) {
+            const firstLi = document.createElement("li");
+            firstLi.className = "page-item";
+            firstLi.innerHTML = `<a class="page-link" href="#">1</a>`;
+            firstLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = 1;
+              renderTable();
+            });
+            pagination.appendChild(firstLi);
+
+            if (startPage > 2) {
+              const ellipsisLi = document.createElement("li");
+              ellipsisLi.className = "page-item disabled";
+              ellipsisLi.innerHTML = `<span class="page-link">...</span>`;
+              pagination.appendChild(ellipsisLi);
+            }
+          }
+
+          // Page numbers
+          for (let i = startPage; i <= endPage; i++) {
+            const pageLi = document.createElement("li");
+            pageLi.className = `page-item ${i === currentPage ? "active" : ""}`;
+            pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            pageLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = i;
+              renderTable();
+            });
+            pagination.appendChild(pageLi);
+          }
+
+          // Last page and ellipsis
+          if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+              const ellipsisLi = document.createElement("li");
+              ellipsisLi.className = "page-item disabled";
+              ellipsisLi.innerHTML = `<span class="page-link">...</span>`;
+              pagination.appendChild(ellipsisLi);
+            }
+
+            const lastLi = document.createElement("li");
+            lastLi.className = "page-item";
+            lastLi.innerHTML = `<a class="page-link" href="#">${totalPages}</a>`;
+            lastLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = totalPages;
+              renderTable();
+            });
+            pagination.appendChild(lastLi);
+          }
+
+          // Next button
+          const nextLi = document.createElement("li");
+          nextLi.className = `page-item ${
+            currentPage === totalPages ? "disabled" : ""
+          }`;
+          nextLi.innerHTML = `<a class="page-link" href="#">Next</a>`;
+          nextLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderTable();
+            }
+          });
+          pagination.appendChild(nextLi);
+        }
+
+        function filterData() {
+          const desde = $("#desde").val();
+          const hasta = $("#hasta").val();
+          const tracking = $("#tracking").val().toLowerCase();
+          const descripcion = $("#descripcion").val().toLowerCase();
+          const searchTerm = $("#searchBox").val().toLowerCase();
+
+          filteredData = sampleData.filter((item) => {
+            const itemDate = new Date(item.fecha);
+            const desdeDate = new Date(desde);
+            const hastaDate = new Date(hasta);
+
+            const dateInRange = itemDate >= desdeDate && itemDate <= hastaDate;
+            const trackingMatch = item.tracking
+              .toLowerCase()
+              .includes(tracking);
+            const descripcionMatch = item.contenido
+              .toLowerCase()
+              .includes(descripcion);
+
+            // Global search across multiple fields
+            const searchMatch =
+              searchTerm === "" ||
+              item.tracking.toLowerCase().includes(searchTerm) ||
+              item.asociado.toLowerCase().includes(searchTerm) ||
+              item.contenido.toLowerCase().includes(searchTerm) ||
+              item.retirar.toLowerCase().includes(searchTerm);
+
+            return (
+              dateInRange && trackingMatch && descripcionMatch && searchMatch
+            );
+          });
+
+          // Apply current sorting
+          sortData(sortColumn, sortDirection);
+          currentPage = 1;
+          renderTable();
+          showAlert(
+            `Filtro aplicado: ${filteredData.length} registros encontrados`
+          );
+        }
+
+        function clearFilters() {
+          $("#desde").datepicker("update", "2025-09-01");
+          $("#hasta").datepicker("update", "2025-09-26");
+          $("#tracking").val("");
+          $("#descripcion").val("");
+          $("#searchBox").val("");
+          filterData();
+          showAlert("Filtros limpiados");
+        }
+
+        // Event listeners
+        document
+          .getElementById("filtrarBtn")
+          .addEventListener("click", filterData);
+        document
+          .getElementById("limpiarBtn")
+          .addEventListener("click", clearFilters);
+
+        // Search box event listener
+        document
+          .getElementById("searchBox")
+          .addEventListener("input", filterData);
+
+        document
+          .getElementById("entriesSelect")
+          .addEventListener("change", function () {
+            entriesPerPage =
+              this.value === "all" ? "all" : parseInt(this.value);
+            currentPage = 1;
+            renderTable();
+          });
+
+        // Initialize
+        sortData(sortColumn, sortDirection);
+        updateSortArrows(sortColumn, sortDirection);
+        setupSorting();
+        renderTable();
+
+        // Make showAlert function available globally
+        window.showAlert = showAlert;
+      });
+    </script>
+  </body>
+</html>
