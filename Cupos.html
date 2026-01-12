@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cupo Cliente - Rio Cargo Express</title>
     <!-- Bootstrap 4 -->
     <link
@@ -14,52 +14,122 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
     <style>
-      :root {
-        --primary-blue: #0034c5;
-        --dark-blue: #00205d;
-        --light-blue: #0048ff;
-        --gold: #ffd700;
-        --white: #ffffff;
+      /* Import Custom Fonts */
+      @font-face {
+        font-family: "NewBlackTypeface-Light";
+        src: url("typefaces/NewBlackTypeface-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "NewBlackTypeface-Regular";
+        src: url("typefaces/NewBlackTypeface-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "NewBlackTypeface-Bold";
+        src: url("typefaces/NewBlackTypeface-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Light";
+        src: url("typefaces/VastagoGrotesk-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Regular";
+        src: url("typefaces/VastagoGrotesk-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "VastagoGrotesk-Bold";
+        src: url("typefaces/VastagoGrotesk-Bold.otf") format("opentype");
+        font-weight: 700;
+        font-style: normal;
       }
 
       body {
-        background: var(--dark-blue);
-        font-family: Arial, sans-serif;
-        color: #333;
         margin: 0;
-        padding: 0;
+        background: #01183d;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow-x: hidden;
+        min-height: 100vh;
+        padding-top: 20px;
       }
 
-      /* Navbar Styles */
+      /* Background images */
+      .bg-image {
+        position: absolute;
+        z-index: -1;
+        opacity: 0.9;
+      }
+
+      .bg-left-top {
+        top: 120px;
+        left: -20px;
+        width: 150px;
+      }
+
+      .bg-right-top {
+        top: 350px;
+        right: -50px;
+        width: 150px;
+      }
+
+      .bg-right-bottom {
+        bottom: 10px;
+        left: 200px;
+        width: 180px;
+      }
+
+      /* Navbar container */
       .navbar-container {
         display: flex;
         align-items: center;
-        padding: 10px 0 10px 15px;
+        padding: 10px 0 10px 0;
         position: relative;
         flex-wrap: wrap;
       }
 
-      .navbar-custom {
+      .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: var(--primary-blue);
+        background: #0034c4;
         border-radius: 25px 0 0 25px;
         padding: 10px 20px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         flex: 1;
-        margin-left: 10px;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .logo {
+        padding: 0 80px 0 50px;
       }
 
       .logo img {
-        height: 100px;
-        margin-right: 15px;
+        height: 70px;
+        margin-left: 50px;
       }
 
-      .navbar-nav-custom {
+      .navbar ul {
         display: flex;
         list-style: none;
         margin: 0;
@@ -67,21 +137,22 @@
         flex-wrap: wrap;
       }
 
-      .navbar-nav-custom li {
+      .navbar ul li {
         margin: 0 18px;
         position: relative;
       }
 
-      .navbar-nav-custom li a {
+      .navbar ul li a {
         text-decoration: none;
-        color: var(--white);
+        color: #fff;
         font-weight: 500;
         transition: color 0.3s;
         font-size: 15px;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
 
-      .navbar-nav-custom li a:hover {
-        color: var(--gold);
+      .navbar ul li a:hover {
+        color: #ffd700;
       }
 
       .nav-icons {
@@ -91,22 +162,27 @@
       }
 
       .nav-icons a {
-        color: var(--white);
+        color: white;
         font-size: 18px;
         margin-left: 15px;
         text-decoration: none;
       }
 
       .nav-icons a:hover {
-        color: var(--gold);
+        color: #ffd700;
       }
 
-      .navbar-nav-custom li ul.dropdown-menu-custom {
+      .nav-icons img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .navbar ul li ul.dropdown-menu {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
-        background: var(--primary-blue);
+        background: #0034c4;
         border-radius: 10px;
         padding: 8px 0;
         list-style: none;
@@ -114,287 +190,58 @@
         z-index: 1000;
       }
 
-      .navbar-nav-custom li ul.dropdown-menu-custom li {
+      .navbar ul li ul.dropdown-menu li {
         margin: 0;
       }
 
-      .navbar-nav-custom li ul.dropdown-menu-custom li a {
+      .navbar ul li ul.dropdown-menu li a {
         display: block;
         padding: 8px 15px;
-        color: var(--white);
+        color: #fff;
         font-size: 14px;
         white-space: nowrap;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
 
-      .navbar-nav-custom li ul.dropdown-menu-custom li a:hover {
+      .navbar ul li ul.dropdown-menu li a:hover {
         background: #002a99;
-        color: var(--gold);
+        color: #ffd700;
       }
 
       /* Show dropdown on hover */
-      .navbar-nav-custom li:hover > ul.dropdown-menu-custom {
+      .navbar ul li:hover > ul.dropdown-menu {
         display: block;
       }
 
-      .profile-icon {
+      .profile {
         background: #007bff;
         border-radius: 50%;
-        padding: 6px;
-      }
-
-      .nav-icons img {
-        width: 30px;
-      }
-
-      /* Main Content Styles */
-      .main-container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 0 20px;
-      }
-
-      .card-custom {
-        background-color: var(--white);
-        border-radius: 15px;
-        padding: 25px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-      }
-
-      .page-title {
-        color: var(--white);
-        font-weight: bold;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      .client-info {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
-      }
-
-      .client-name {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
-      }
-
-      .client-total {
-        font-size: 18px;
-        color: #666;
-      }
-
-      .quota-section {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        align-items: center;
-      }
-
-      .quota-item {
-        flex: 1;
-        padding: 15px;
-        background: #3582cf5a;
-        border-radius: 10px;
-        margin: 0 10px;
-      }
-
-      .quota-item:first-child {
-        margin-left: 0;
-      }
-
-      .quota-item:last-child {
-        margin-right: 0;
-      }
-
-      .quota-label {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 5px;
-      }
-
-      .quota-value {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .quota-used {
-        color: #e74c3c;
-      }
-
-      .quota-available {
-        color: #27ae60;
-      }
-
-      .progress {
-        height: 10px;
-        margin-top: 10px;
-        background-color: #ffffff;
-        border-radius: 5px;
-        overflow: hidden;
-      }
-
-      .progress-bar {
-        background-color: var(--primary-blue);
-      }
-
-      .chart-container {
-        flex: 0 0 180px;
-        height: 180px;
-        margin: 0 15px;
-      }
-
-      .section-divider {
-        border-top: 2px solid #eee;
-        margin: 30px 0;
-      }
-
-      .section-title {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
-      }
-
-      .associated-table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      .associated-table th {
-        background-color: var(--primary-blue);
-        padding: 12px 15px;
-        text-align: left;
-        font-weight: bold;
-        color: #ffffff;
-        border-bottom: 2px solid #dee2e6;
-      }
-
-      .associated-table td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #dee2e6;
-      }
-
-      .associated-table tr:hover {
-        background-color: #3582cf5a;
-      }
-
-      .view-quota-btn {
-        background: var(--primary-blue);
-        color: var(--white);
-        border: none;
-        border-radius: 5px;
-        padding: 6px 12px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .view-quota-btn:hover {
-        background: var(--light-blue);
-      }
-
-      .view-quota-btn.active {
-        background: var(--light-blue);
-      }
-
-      .view-quota-btn .fa-chevron-down {
-        transition: transform 0.3s;
-      }
-
-      .view-quota-btn.active .fa-chevron-down {
-        transform: rotate(180deg);
-      }
-
-      /* Expanded row styles */
-      .expanded-row {
-        background-color: #f8f9fa;
-        display: none;
-      }
-
-      .expanded-row.active {
-        display: table-row;
-      }
-
-      .expanded-content {
-        padding: 15px;
-        background-color: #f0f8ff;
-        border-left: 4px solid var(--primary-blue);
-      }
-
-      .expanded-quota-section {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 15px;
-      }
-
-      .expanded-quota-item {
-        flex: 1;
-        padding: 10px;
-        background: #fff;
-        border-radius: 8px;
-        margin: 0 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-
-      .expanded-quota-item:first-child {
-        margin-left: 0;
-      }
-
-      .expanded-quota-item:last-child {
-        margin-right: 0;
-      }
-
-      .expanded-quota-label {
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 5px;
-      }
-
-      .expanded-quota-value {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .expanded-progress {
-        height: 8px;
-        margin-top: 8px;
-        background-color: #b2b5b8;
-        border-radius: 4px;
-        overflow: hidden;
-      }
-
-      .expanded-progress-bar {
-        background-color: var(--primary-blue);
-        height: 100%;
+        padding: 6px 6px;
       }
 
       /* Dropdown cards */
       .dropdown-card {
         position: absolute;
-        top: 70px;
+        top: 80px;
         right: 20px;
         background: #ffffff;
         color: #000;
-        width: 280px;
+        width: 220px;
         border-radius: 12px;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-        padding: 15px;
+        padding: 12px;
         display: none;
         z-index: 2000;
         animation: fadeInUp 0.3s ease;
+        font-size: 13px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
       }
 
       .dropdown-card h6 {
         font-weight: bold;
         margin-bottom: 5px;
+        font-size: 13px;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
 
       .dropdown-card hr {
@@ -403,10 +250,12 @@
 
       .dropdown-card a {
         display: block;
-        color: #0034c5;
+        color: #0034c4;
         font-weight: 500;
-        padding: 5px 0;
+        padding: 4px 0;
         text-decoration: none;
+        font-size: 12px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
       }
 
       .dropdown-card a:hover {
@@ -425,57 +274,711 @@
         }
       }
 
+      /* Main title */
+      .page-title {
+        text-align: center;
+        color: white;
+        margin-top: 1rem;
+        margin-bottom: 1rem !important;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        font-size: 2rem;
+      }
+
+      /* Main client progress section */
+      .main-client-section {
+        background: #0084f8;
+        border-radius: 40px;
+        padding: 5px;
+        margin: 20px auto 40px auto;
+        max-width: 700px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .client-name {
+        color: white;
+        text-align: center;
+        margin-bottom: 25px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+        font-size: 1.3rem;
+        background: none;
+        padding: 0;
+      }
+
+      /* Progress bar container */
+      .progress-container {
+        background: transparent;
+        border-radius: 20px;
+        padding: 0;
+        margin-bottom: 10px;
+      }
+
+      /* Progress bar */
+      .progress-bar-wrapper {
+        width: 90%;
+        margin: 0 auto 20px auto;
+      }
+
+      .progress-bar-custom {
+        width: 100%;
+        height: 28px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(3, 18, 106, 0.61);
+      }
+
+      .progress-fill {
+        height: 100%;
+        position: absolute;
+        top: 0;
+      }
+
+      .progress-cyan {
+        background: #48ddf3;
+        width: 67.34%;
+        left: 0;
+        border-radius: 18px 0 0 18px;
+      }
+
+      .progress-red {
+        background: #b40017;
+        width: 32.66%;
+        left: 67.34%;
+        border-radius: 0 18px 18px 0;
+      }
+
+      /* Progress labels  */
+      .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      .progress-label-left,
+      .progress-label-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .progress-label-left {
+        align-items: flex-start;
+      }
+
+      .progress-label-right {
+        align-items: flex-end;
+      }
+
+      .label-title {
+        font-size: 0.9rem;
+        margin-bottom: 3px;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .label-value {
+        font-size: 1.3rem;
+        font-weight: bold;
+        font-family: "NewBlackTypeface-Bold", Arial, sans-serif;
+        color: white;
+      }
+
+      /* Associated Clients Rows Container */
+      .associated-clients-section {
+        max-width: 1200px;
+        margin: 0 auto 40px auto;
+        padding: 0 15px;
+      }
+
+      .associated-clients-title {
+        color: white;
+        text-align: center;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+        font-weight: normal;
+      }
+
+      /* Simple header text row */
+      .header-text-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 0 20px;
+      }
+
+      .header-left-text {
+        color: white;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        font-size: 1rem;
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .header-right-text {
+        color: white;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        font-size: 1rem;
+        min-width: 400px;
+        text-align: center;
+        margin-right: -150px;
+      }
+
+      /* Individual client row */
+      .client-row {
+        background: #0034c4;
+        border-radius: 15px;
+        padding: 10px 20px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+        min-height: 50px;
+        position: relative;
+      }
+
+      .client-row.gray {
+        background: #1d386c;
+      }
+
+      .client-row:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Row content area */
+      .row-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .client-row-name {
+        color: white;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+        font-size: 1rem;
+        line-height: 1.3;
+        flex: 1;
+        padding-right: 20px;
+        min-width: 250px;
+        font-weight: normal;
+      }
+
+      /* Inline progress section */
+      .inline-progress {
+        display: none;
+        flex: 2;
+        align-items: center;
+        justify-content: space-between;
+        min-width: 400px;
+      }
+
+      .inline-progress.active {
+        display: flex;
+      }
+
+      /* Progress bar container with labels on sides */
+      .progress-with-labels {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex: 1;
+        max-width: 500px;
+      }
+
+      /* Label on left side of progress bar */
+      .left-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        min-width: 80px;
+      }
+
+      /* Progress bar container */
+      .progress-bar-container {
+        flex: 1;
+        min-width: 400px;
+        max-width: 450px;
+      }
+
+      /* Label on right side of progress bar */
+      .right-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 80px;
+      }
+
+      /* Compact progress bar */
+      .compact-progress-bar {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .compact-progress-fill {
+        height: 100%;
+        position: absolute;
+        top: 0;
+      }
+
+      .compact-progress-cyan {
+        background: #48ddf3;
+        border-radius: 6px 0 0 6px;
+      }
+
+      .compact-progress-red {
+        background: #b40017;
+        border-radius: 0 6px 6px 0;
+      }
+
+      /* Gray row has 100% red progress bar */
+      .gray .compact-progress-red.full-width {
+        width: 100% !important;
+        left: 0 !important;
+        border-radius: 6px !important;
+      }
+
+      /* Compact progress labels */
+      .compact-label-title {
+        font-size: 0.7rem;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2px;
+      }
+
+      .compact-label-value {
+        font-size: 0.9rem;
+        font-weight: bold;
+        font-family: "NewBlackTypeface-Bold", Arial, sans-serif;
+        color: white;
+      }
+
+      /* Labels below progress bar  */
+      .labels-below-progress {
+        display: none;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .left-label.below,
+      .right-label.below {
+        width: 48%;
+      }
+
+      .left-label.below {
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .right-label.below {
+        align-items: flex-end;
+        text-align: right;
+      }
+
+      /* Toggle button */
+      .toggle-btn {
+        background: #48ddf3;
+        border: none;
+        border-radius: 6px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        margin-left: 15px;
+      }
+
+      .toggle-btn:hover {
+        background: #0097a7;
+      }
+
+      .toggle-btn.active {
+        background: #0084f8;
+      }
+
+      .toggle-btn img {
+        width: 28px;
+        height: 28px;
+        filter: brightness(1) invert(0);
+      }
+
       /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .quota-section {
-          flex-direction: column;
-        }
-
-        .quota-item {
-          margin: 5px 0;
-          width: 100%;
-        }
-
-        .chart-container {
-          margin: 15px 0;
-          order: -1;
-        }
-
-        .associated-table {
-          display: block;
-          overflow-x: auto;
-        }
-
-        .expanded-quota-section {
-          flex-direction: column;
-        }
-
-        .expanded-quota-item {
-          margin: 5px 0;
-        }
-
-        .navbar-custom {
+      @media (max-width: 992px) {
+        .navbar {
           flex-wrap: wrap;
           border-radius: 20px;
           padding: 10px;
+          width: 100%;
         }
-
-        .navbar-nav-custom {
+        .navbar ul {
           flex-direction: column;
           align-items: flex-start;
           width: 100%;
           margin-top: 10px;
         }
-
         .nav-icons {
           margin-top: 10px;
           width: 100%;
           justify-content: flex-start;
         }
+        .main-client-section,
+        .associated-clients-section {
+          max-width: 95%;
+        }
+        .inline-progress {
+          min-width: 400px;
+        }
+        .progress-bar-container {
+          min-width: 200px;
+          max-width: 300px;
+        }
+        .header-right-text {
+          min-width: 350px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .navbar-nav-custom li {
+          margin: 6px 0;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+        .page-title {
+          font-size: 1.7rem;
+        }
+        .client-name {
+          font-size: 1.1rem;
+        }
+        .progress-bar-wrapper {
+          width: 95%;
+        }
+        /* Keep labels side by side on mobile */
+        .progress-labels {
+          width: 95%;
+          flex-direction: row;
+          align-items: center;
+          gap: 0;
+        }
+        .progress-label-left,
+        .progress-label-right {
+          align-items: center;
+          width: 50%;
+        }
+        .label-title {
+          font-size: 0.8rem;
+        }
+        .label-value {
+          font-size: 1.1rem;
+        }
+        .client-row-name {
+          font-size: 0.9rem;
+          min-width: 180px;
+          padding-right: 15px;
+        }
+        .toggle-btn {
+          width: 30px;
+          height: 30px;
+          margin-left: 10px;
+        }
+        .toggle-btn img {
+          width: 14px;
+          height: 14px;
+        }
+        .client-row {
+          padding: 8px 15px;
+        }
+        .inline-progress {
+          min-width: 280px;
+        }
+        .progress-bar-container {
+          min-width: 150px;
+          max-width: 200px;
+        }
+        .compact-label-value {
+          font-size: 0.8rem;
+        }
+        .header-right-text {
+          min-width: 280px;
+        }
+        .header-left-text,
+        .header-right-text {
+          font-size: 0.9rem;
+        }
+        .compact-label-title {
+          font-size: 0.65rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar {
+          border-radius: 20px;
+        }
+        .logo {
+          padding: 0 20px 15px 20px;
+        }
+        .page-title {
+          font-size: 1.5rem;
+        }
+        .client-name {
+          font-size: 1rem;
+        }
+        .progress-bar-wrapper {
+          width: 100%;
+        }
+        /* Keep labels side by side */
+        .progress-labels {
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .progress-bar-custom {
+          height: 24px;
+        }
+        .label-title {
+          font-size: 0.75rem;
+        }
+        .label-value {
+          font-size: 1rem;
+        }
+
+        /* Associated Clients Section - Mobile Card Style */
+        .associated-clients-section {
+          padding: 0 10px;
+        }
+
+        .header-text-row {
+          flex-direction: row;
+          align-items: center;
+          padding: 0 10px;
+          margin-bottom: 8px;
+        }
+
+        .header-left-text,
+        .header-right-text {
+          font-size: 0.85rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .header-left-text {
+          flex: 1;
+          text-align: left;
+          min-width: auto;
+        }
+
+        .header-right-text {
+          text-align: right;
+          min-width: auto;
+          width: auto;
+          margin-left: 10px;
+        }
+
+        /* Client Row - Mobile Card Style */
+        .client-row {
+          flex-direction: column;
+          padding: 15px;
+          min-height: auto;
+          margin-bottom: 10px;
+          border-radius: 20px;
+        }
+
+        .row-content {
+          flex-direction: column;
+          width: 100%;
+          align-items: stretch;
+        }
+
+        .client-row-name {
+          font-size: 1rem;
+          min-width: 100%;
+          padding-right: 40px;
+          margin-bottom: 10px;
+          text-align: left;
+          font-weight: normal;
+          order: 1;
+        }
+
+        .toggle-btn {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          margin: 0;
+          width: 36px;
+          height: 36px;
+          order: 2;
+        }
+
+        .toggle-btn img {
+          width: 18px;
+          height: 18px;
+        }
+
+        .inline-progress {
+          display: none;
+          width: 100%;
+          min-width: 100%;
+          order: 3;
+          margin-top: 10px;
+          padding-top: 15px;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .inline-progress.active {
+          display: block;
+        }
+
+        .progress-with-labels {
+          flex-direction: column;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .left-label:not(.below),
+        .right-label:not(.below) {
+          display: none;
+        }
+
+        .labels-below-progress {
+          display: flex;
+        }
+
+        .progress-bar-container {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+          margin: 0;
+          order: 1;
+        }
+
+        .compact-progress-bar {
+          height: 14px;
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        .compact-label-title {
+          font-size: 0.85rem;
+          margin-bottom: 5px;
+        }
+
+        .compact-label-value {
+          font-size: 1.1rem;
+        }
+
+        @media (min-width: 577px) {
+          .labels-below-progress {
+            display: none;
+          }
+
+          .left-label:not(.below),
+          .right-label:not(.below) {
+            display: flex;
+          }
+        }
+      }
+
+      @media (max-width: 480px) {
+        .client-row {
+          padding: 12px;
+        }
+
+        .client-row-name {
+          font-size: 0.95rem;
+          padding-right: 40px;
+        }
+
+        .toggle-btn {
+          top: 12px;
+          right: 12px;
+          width: 32px;
+          height: 32px;
+        }
+
+        .toggle-btn img {
+          width: 16px;
+          height: 16px;
+        }
+
+        .header-left-text,
+        .header-right-text {
+          font-size: 0.8rem;
+        }
+
+        .compact-label-title {
+          font-size: 0.8rem;
+        }
+
+        .compact-label-value {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .client-row-name {
+          font-size: 0.9rem;
+        }
+
+        .header-left-text,
+        .header-right-text {
+          font-size: 0.75rem;
+        }
+
+        .compact-label-title {
+          font-size: 0.75rem;
+        }
+
+        .compact-label-value {
+          font-size: 0.95rem;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- Background Images -->
+    <img
+      src="images/whitespark.png"
+      alt="Background 1"
+      class="bg-image bg-left-top"
+    />
+    <img
+      src="images/whitespark.png"
+      alt="Background 2"
+      class="bg-image bg-right-top"
+    />
+    <img
+      src="images/whitespark.png"
+      alt="Background 3"
+      class="bg-image bg-right-bottom"
+    />
+
     <!-- Navbar -->
     <header class="navbar-container">
       <div class="logo">
@@ -484,25 +987,25 @@
           alt="Rio Cargo Express Logo"
         />
       </div>
-      <nav class="navbar-custom">
-        <ul class="navbar-nav-custom">
+      <nav class="navbar">
+        <ul>
           <!-- Tablero with dropdown -->
           <li class="dropdown">
             <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
-            <ul class="dropdown-menu-custom">
+            <ul class="dropdown-menu">
               <li><a href="./index.html">Registrar paquete</a></li>
               <li>
                 <a href="./Estado de Paquetes.html">Estado de paquetes</a>
               </li>
               <li><a href="./Asociados.html">Asociados</a></li>
-              <li><a href="./Cupos.html">Cupos</a></li>
+              <li><a href="./cupos.html">Cupos</a></li>
             </ul>
           </li>
 
-          <!-- Liquidación with dropdown -->
+          <!-- Recursos with dropdown -->
           <li class="dropdown">
-            <a href="#">Liquidación <i class="fas fa-caret-down"></i></a>
-            <ul class="dropdown-menu-custom">
+            <a href="#">Recursos <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
               <li>
                 <a href="./Liquidaciones_Pendientes.html"
                   >Liquidaciones Pendientes</a
@@ -514,41 +1017,25 @@
                 >
               </li>
               <li><a href="./Cuentas_Bancarias.html">Cuentas Bancarias</a></li>
+              <li><a href="#">Programas de Recompensa</a></li>
+              <li><a href="./wishlist.html">Historial de Tracking</a></li>
             </ul>
           </li>
-
-          <!-- Programas de Recompensa (normal) -->
-          <li class="dropdown">
-            <a href="#">Guías y Casilleros <i class="fas fa-caret-down"></i></a>
-            <ul class="dropdown-menu-custom">
-              <li><a href="./casilleros.html">Casilleros</a></li>
-              <li><a href="./tutoriales.html">Tutoriales</a></li>
-              <li><a href="#">Tiendas</a></li>
-              <li><a href="./cotizar.html">Cotizador</a></li>
-            </ul>
-          </li>
-
-          <!-- Historial de Tracking (normal) -->
-          <li><a href="#">Wishlist</a></li>
         </ul>
 
         <!-- Nav icons -->
         <div class="nav-icons">
-          <a href="javascript:void(0)" id="alertBtn"
-            ><i class="fas fa-exclamation"></i
-          ></a>
-          <a href="javascript:void(0)" id="bellBtn"
-            ><i class="fas fa-bell"></i
-          ></a>
-          <a href="javascript:void(0)" id="mailBtn"
-            ><i class="fas fa-envelope"></i
-          ></a>
-          <a href="javascript:void(0)" id="userBtn" class="profile-icon">
-            <img
-              src="https://courier.riocargoexpress.com/assets/images/users/user.png"
-              alt="profileLogo"
-              style="cursor: pointer"
-            />
+          <a href="javascript:void(0)" id="alertBtn">
+            <img src="./images/alert.png" alt="Alert" />
+          </a>
+          <a href="javascript:void(0)" id="bellBtn">
+            <img src="./images/bell.png" alt="Notifications" />
+          </a>
+          <a href="javascript:void(0)" id="mailBtn">
+            <img src="./images/message.png" alt="Mail" />
+          </a>
+          <a href="javascript:void(0)" id="userBtn" class="profile">
+            <img src="./images/user.png" alt="profileLogo" />
           </a>
         </div>
       </nav>
@@ -588,304 +1075,382 @@
           margin-top: 5px;
         "
       >
-        <a href="./Perfil.html"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
         <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
     </div>
 
     <!-- Main Content -->
-    <div class="main-container">
+    <div class="container-fluid">
+      <!-- Main Title -->
       <h1 class="page-title">Cupo Cliente</h1>
 
-      <div class="card-custom">
-        <div class="client-info">
-          <div class="client-name">María Teresa Silva Pinoargote</div>
-          <div class="client-total">Total 100.00%</div>
-        </div>
+      <!-- Main Client Progress Section -->
+      <div class="main-client-section">
+        <!-- Main Client Name -->
+        <div class="client-name">María Teresa Silva Pinoargote</div>
 
-        <div class="quota-section">
-          <div class="quota-item">
-            <div class="quota-label">Cupo Usado</div>
-            <div class="quota-value quota-used">45.50% / 100.00%</div>
-            <div class="progress">
-              <div class="progress-bar" style="width: 45.5%"></div>
+        <!-- Progress Bar Container -->
+        <div class="progress-container">
+          <!-- Progress Bar Wrapper -->
+          <div class="progress-bar-wrapper">
+            <!-- Progress Bar -->
+            <div class="progress-bar-custom">
+              <div class="progress-fill progress-cyan"></div>
+              <div class="progress-fill progress-red"></div>
             </div>
           </div>
 
-          <div class="quota-item">
-            <div class="quota-label">Cupo Disponible</div>
-            <div class="quota-value quota-available">54.50%</div>
-            <div class="progress">
-              <div
-                class="progress-bar"
-                style="width: 54.5%; background-color: #27ae60"
-              ></div>
+          <!-- Progress Labels -->
+          <div class="progress-labels">
+            <div class="progress-label-left">
+              <div class="label-left">
+                <div class="label-title">Disponible</div>
+                <div class="label-value">67.34%</div>
+              </div>
+            </div>
+            <div class="progress-label-right">
+              <div class="label-right">
+                <div class="label-title">Usado</div>
+                <div class="label-value">32.66%</div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="chart-container">
-            <canvas id="quotaPieChart"></canvas>
+      <!-- Associated Clients Rows Section -->
+      <div class="associated-clients-section">
+        <!-- Simple Header Text Row -->
+        <div class="header-text-row">
+          <div class="header-left-text">Nombre asociado</div>
+          <div class="header-right-text">Ver cupo</div>
+        </div>
+
+        <!-- Client Row 1 -->
+        <div class="client-row">
+          <div class="row-content">
+            <div class="client-row-name">Mónica Elisabeth Andrade Salas</div>
+            <div class="inline-progress" data-client="1">
+              <div class="progress-with-labels">
+                <!-- Side labels-->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">86.41%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-cyan"
+                      style="width: 86.41%"
+                    ></div>
+                    <div
+                      class="compact-progress-fill compact-progress-red"
+                      style="width: 13.59%; left: 86.41%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">13.59%</div>
+                </div>
+                <!-- Labels below progress bar  -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">86.41%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">13.59%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="1">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
           </div>
         </div>
 
-        <div class="section-divider"></div>
+        <!-- Client Row 2  -->
+        <div class="client-row gray">
+          <div class="row-content">
+            <div class="client-row-name">
+              Beatriz Irene Montesdeoca Parrales
+            </div>
+            <div class="inline-progress" data-client="2">
+              <div class="progress-with-labels">
+                <!-- Side labels  -->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">0%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-red full-width"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">100%</div>
+                </div>
+                <!-- Labels below progress bar  -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">0%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">100%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="2">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
+          </div>
+        </div>
 
-        <div class="section-title">Cupos Asociados</div>
+        <!-- Client Row 3 -->
+        <div class="client-row">
+          <div class="row-content">
+            <div class="client-row-name">Esteban José Hidalgo Jiménez</div>
+            <div class="inline-progress" data-client="3">
+              <div class="progress-with-labels">
+                <!-- Side labels -->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">72.15%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-cyan"
+                      style="width: 72.15%"
+                    ></div>
+                    <div
+                      class="compact-progress-fill compact-progress-red"
+                      style="width: 27.85%; left: 72.15%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">27.85%</div>
+                </div>
+                <!-- Labels below progress bar -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">72.15%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">27.85%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="3">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
+          </div>
+        </div>
 
-        <table class="associated-table">
-          <thead>
-            <tr>
-              <th>Nombre Asociado</th>
-              <th>Ver Cupo</th>
-            </tr>
-          </thead>
-          <tbody id="associatedTableBody">
-            <!-- Associated items will be dynamically generated -->
-          </tbody>
-        </table>
+        <!-- Client Row 4 -->
+        <div class="client-row">
+          <div class="row-content">
+            <div class="client-row-name">Alejandro Yépez González-Rubio</div>
+            <div class="inline-progress" data-client="4">
+              <div class="progress-with-labels">
+                <!-- Side labels  -->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">45.67%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-cyan"
+                      style="width: 45.67%"
+                    ></div>
+                    <div
+                      class="compact-progress-fill compact-progress-red"
+                      style="width: 54.33%; left: 45.67%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">54.33%</div>
+                </div>
+                <!-- Labels below progress bar  -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">45.67%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">54.33%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="4">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Client Row 5  -->
+        <div class="client-row gray">
+          <div class="row-content">
+            <div class="client-row-name">Silvia María Barriga López</div>
+            <div class="inline-progress" data-client="5">
+              <div class="progress-with-labels">
+                <!-- Side labels -->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">0%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-red full-width"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">100%</div>
+                </div>
+                <!-- Labels below progress bar  -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">0%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">100%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="5">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Client Row 6 -->
+        <div class="client-row">
+          <div class="row-content">
+            <div class="client-row-name">Nicole Andrea Kayser Orrantia</div>
+            <div class="inline-progress" data-client="6">
+              <div class="progress-with-labels">
+                <!-- Side labels  -->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">91.23%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-cyan"
+                      style="width: 91.23%"
+                    ></div>
+                    <div
+                      class="compact-progress-fill compact-progress-red"
+                      style="width: 8.77%; left: 91.23%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">8.77%</div>
+                </div>
+                <!-- Labels below progress bar  -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">91.23%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">8.77%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="6">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Client Row 7 -->
+        <div class="client-row">
+          <div class="row-content">
+            <div class="client-row-name">Fiorella Estefanía Rosso Icaza</div>
+            <div class="inline-progress" data-client="7">
+              <div class="progress-with-labels">
+                <!-- Side labels  -->
+                <div class="left-label">
+                  <div class="compact-label-title">Disponible</div>
+                  <div class="compact-label-value">63.42%</div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="compact-progress-bar">
+                    <div
+                      class="compact-progress-fill compact-progress-cyan"
+                      style="width: 63.42%"
+                    ></div>
+                    <div
+                      class="compact-progress-fill compact-progress-red"
+                      style="width: 36.58%; left: 63.42%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="right-label">
+                  <div class="compact-label-title">Usado</div>
+                  <div class="compact-label-value">36.58%</div>
+                </div>
+                <!-- Labels below progress bar  -->
+                <div class="labels-below-progress">
+                  <div class="left-label below">
+                    <div class="compact-label-title">Disponible</div>
+                    <div class="compact-label-value">63.42%</div>
+                  </div>
+                  <div class="right-label below">
+                    <div class="compact-label-title">Usado</div>
+                    <div class="compact-label-value">36.58%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="toggle-btn" data-client="7">
+              <img src="images/open-eye.png" alt="Expand" class="toggle-icon" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Complete data for all 30 associated quotas from the image
-        const associatedQuotas = [
-          {
-            name: "R Gunathilaka",
-            total: "99.06%",
-            used: "99.06%",
-            available: "0.94%",
-          },
-          {
-            name: "María Sol Pinoargote Vera",
-            total: "85.20%",
-            used: "85.20%",
-            available: "14.80%",
-          },
-          {
-            name: "María Auxiliadora Pinoargote Vera",
-            total: "72.45%",
-            used: "72.45%",
-            available: "27.55%",
-          },
-          {
-            name: "Diego Pinoargote Vera",
-            total: "63.10%",
-            used: "63.10%",
-            available: "36.90%",
-          },
-          {
-            name: "Diego Pinoargote Torres",
-            total: "91.25%",
-            used: "91.25%",
-            available: "8.75%",
-          },
-          {
-            name: "Luciana Pinoargote Torres",
-            total: "78.30%",
-            used: "78.30%",
-            available: "21.70%",
-          },
-          {
-            name: "Kiefer Gomez Cederio",
-            total: "55.60%",
-            used: "55.60%",
-            available: "44.40%",
-          },
-          {
-            name: "Angel Johnny Goyes Mendoza",
-            total: "67.80%",
-            used: "67.80%",
-            available: "32.20%",
-          },
-          {
-            name: "Pierina Renata Lopez Doylet",
-            total: "88.15%",
-            used: "88.15%",
-            available: "11.85%",
-          },
-          {
-            name: "María Mantuano Becerra",
-            total: "76.90%",
-            used: "76.90%",
-            available: "23.10%",
-          },
-          {
-            name: "Francisco Xavier Pinoargote Camacho",
-            total: "82.40%",
-            used: "82.40%",
-            available: "17.60%",
-          },
-          {
-            name: "Elena Karina Aumala Peña",
-            total: "69.75%",
-            used: "69.75%",
-            available: "30.25%",
-          },
-          {
-            name: "Diego Francisco Pinoargote Aumala",
-            total: "94.20%",
-            used: "94.20%",
-            available: "5.80%",
-          },
-          {
-            name: "Valeria Jaramillo",
-            total: "58.30%",
-            used: "58.30%",
-            available: "41.70%",
-          },
-          {
-            name: "Juan Pablo Sanchez",
-            total: "81.65%",
-            used: "81.65%",
-            available: "18.35%",
-          },
-          {
-            name: "Karla Tenezaca Nachipucha",
-            total: "73.80%",
-            used: "73.80%",
-            available: "26.20%",
-          },
-          {
-            name: "Joseph Calderon",
-            total: "66.45%",
-            used: "66.45%",
-            available: "33.55%",
-          },
-          {
-            name: "Carlos Silva",
-            total: "89.10%",
-            used: "89.10%",
-            available: "10.90%",
-          },
-          {
-            name: "Karina Hernandez",
-            total: "77.25%",
-            used: "77.25%",
-            available: "22.75%",
-          },
-          {
-            name: "María José Varas",
-            total: "62.80%",
-            used: "62.80%",
-            available: "37.20%",
-          },
-          {
-            name: "Antonio Borja Ricaurte",
-            total: "83.95%",
-            used: "83.95%",
-            available: "16.05%",
-          },
-          {
-            name: "Arianna Angelina Baquerizo Pena",
-            total: "71.40%",
-            used: "71.40%",
-            available: "28.60%",
-          },
-          {
-            name: "Irma Alexandra Del A Torre Rodriguez",
-            total: "95.50%",
-            used: "95.50%",
-            available: "4.50%",
-          },
-          {
-            name: "Isaac Alexander Rodriguez Lucas",
-            total: "59.85%",
-            used: "59.85%",
-            available: "40.15%",
-          },
-          {
-            name: "Kevin Paul Cuesta Sigcha",
-            total: "84.70%",
-            used: "84.70%",
-            available: "15.30%",
-          },
-          {
-            name: "Pierina Michelle Farfan Castro",
-            total: "68.35%",
-            used: "68.35%",
-            available: "31.65%",
-          },
-          {
-            name: "Gabriela Tatiana Moreno Orrala",
-            total: "79.90%",
-            used: "79.90%",
-            available: "20.10%",
-          },
-          {
-            name: "Nelson Urdanell Soledispa De La Torre",
-            total: "87.60%",
-            used: "87.60%",
-            available: "12.40%",
-          },
-          {
-            name: "Carla Asunción Torres Ureta",
-            total: "74.15%",
-            used: "74.15%",
-            available: "25.85%",
-          },
-        ];
-
-        // Populate associated table
-        const associatedTableBody = document.getElementById(
-          "associatedTableBody"
-        );
-
-        associatedQuotas.forEach((item, index) => {
-          // Main row
-          const tableRow = document.createElement("tr");
-          tableRow.className = "main-row";
-          tableRow.setAttribute("data-index", index);
-
-          tableRow.innerHTML = `
-                    <td>${item.name}</td>
-                    <td>
-                        <button class="view-quota-btn" data-index="${index}">
-                            <i class="fas fa-eye"></i> Ver Cupo <i class="fas fa-chevron-down ml-1"></i>
-                        </button>
-                    </td>
-                `;
-
-          associatedTableBody.appendChild(tableRow);
-
-          // Expanded row
-          const expandedRow = document.createElement("tr");
-          expandedRow.className = "expanded-row";
-          expandedRow.setAttribute("data-index", index);
-
-          expandedRow.innerHTML = `
-                    <td colspan="2">
-                        <div class="expanded-content">
-                            <div class="mb-2">
-                                <strong>${item.name}</strong> - Total: ${item.total}
-                            </div>
-                            <div class="expanded-quota-section">
-                                <div class="expanded-quota-item">
-                                    <div class="expanded-quota-label">Cupo Usado</div>
-                                    <div class="expanded-quota-value quota-used">${item.used} / 100.00%</div>
-                                    <div class="expanded-progress">
-                                        <div class="expanded-progress-bar" style="width: ${item.used}"></div>
-                                    </div>
-                                </div>
-                                <div class="expanded-quota-item">
-                                    <div class="expanded-quota-label">Cupo Disponible</div>
-                                    <div class="expanded-quota-value quota-available">${item.available}</div>
-                                    <div class="expanded-progress">
-                                        <div class="expanded-progress-bar" style="width: ${item.available}; background-color: #27ae60"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                `;
-
-          associatedTableBody.appendChild(expandedRow);
-        });
-
         // Nav dropdown functionality
         const cards = {
           alertBtn: "alertCard",
@@ -920,65 +1485,38 @@
           card.addEventListener("click", (e) => e.stopPropagation());
         });
 
-        // Add functionality to view quota buttons
-        document.addEventListener("click", function (e) {
-          if (e.target.closest(".view-quota-btn")) {
-            const button = e.target.closest(".view-quota-btn");
-            const index = button.getAttribute("data-index");
-            const expandedRow = document.querySelector(
-              `.expanded-row[data-index="${index}"]`
+        // Toggle functionality for client rows
+        document.querySelectorAll(".toggle-btn").forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const clientId = this.getAttribute("data-client");
+            const inlineProgress = document.querySelector(
+              `.inline-progress[data-client="${clientId}"]`
             );
+            const icon = this.querySelector(".toggle-icon");
 
-            // Toggle active class on button
-            button.classList.toggle("active");
+            // Toggle active class on inline progress
+            inlineProgress.classList.toggle("active");
 
-            // Toggle expanded row
-            expandedRow.classList.toggle("active");
-          }
+            // Toggle button style and icon
+            this.classList.toggle("active");
+
+            if (this.classList.contains("active")) {
+              // Change to minus icon and red background
+              icon.src = "images/close-eye.png";
+              icon.alt = "Collapse";
+            } else {
+              // Change back to plus icon and cyan background
+              icon.src = "images/open-eye.png";
+              icon.alt = "Expand";
+            }
+          });
         });
 
-        // Create pie chart
-        const ctx = document.getElementById("quotaPieChart").getContext("2d");
-        const quotaPieChart = new Chart(ctx, {
-          type: "pie",
-          data: {
-            labels: ["Cupo Usado", "Cupo Disponible"],
-            datasets: [
-              {
-                data: [45.5, 54.5],
-                backgroundColor: [
-                  "#e74c3c", // Red for used
-                  "#27ae60", // Green for available
-                ],
-                borderColor: "#fff",
-                borderWidth: 2,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  padding: 15,
-                  usePointStyle: true,
-                  font: {
-                    size: 12,
-                  },
-                },
-              },
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    return `${context.label}: ${context.parsed}%`;
-                  },
-                },
-              },
-            },
-          },
-        });
+        // Simple alert function if needed
+        window.showAlert = function (message) {
+          alert(message);
+        };
       });
     </script>
   </body>
