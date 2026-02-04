@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -556,7 +556,9 @@
         border-left: 4px solid #28a745;
         opacity: 0;
         transform: translateX(100%);
-        transition: opacity 0.5s, transform 0.5s;
+        transition:
+          opacity 0.5s,
+          transform 0.5s;
       }
 
       .custom-alert.show {
@@ -778,13 +780,13 @@
               <li>
                 <a href="./Liquidaciones_Canceladas.html">Tutoriales</a>
               </li>
-              <li><a href="./Cuentas_Bancarias.html">Tiendas</a></li>
+              <li><a href="./tiendas.html">Tiendas</a></li>
               <li><a href="./Cuentas_Bancarias.html">Cotizador</a></li>
             </ul>
           </li>
 
           <!-- Historial de Tracking (normal) -->
-        <li><a href="./wishlist.html">Wishlist</a></li>
+          <li><a href="./wishlist.html">Wishlist</a></li>
         </ul>
 
         <!-- Nav icons -->
@@ -1385,7 +1387,7 @@
 
             // Show selected address content
             const selectedAddress = document.getElementById(
-              `${country}-address`
+              `${country}-address`,
             );
             if (selectedAddress) {
               selectedAddress.style.display = "block";
@@ -1400,4 +1402,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
-
