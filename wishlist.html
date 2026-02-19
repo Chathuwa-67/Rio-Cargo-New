@@ -1,0 +1,1532 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wishlist - Rio Cargo Express</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
+    <style>
+      body {
+        background: #00205d;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Navbar Styles - from Estado de Paquetes */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 0;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0034c4;
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .logo {
+        padding: 0 80px 0 50px;
+      }
+
+      .logo img {
+        height: 70px;
+      }
+
+      .navbar ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar ul li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+      }
+
+      .navbar ul li a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: white;
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .navbar ul li ul.dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0034c4;
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar ul li ul.dropdown-menu li {
+        margin: 0;
+      }
+
+      .navbar ul li ul.dropdown-menu li a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .navbar ul li ul.dropdown-menu li a:hover {
+        background: #002a99;
+        color: #ffd700;
+      }
+
+      .navbar ul li:hover > ul.dropdown-menu {
+        display: block;
+      }
+
+      .profile {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px 6px;
+      }
+
+      /* Dropdown cards */
+      .dropdown-card {
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 220px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 12px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+        font-size: 13px;
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c4;
+        font-weight: 500;
+        padding: 4px 0;
+        text-decoration: none;
+        font-size: 12px;
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Custom alert style */
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        border-left: 4px solid #28a745;
+        opacity: 0;
+        transform: translateX(100%);
+        transition:
+          opacity 0.5s,
+          transform 0.5s;
+      }
+
+      .custom-alert.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      /* Wishlist specific styles */
+      .filter-section {
+        background: #0034c5;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .action-cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .action-card {
+        background: #002a99;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        background: #0034c5;
+      }
+
+      .action-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+        color: #ffd700;
+      }
+
+      .action-card h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .action-card p {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        max-width: 95%;
+        margin: 0 auto;
+      }
+
+      .pagination-info {
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .pagination-custom .page-link {
+        color: #0034c5;
+        border: 1px solid #0034c5;
+      }
+      .pagination-custom .page-item.active .page-link {
+        background: #0034c5;
+        border-color: #0034c5;
+      }
+
+      .entries-select {
+        width: 80px;
+        display: inline-block;
+        margin: 0 10px;
+      }
+
+      .store-cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .store-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .store-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .store-image-container {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .store-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: all 0.3s;
+      }
+      .store-card:hover .store-image {
+        filter: brightness(0.7);
+      }
+
+      .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .store-card:hover .image-overlay {
+        opacity: 1;
+      }
+
+      .image-actions {
+        display: flex;
+        gap: 15px;
+      }
+
+      .image-action-btn {
+        background: #0034c5;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .image-action-btn:hover {
+        background: #ffd700;
+        color: #00205d;
+        transform: scale(1.1);
+      }
+
+      .store-content {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .store-name {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #0034c5;
+        height: 40px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      .store-price {
+        display: inline-block;
+        background-color: #e6f0ff;
+        color: #0034c5;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        flex-direction: column;
+      }
+
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid #0034c5;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .modal-header-custom {
+        background: #0034c5;
+        color: white;
+        border-bottom: none;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+
+      .modal-header-custom .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+      }
+      .modal-content-custom {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      .modal-footer-custom {
+        border-top: 1px solid #e9ecef;
+        padding: 15px;
+      }
+
+      .store-detail-row {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+      .store-detail-label {
+        font-weight: bold;
+        color: #0034c5;
+        margin-bottom: 5px;
+      }
+      .store-detail-value {
+        color: #333;
+      }
+      .store-detail-url {
+        color: #0034c5;
+        text-decoration: none;
+      }
+      .store-detail-url:hover {
+        text-decoration: underline;
+      }
+
+      .form-group-custom {
+        margin-bottom: 20px;
+      }
+      .form-group-custom label {
+        font-weight: 600;
+        color: #0034c5;
+        margin-bottom: 8px;
+      }
+
+      .form-control-custom {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px 15px;
+        transition: border-color 0.3s;
+      }
+      .form-control-custom:focus {
+        border-color: #0034c5;
+        box-shadow: 0 0 0 0.2rem rgba(0, 52, 197, 0.25);
+      }
+
+      .image-upload-container {
+        border: 2px dashed #ced4da;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.3s;
+      }
+      .image-upload-container:hover {
+        border-color: #0034c5;
+      }
+      .image-upload-icon {
+        font-size: 40px;
+        color: #0034c5;
+        margin-bottom: 10px;
+      }
+      .image-preview {
+        max-width: 100%;
+        max-height: 200px;
+        margin-top: 15px;
+        display: none;
+      }
+
+      .product-details-container {
+        display: flex;
+        gap: 20px;
+      }
+      .product-image-container {
+        flex: 1;
+      }
+      .product-image {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .product-info {
+        flex: 1;
+      }
+
+      .product-details-list {
+        list-style: none;
+        padding: 0;
+      }
+      .product-details-list li {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .detail-label {
+        font-weight: bold;
+        color: #0034c5;
+        display: inline-block;
+        width: 100px;
+      }
+
+      .delete-modal-content {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      .delete-modal-header {
+        background: #ff6b6b;
+        color: white;
+        border-bottom: none;
+        padding: 20px;
+        text-align: center;
+      }
+      .delete-modal-body {
+        padding: 30px 20px;
+        text-align: center;
+      }
+      .delete-icon {
+        font-size: 60px;
+        color: #ff6b6b;
+        margin-bottom: 20px;
+      }
+      .delete-modal-footer {
+        border-top: none;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .wishlist-modal .modal-dialog {
+        max-width: 700px;
+        width: 95%;
+      }
+      .wishlist-modal .modal-body {
+        max-height: 75vh;
+        overflow-y: auto;
+        padding: 25px;
+      }
+      .wishlist-modal .form-group-custom {
+        margin-bottom: 25px;
+      }
+      .wishlist-modal .form-control-custom {
+        padding: 12px 15px;
+        font-size: 16px;
+      }
+      .wishlist-modal .image-upload-container {
+        padding: 30px;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .wishlist-modal .image-upload-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+      }
+      .wishlist-modal .image-preview {
+        max-height: 250px;
+        max-width: 100%;
+      }
+
+      @media (max-width: 992px) {
+        .navbar {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+          width: 100%;
+        }
+        .navbar ul {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .action-cards-container {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        .product-details-container {
+          flex-direction: column;
+        }
+        .wishlist-modal .modal-dialog {
+          max-width: 95%;
+          margin: 10px auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+        .custom-alert {
+          left: 20px;
+          right: 20px;
+          min-width: auto;
+        }
+        .modal-dialog {
+          margin: 10px;
+        }
+        .store-cards-container {
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar {
+          border-radius: 20px;
+        }
+        .action-cards-container {
+          grid-template-columns: 1fr;
+        }
+        .store-cards-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .table-container {
+          max-width: 100%;
+        }
+        .wishlist-modal .modal-body {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom Alert Container -->
+    <div
+      id="alertContainer"
+      class="custom-alert alert alert-success"
+      role="alert"
+      style="display: none"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="alertMessage"></span>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar">
+        <ul>
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="./index.html">Registrar paquete</a></li>
+              <li>
+                <a href="./Estado de Paquetes.html">Estado de paquetes</a>
+              </li>
+              <li><a href="./Cupos.html">Cupos</a></li>
+              <li><a href="./Asociados.html">Asociados</a></li>
+            </ul>
+          </li>
+
+          <!-- Recursos with dropdown -->
+          <li class="dropdown">
+            <a href="#">Recursos <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="./tutoriales.html">Tutoriales</a></li>
+              <li><a href="./tiendas.html">Tiendas</a></li>
+              <li><a href="./cotizar.html">Cotizador</a></li>
+              <li><a href="./wishlist.html">Wishlist</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn">
+            <img src="./images/alert.png" alt="Alert" />
+          </a>
+          <a href="javascript:void(0)" id="bellBtn">
+            <img src="./images/bell.png" alt="Notifications" />
+          </a>
+          <a href="javascript:void(0)" id="mailBtn">
+            <img src="./images/message.png" alt="Mail" />
+          </a>
+          <a href="javascript:void(0)" id="userBtn" class="profile">
+            <img src="./images/user.png" alt="profileLogo" />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Dropdown cards -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="text-center text-white mt-5 font-weight-bold pb-3">
+      María Teresa Silva Pinoargote - WishList
+    </h2>
+
+    <div class="container-fluid mt-3">
+      <!-- Action Cards Section -->
+      <div class="filter-section">
+        <p class="text-white">Tienes un enlace activo para compartir</p>
+        <div class="action-cards-container">
+          <div class="action-card" id="createWishlistBtn">
+            <div class="action-icon"><i class="fas fa-plus-circle"></i></div>
+            <h4>Crear Wishlist</h4>
+            <p>Agregar nuevos productos a tu lista de deseos</p>
+          </div>
+          <div class="action-card" id="shareLinkBtn">
+            <div class="action-icon"><i class="fab fa-telegram"></i></div>
+            <h4>Compartir Nuevo Enlace</h4>
+            <p>Comparte tu wishlist con amigos y familiares</p>
+          </div>
+          <div class="action-card" id="copyLinkBtn">
+            <div class="action-icon"><i class="fas fa-copy"></i></div>
+            <h4>Copiar Vínculo</h4>
+            <p>Copia el enlace de tu wishlist</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards Section -->
+      <div class="table-container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <label for="entriesSelect" class="mr-2">Mostrar</label>
+            <select class="form-control entries-select" id="entriesSelect">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+              <option value="all">Todos</option>
+            </select>
+            <span>entradas</span>
+          </div>
+        </div>
+
+        <div class="store-cards-container" id="storeCardsContainer">
+          <div class="loading-container">
+            <div class="spinner"></div>
+            <p>Cargando productos...</p>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="pagination-info" id="paginationInfo">
+            Cargando datos...
+          </div>
+          <nav>
+            <ul class="pagination pagination-custom" id="pagination"></ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create/Edit Wishlist Modal -->
+    <div
+      class="modal fade wishlist-modal"
+      id="wishlistModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="wishlistModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-custom">
+          <div class="modal-header modal-header-custom">
+            <h5 class="modal-title" id="wishlistModalLabel">
+              WishList - Creación
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" style="color: white">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="wishlistForm">
+              <div class="form-group-custom">
+                <label for="productUrl">1. URL</label>
+                <input
+                  type="url"
+                  class="form-control form-control-custom"
+                  id="productUrl"
+                  placeholder="Ingrese una url"
+                  required
+                />
+              </div>
+              <div class="form-group-custom">
+                <label for="productName">2. Nombre</label>
+                <input
+                  type="text"
+                  class="form-control form-control-custom"
+                  id="productName"
+                  placeholder="Ingrese un nombre"
+                  required
+                />
+              </div>
+              <div class="form-group-custom">
+                <label>3. Sube la imágen aqui:</label>
+                <div class="image-upload-container" id="imageUploadContainer">
+                  <div class="image-upload-icon">
+                    <i class="fas fa-image"></i>
+                  </div>
+                  <p>Haz clic para subir una imagen</p>
+                  <input
+                    type="file"
+                    id="productImage"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                  <img
+                    id="imagePreview"
+                    class="image-preview"
+                    alt="Vista previa"
+                  />
+                </div>
+              </div>
+              <div class="form-group-custom">
+                <label for="productDescription">4. Descripción</label>
+                <textarea
+                  class="form-control form-control-custom"
+                  id="productDescription"
+                  rows="4"
+                  placeholder="Ingrese una descripción"
+                ></textarea>
+              </div>
+              <div class="form-group-custom">
+                <label for="productPrice">5. Precio $</label>
+                <input
+                  type="number"
+                  class="form-control form-control-custom"
+                  id="productPrice"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" id="saveWishlistBtn">
+              Guardar wishlist
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div
+      class="modal fade"
+      id="productModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="productModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-content-custom">
+          <div class="modal-header modal-header-custom">
+            <h5 class="modal-title" id="productModalLabel">
+              WishList - Ver información
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" style="color: white">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="product-details-container">
+              <div class="product-image-container">
+                <img
+                  id="detailProductImage"
+                  class="product-image"
+                  alt="Producto"
+                />
+              </div>
+              <div class="product-info">
+                <h4 class="mb-4">Descripción General</h4>
+                <h5 class="mb-3">Detalles</h5>
+                <ul class="product-details-list">
+                  <li>
+                    <span class="detail-label">Nombre:</span
+                    ><span id="detailProductName"></span>
+                  </li>
+                  <li>
+                    <span class="detail-label">Precio:</span
+                    ><span id="detailProductPrice"></span>
+                  </li>
+                  <li>
+                    <span class="detail-label">Descripción:</span
+                    ><span id="detailProductDescription"></span>
+                  </li>
+                </ul>
+                <div class="mt-4">
+                  <button class="btn btn-primary">
+                    <i class="fas fa-shopping-cart mr-2"></i> Ver
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer-custom">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content delete-modal-content">
+          <div class="modal-header delete-modal-header">
+            <h5 class="modal-title">Confirmar Eliminación</h5>
+          </div>
+          <div class="modal-body delete-modal-body">
+            <div class="delete-icon"><i class="fas fa-trash-alt"></i></div>
+            <h5>¿Estás seguro?</h5>
+            <p>Esta acción no se puede deshacer</p>
+          </div>
+          <div class="modal-footer delete-modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelDeleteBtn"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let productData = [];
+        let currentPage = 1;
+        let entriesPerPage = 20;
+        let filteredData = [];
+        let currentEditId = null;
+        let currentDeleteId = null;
+
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        function showAlert(message) {
+          const alertContainer = document.getElementById("alertContainer");
+          const alertMessage = document.getElementById("alertMessage");
+          alertMessage.textContent = message;
+          alertContainer.style.display = "block";
+          void alertContainer.offsetWidth;
+          alertContainer.classList.add("show");
+          setTimeout(() => {
+            alertContainer.classList.remove("show");
+            setTimeout(() => {
+              alertContainer.style.display = "none";
+            }, 500);
+          }, 3000);
+        }
+
+        function toggleCard(cardId) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        document.addEventListener("click", function () {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+
+        function loadProductData() {
+          productData = [
+            {
+              id: 1,
+              name: "iPhone 14 Pro",
+              price: "$999.99",
+              image:
+                "https://obejorcomputers.com/wp-content/uploads/2025/05/Iphone-14-Blue-1-2-1.jpg",
+              url: "https://www.apple.com/iphone-14-pro",
+              description:
+                "El iPhone más avanzado con Dynamic Island y cámara de 48 MP.",
+            },
+            {
+              id: 2,
+              name: "Nike Air Max 270",
+              price: "$150.00",
+              image:
+                "https://images-cdn.ubuy.com.lk/66225a82558af30707182776-nike-air-max-270-black-multi-size-us.jpg",
+              url: "https://www.nike.com/air-max-270",
+              description:
+                "Zapatillas cómodas con tecnología Air Max para máximo confort.",
+            },
+            {
+              id: 3,
+              name: "Samsung Galaxy Watch 5",
+              price: "$279.99",
+              image:
+                "https://lifemobile.lk/wp-content/uploads/2022/09/Samsung-Galaxy-Watch5-44MM.png",
+              url: "https://www.samsung.com/galaxy-watch-5",
+              description:
+                "Reloj inteligente con seguimiento avanzado de salud y fitness.",
+            },
+            {
+              id: 4,
+              name: "KitchenAid Artisan",
+              price: "$449.99",
+              image:
+                "https://www.hartsofstur.com/media/catalog/product/5/K/5KSM175PSBJP-KitchenAid-Artisan-Mixer-175-Juniper-MBScales-GWP-5.jpg?quality=80&fit=bounds&height=500&width=500&canvas=500:500",
+              url: "https://www.kitchenaid.com/artisan",
+              description:
+                "Batidora de pie con bowl de acero inoxidable de 5 cuartos.",
+            },
+            {
+              id: 5,
+              name: "Sony WH-1000XM4",
+              price: "$349.99",
+              image:
+                "https://cdn.gqmobiles.lk/wp-content/uploads/2025/08/gq-mobiles-sony-wh-1000-xm5-wh1000-1000xm5-black-2.png",
+              url: "https://www.sony.com/wh-1000xm4",
+              description:
+                "Audífonos con cancelación de ruido y sonido de alta calidad.",
+            },
+            {
+              id: 6,
+              name: "Lego Star Wars",
+              price: "$159.99",
+              image:
+                "https://www.blokkenhuren.nl/wp-content/uploads/2022/07/1200x1069-600x535.jpeg",
+              url: "https://www.lego.com/millennium-falcon",
+              description:
+                "Set de construcción del Halcón Milenario de Star Wars.",
+            },
+            {
+              id: 7,
+              name: "Canon EOS R5",
+              price: "$3,899.00",
+              image:
+                "https://media.sweetwater.com/m/products/image/c3e7b392e7s3ZT10I7YwWM1Yi7v8sBFIvQGolyAL.jpg?quality=82&width=750&ha=c3e7b392e7a4551d",
+              url: "https://www.canon.com/eos-r5",
+              description:
+                "Cámara mirrorless full-frame con grabación de video 8K.",
+            },
+            {
+              id: 8,
+              name: "Dyson V11 Absolute",
+              price: "$599.99",
+              image:
+                "https://i.ebayimg.com/images/g/4XwAAOSwtY9j24Ws/s-l1200.jpg",
+              url: "https://www.dyson.com/v11-absolute",
+              description:
+                "Aspiradora inalámbrica con tecnología de limpieza avanzada.",
+            },
+          ];
+          filteredData = [...productData];
+          renderProductCards();
+          showAlert(`Cargados ${productData.length} productos en tu wishlist`);
+        }
+
+        function renderProductCards() {
+          const container = document.getElementById("storeCardsContainer");
+          const startIndex = (currentPage - 1) * entriesPerPage;
+          const endIndex = Math.min(
+            startIndex + entriesPerPage,
+            filteredData.length,
+          );
+          const pageData =
+            entriesPerPage === "all"
+              ? filteredData
+              : filteredData.slice(startIndex, endIndex);
+
+          container.innerHTML = "";
+
+          if (pageData.length === 0) {
+            container.innerHTML =
+              '<div class="col-12 text-center">No se encontraron productos en tu wishlist</div>';
+          } else {
+            pageData.forEach((product) => {
+              const card = document.createElement("div");
+              card.className = "store-card";
+              card.innerHTML = `
+                <div class="store-image-container">
+                  <img src="${product.image}" alt="${product.name}" class="store-image">
+                  <div class="image-overlay">
+                    <div class="image-actions">
+                      <button class="image-action-btn edit-product-btn" data-id="${product.id}"><i class="fas fa-edit"></i></button>
+                      <button class="image-action-btn delete-product-btn" data-id="${product.id}"><i class="fas fa-trash"></i></button>
+                      <button class="image-action-btn view-product-btn" data-id="${product.id}"><i class="fas fa-eye"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="store-content">
+                  <div class="store-name">${product.name}</div>
+                  <span class="store-price">${product.price}</span>
+                </div>
+              `;
+              container.appendChild(card);
+            });
+          }
+
+          document.querySelectorAll(".edit-product-btn").forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              editProduct(parseInt(this.getAttribute("data-id")));
+            });
+          });
+          document.querySelectorAll(".delete-product-btn").forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              confirmDelete(parseInt(this.getAttribute("data-id")));
+            });
+          });
+          document.querySelectorAll(".view-product-btn").forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              openProductModal(parseInt(this.getAttribute("data-id")));
+            });
+          });
+
+          updatePaginationInfo();
+          renderPagination();
+        }
+
+        function openProductModal(productId) {
+          const product = productData.find((p) => p.id === productId);
+          if (!product) return;
+          document.getElementById("detailProductImage").src = product.image;
+          document.getElementById("detailProductName").textContent =
+            product.name;
+          document.getElementById("detailProductPrice").textContent =
+            product.price;
+          document.getElementById("detailProductDescription").textContent =
+            product.description;
+          $("#productModal").modal("show");
+        }
+
+        function editProduct(productId) {
+          const product = productData.find((p) => p.id === productId);
+          if (!product) return;
+          currentEditId = productId;
+          document.getElementById("productUrl").value = product.url;
+          document.getElementById("productName").value = product.name;
+          document.getElementById("productDescription").value =
+            product.description;
+          document.getElementById("productPrice").value = parseFloat(
+            product.price.replace("$", ""),
+          );
+          const imagePreview = document.getElementById("imagePreview");
+          imagePreview.src = product.image;
+          imagePreview.style.display = "block";
+          document.getElementById("wishlistModalLabel").textContent =
+            "WishList - Edición";
+          $("#wishlistModal").modal("show");
+        }
+
+        function confirmDelete(productId) {
+          currentDeleteId = productId;
+          $("#deleteModal").modal("show");
+        }
+
+        function deleteProduct() {
+          const product = productData.find((p) => p.id === currentDeleteId);
+          if (!product) return;
+          productData = productData.filter((p) => p.id !== currentDeleteId);
+          filteredData = [...productData];
+          renderProductCards();
+          showAlert(`${product.name} eliminado de tu wishlist`);
+          $("#deleteModal").modal("hide");
+        }
+
+        function updatePaginationInfo() {
+          const totalEntries = filteredData.length;
+          const startIndex = (currentPage - 1) * entriesPerPage + 1;
+          const endIndex = Math.min(currentPage * entriesPerPage, totalEntries);
+          const infoText =
+            entriesPerPage === "all"
+              ? `Mostrando todos los ${totalEntries} registros`
+              : `Mostrando ${totalEntries === 0 ? 0 : startIndex} a ${endIndex} de ${totalEntries} registros`;
+          document.getElementById("paginationInfo").textContent = infoText;
+        }
+
+        function renderPagination() {
+          if (
+            entriesPerPage === "all" ||
+            filteredData.length <= entriesPerPage
+          ) {
+            document.getElementById("pagination").innerHTML = "";
+            return;
+          }
+          const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+          const pagination = document.getElementById("pagination");
+          pagination.innerHTML = "";
+
+          const prevLi = document.createElement("li");
+          prevLi.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
+          prevLi.innerHTML = `<a class="page-link" href="#">Anterior</a>`;
+          prevLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+              currentPage--;
+              renderProductCards();
+            }
+          });
+          pagination.appendChild(prevLi);
+
+          for (let i = 1; i <= totalPages; i++) {
+            const pageLi = document.createElement("li");
+            pageLi.className = `page-item ${i === currentPage ? "active" : ""}`;
+            pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            pageLi.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = i;
+              renderProductCards();
+            });
+            pagination.appendChild(pageLi);
+          }
+
+          const nextLi = document.createElement("li");
+          nextLi.className = `page-item ${currentPage === totalPages ? "disabled" : ""}`;
+          nextLi.innerHTML = `<a class="page-link" href="#">Siguiente</a>`;
+          nextLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderProductCards();
+            }
+          });
+          pagination.appendChild(nextLi);
+        }
+
+        document
+          .getElementById("createWishlistBtn")
+          .addEventListener("click", function () {
+            currentEditId = null;
+            document.getElementById("wishlistModalLabel").textContent =
+              "WishList - Creación";
+            document.getElementById("wishlistForm").reset();
+            document.getElementById("imagePreview").style.display = "none";
+            $("#wishlistModal").modal("show");
+          });
+
+        document
+          .getElementById("shareLinkBtn")
+          .addEventListener("click", function () {
+            showAlert("Enlace de wishlist compartido por Telegram");
+          });
+
+        document
+          .getElementById("copyLinkBtn")
+          .addEventListener("click", function () {
+            navigator.clipboard
+              .writeText("https://riocargoexpress.com/wishlist/216258")
+              .then(() => {
+                showAlert("Enlace copiado al portapapeles");
+              })
+              .catch(() => {
+                showAlert("Error al copiar el enlace");
+              });
+          });
+
+        document
+          .getElementById("saveWishlistBtn")
+          .addEventListener("click", function () {
+            const productUrl = document.getElementById("productUrl").value;
+            const productName = document.getElementById("productName").value;
+            const productDescription =
+              document.getElementById("productDescription").value;
+            const productPrice = document.getElementById("productPrice").value;
+            const productImage = document.getElementById("imagePreview").src;
+
+            if (
+              productName.trim() === "" ||
+              productUrl.trim() === "" ||
+              productPrice.trim() === ""
+            ) {
+              alert("Por favor completa todos los campos obligatorios");
+              return;
+            }
+
+            if (currentEditId) {
+              const productIndex = productData.findIndex(
+                (p) => p.id === currentEditId,
+              );
+              if (productIndex !== -1) {
+                productData[productIndex] = {
+                  ...productData[productIndex],
+                  name: productName,
+                  url: productUrl,
+                  description: productDescription,
+                  price: `$${parseFloat(productPrice).toFixed(2)}`,
+                  image: productImage,
+                };
+                showAlert(`Producto "${productName}" actualizado exitosamente`);
+              }
+            } else {
+              const newProduct = {
+                id:
+                  productData.length > 0
+                    ? Math.max(...productData.map((p) => p.id)) + 1
+                    : 1,
+                name: productName,
+                price: `$${parseFloat(productPrice).toFixed(2)}`,
+                image:
+                  productImage ||
+                  "https://via.placeholder.com/300x180/cccccc/ffffff?text=Sin+Imagen",
+                url: productUrl,
+                description: productDescription,
+              };
+              productData.push(newProduct);
+              showAlert(`Producto "${productName}" agregado a tu wishlist`);
+            }
+
+            filteredData = [...productData];
+            renderProductCards();
+            $("#wishlistModal").modal("hide");
+          });
+
+        document
+          .getElementById("imageUploadContainer")
+          .addEventListener("click", function () {
+            document.getElementById("productImage").click();
+          });
+
+        document
+          .getElementById("productImage")
+          .addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function (event) {
+                const imagePreview = document.getElementById("imagePreview");
+                imagePreview.src = event.target.result;
+                imagePreview.style.display = "block";
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+
+        document
+          .getElementById("confirmDeleteBtn")
+          .addEventListener("click", deleteProduct);
+        document
+          .getElementById("cancelDeleteBtn")
+          .addEventListener("click", function () {
+            $("#deleteModal").modal("hide");
+          });
+
+        document
+          .getElementById("entriesSelect")
+          .addEventListener("change", function () {
+            entriesPerPage =
+              this.value === "all" ? "all" : parseInt(this.value);
+            currentPage = 1;
+            renderProductCards();
+          });
+
+        loadProductData();
+      });
+    </script>
+  </body>
+</html>
