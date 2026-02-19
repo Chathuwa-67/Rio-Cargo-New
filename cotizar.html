@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>cotizar</title>
+    <!-- Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Bootstrap Datepicker -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
+    />
+    <style>
+      body {
+        background: #00205d;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Navbar Styles - from Estado de Paquetes */
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        padding: 10px 0 10px 0;
+        position: relative;
+        flex-wrap: wrap;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0034c4;
+        border-radius: 25px 0 0 25px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        flex: 1;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .logo {
+        padding: 0 80px 0 50px;
+      }
+
+      .logo img {
+        height: 70px;
+      }
+
+      .navbar ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+      }
+
+      .navbar ul li {
+        margin: 0 18px;
+        position: relative;
+      }
+
+      .navbar ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+      }
+
+      .navbar ul li a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-icons a {
+        color: white;
+        font-size: 18px;
+        margin-left: 15px;
+        text-decoration: none;
+      }
+
+      .nav-icons a:hover {
+        color: #ffd700;
+      }
+
+      .nav-icons img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .navbar ul li ul.dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0034c4;
+        border-radius: 10px;
+        padding: 8px 0;
+        list-style: none;
+        min-width: 200px;
+        z-index: 1000;
+      }
+
+      .navbar ul li ul.dropdown-menu li {
+        margin: 0;
+      }
+
+      .navbar ul li ul.dropdown-menu li a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .navbar ul li ul.dropdown-menu li a:hover {
+        background: #002a99;
+        color: #ffd700;
+      }
+
+      /* Show dropdown on hover */
+      .navbar ul li:hover > ul.dropdown-menu {
+        display: block;
+      }
+
+      .profile {
+        background: #007bff;
+        border-radius: 50%;
+        padding: 6px 6px;
+      }
+
+      /* Dropdown cards */
+      .dropdown-card {
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        background: #ffffff;
+        color: #000;
+        width: 220px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        padding: 12px;
+        display: none;
+        z-index: 2000;
+        animation: fadeInUp 0.3s ease;
+        font-size: 13px;
+      }
+
+      .dropdown-card h6 {
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+
+      .dropdown-card hr {
+        margin: 8px 0;
+      }
+
+      .dropdown-card a {
+        display: block;
+        color: #0034c4;
+        font-weight: 500;
+        padding: 4px 0;
+        text-decoration: none;
+        font-size: 12px;
+      }
+
+      .dropdown-card a:hover {
+        color: #ff9900;
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Form Card */
+      .card-custom {
+        background-color: #0034c4;
+        border-radius: 25px;
+        padding: 25px;
+        color: white;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .card-custom h2 {
+        font-weight: bold;
+      }
+
+      .btn {
+        border-radius: 20px;
+        padding: 8px 18px;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+      }
+
+      .btn-danger {
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .form-control {
+        border-radius: 12px;
+      }
+
+      .country-btn.btn-outline-light,
+      .city-btn.btn-outline-light {
+        background-color: #00205d;
+        color: white;
+        border: 1px solid #ffffff;
+      }
+
+      .country-btn.btn-outline-light:hover,
+      .city-btn.btn-outline-light:hover {
+        background-color: #007bff;
+        color: #ffd700;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 992px) {
+        .navbar {
+          flex-wrap: wrap;
+          border-radius: 20px;
+          padding: 10px;
+          width: 100%;
+        }
+        .navbar ul {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 10px;
+        }
+        .nav-icons {
+          margin-top: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .logo img {
+          height: 50px;
+        }
+        .nav-icons a {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-container {
+          flex-direction: column;
+          padding: 10px;
+        }
+        .navbar {
+          border-radius: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Toast container -->
+    <div
+      aria-live="polite"
+      aria-atomic="true"
+      style="position: fixed; top: 1rem; right: 1rem; z-index: 1080"
+    >
+      <div id="toast-container"></div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar-container">
+      <div class="logo">
+        <img
+          src="./images/RIOCARGO-logo-allwhite.png"
+          alt="Rio Cargo Express Logo"
+        />
+      </div>
+      <nav class="navbar">
+        <ul>
+          <!-- Tablero with dropdown -->
+          <li class="dropdown">
+            <a href="#">Tablero <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="./index.html">Registrar paquete</a></li>
+              <li>
+                <a href="./Estado de Paquetes.html">Estado de paquetes</a>
+              </li>
+              <li><a href="./Cupos.html">Cupos</a></li>
+              <li><a href="./Asociados.html">Asociados</a></li>
+            </ul>
+          </li>
+
+          <!-- Recursos with dropdown -->
+          <li class="dropdown">
+            <a href="#">Recursos <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="./Liquidaciones_Pendientes.html"
+                  >Liquidaciones Pendientes</a
+                >
+              </li>
+              <li>
+                <a href="./Liquidaciones_Canceladas.html"
+                  >Liquidaciones Canceladas</a
+                >
+              </li>
+              <li><a href="./Cuentas_Bancarias.html">Cuentas Bancarias</a></li>
+              <li><a href="#">Programas de Recompensa</a></li>
+              <li><a href="./tutoriales.html">Tutoriales</a></li>
+              <li><a href="./tiendas.html">Tiendas</a></li>
+              <li><a href="./cotizar.html">Cotizador</a></li>
+              <li><a href="./wishlist.html">Wishlist</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="nav-icons">
+          <a href="javascript:void(0)" id="alertBtn">
+            <img src="./images/alert.png" alt="Alert" />
+          </a>
+          <a href="javascript:void(0)" id="bellBtn">
+            <img src="./images/bell.png" alt="Notifications" />
+          </a>
+          <a href="javascript:void(0)" id="mailBtn">
+            <img src="./images/message.png" alt="Mail" />
+          </a>
+          <a href="javascript:void(0)" id="userBtn" class="profile">
+            <img src="./images/user.png" alt="profileLogo" />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Dropdown cards -->
+    <div class="dropdown-card" id="alertCard">
+      <h6>Alertas</h6>
+      <hr />
+      <p>Mensaje de alerta de ejemplo.</p>
+    </div>
+
+    <div class="dropdown-card" id="bellCard">
+      <h6>Notificaciones</h6>
+      <hr />
+      <p>Tu paquete está en camino 🚚</p>
+      <p>Nuevo mensaje recibido 📩</p>
+    </div>
+
+    <div class="dropdown-card" id="mailCard">
+      <h6>Tienes 0 paquetes en retención</h6>
+      <hr />
+      <p>No hay paquetes retenidos.</p>
+    </div>
+
+    <div class="dropdown-card" id="userCard">
+      <h6>Casillero</h6>
+      <p><strong>216258</strong></p>
+      <p>María Teresa Silva Pinoargote</p>
+      <p>tetesilva0908@gmail.com</p>
+      <hr />
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 5px;
+        "
+      >
+        <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- Heading outside container -->
+    <h2 class="text-center text-white mt-3 font-weight-bold pb-3">Cotizar</h2>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-12">
+          <!-- cotizar Section -->
+          <div class="card-custom text-center">
+            <h2 class="mb-4">Calcula tu importación</h2>
+
+            <!-- Country buttons -->
+            <div class="mb-3">
+              <button class="btn btn-primary mr-2 country-btn active">
+                <img
+                  src="https://flagcdn.com/w20/us.png"
+                  alt="USA"
+                  class="mr-1"
+                />
+                Desde USA
+              </button>
+              <button class="btn btn-outline-light mr-2 country-btn">
+                <img
+                  src="https://flagcdn.com/w20/es.png"
+                  alt="España"
+                  class="mr-1"
+                />
+                Desde España
+              </button>
+              <button class="btn btn-outline-light country-btn">
+                <img
+                  src="https://flagcdn.com/w20/cn.png"
+                  alt="China"
+                  class="mr-1"
+                />
+                Desde China
+              </button>
+            </div>
+
+            <!-- City buttons -->
+            <div class="mb-4">
+              <button class="btn btn-primary mr-2 city-btn active">
+                Guayaquil
+              </button>
+              <button class="btn btn-outline-light mr-2 city-btn">Quito</button>
+              <button class="btn btn-outline-light mr-2 city-btn">
+                Cuenca
+              </button>
+              <button class="btn btn-outline-light city-btn">
+                Resto del país
+              </button>
+            </div>
+
+            <!-- Bootstrap alerts (hidden initially) -->
+            <div id="alert-container"></div>
+
+            <div class="row">
+              <!-- Left: form -->
+              <div class="col-md-6 text-left">
+                <h5 class="mb-3 font-weight-bold text-center" id="cityHeading">
+                  Importación a Guayaquil
+                </h5>
+
+                <div class="form-group">
+                  <label>Valor del artículo individual</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="valorInput"
+                    placeholder="Valor"
+                  />
+                  <small class="text-light">Max. $400</small>
+                </div>
+
+                <div class="form-group">
+                  <label>Peso en libras</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="pesoInput"
+                    placeholder="Peso"
+                  />
+                  <small class="text-light">Max. 8.60 lb</small>
+                </div>
+
+                <button class="btn btn-danger btn-block" id="calcularBtn">
+                  Calcular
+                </button>
+              </div>
+
+              <!-- Right: Result -->
+              <div
+                class="col-md-6 d-flex align-items-center justify-content-center"
+              >
+                <div
+                  class="p-4 rounded w-100 text-center"
+                  style="
+                    background: #0050ff;
+                    min-height: 200px;
+                    color: white;
+                    border: 2px solid white;
+                  "
+                >
+                  <h5>Traer tu encargo te costará:</h5>
+                  <div id="resultado" class="display-3 my-3">$</div>
+                  <p class="small">
+                    El precio calculado es referencial<br />y no incluye IVA*
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <p id="noteText" class="text-white-500 small mt-3">
+                * Para cotizaciones de artículos individuales mayores a $400,00
+                y/o 4kg por favor enviar un correo a
+                <a
+                  href="mailto:cotizar@riocargoexpress.com"
+                  class="text-warning"
+                  >cotizar@riocargoexpress.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showToast(message, type = "danger") {
+        const toastId = "toast-" + Date.now();
+        const bgClass = type === "success" ? "bg-success" : "bg-danger";
+
+        const toastHTML = `
+      <div id="${toastId}" class="toast ${bgClass} text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000" style="min-width: 250px;">
+        <div class="toast-header ${bgClass} text-white">
+          <strong class="mr-auto">${
+            type === "success" ? "Éxito" : "Error"
+          }</strong>
+          <small>Ahora</small>
+          <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          ${message}
+        </div>
+      </div>
+    `;
+
+        const container = document.getElementById("toast-container");
+        container.insertAdjacentHTML("beforeend", toastHTML);
+
+        const toastEl = document.getElementById(toastId);
+        $(toastEl).toast("show");
+
+        $(toastEl).on("hidden.bs.toast", function () {
+          toastEl.remove();
+        });
+      }
+
+      document.querySelectorAll(".country-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".country-btn").forEach((b) => {
+            b.classList.remove("btn-primary", "active");
+            b.classList.add("btn-outline-light");
+          });
+          btn.classList.add("btn-primary", "active");
+          btn.classList.remove("btn-outline-light");
+
+          const country = btn.textContent.trim();
+
+          if (country === "Desde China") {
+            document.querySelectorAll(".city-btn").forEach((cityBtn) => {
+              cityBtn.style.display = "none";
+            });
+
+            document.getElementById("cityHeading").innerHTML =
+              'Importación desde CHINA <img src="https://flagcdn.com/w20/cn.png" alt="China" style="width:30px; vertical-align:middle; margin-right:5px;">  hacia cualquier ciudad de Ecuador';
+
+            document.getElementById("noteText").textContent =
+              "Impuesto aduanero:\n¿No sabes cuánto pagarías de impuestos por tu producto?\n¡Tranquilo! Envíanos un correo a cotizar@riocargoexpress.com con toda la información de lo que quieres importar y te enviamos una cotización completa del envío. Si vas a comprar directamente desde China, no olvides mencionarlo.";
+          } else {
+            document.querySelectorAll(".city-btn").forEach((cityBtn) => {
+              cityBtn.style.display = "inline-block";
+            });
+
+            document.getElementById("cityHeading").textContent =
+              "Importación a Guayaquil";
+
+            document.getElementById("noteText").textContent =
+              "* Para cotizaciones de artículos individuales mayores a $400,00 y/o 4kg por favor enviar un correo a cotizar@riocargoexpress.com";
+          }
+        });
+      });
+
+      document.querySelectorAll(".city-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".city-btn").forEach((b) => {
+            b.classList.remove("btn-primary", "active");
+            b.classList.add("btn-outline-light");
+          });
+          btn.classList.add("btn-primary", "active");
+          btn.classList.remove("btn-outline-light");
+
+          const cityName = btn.textContent.trim();
+          document.getElementById("cityHeading").textContent =
+            `Importación a ${cityName}`;
+        });
+      });
+
+      document
+        .getElementById("calcularBtn")
+        .addEventListener("click", function () {
+          const valor = parseFloat(document.getElementById("valorInput").value);
+          const peso = parseFloat(document.getElementById("pesoInput").value);
+          const resultado = document.getElementById("resultado");
+
+          resultado.textContent = "$";
+
+          if (isNaN(valor) || isNaN(peso)) {
+            showToast("Por favor, complete ambos campos antes de calcular.");
+            return;
+          }
+
+          if (valor > 400) {
+            showToast("El valor del artículo no puede superar los $400.");
+            return;
+          }
+
+          if (peso > 8.6) {
+            showToast("El peso no puede superar las 8.60 lb.");
+            return;
+          }
+
+          resultado.textContent = "$100.00";
+          showToast("Cálculo realizado correctamente.", "success");
+        });
+    </script>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = {
+          alertBtn: "alertCard",
+          bellBtn: "bellCard",
+          mailBtn: "mailCard",
+          userBtn: "userCard",
+        };
+
+        function toggleCard(cardId) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            if (card.id !== cardId) card.style.display = "none";
+          });
+          const card = document.getElementById(cardId);
+          card.style.display =
+            card.style.display === "block" ? "none" : "block";
+        }
+
+        Object.keys(cards).forEach((btnId) => {
+          document.getElementById(btnId).addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleCard(cards[btnId]);
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          document.querySelectorAll(".dropdown-card").forEach((card) => {
+            card.style.display = "none";
+          });
+        });
+
+        document.querySelectorAll(".dropdown-card").forEach((card) => {
+          card.addEventListener("click", (e) => e.stopPropagation());
+        });
+      });
+    </script>
+  </body>
+</html>
