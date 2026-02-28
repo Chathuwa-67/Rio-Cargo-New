@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tutorial</title>
+    <title>Tutoriales - Rio Cargo Express</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -13,26 +13,77 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
-    />
-    <link
       rel="icon"
       type="image/png"
       sizes="16x16"
       href="https://courier.riocargoexpress.com/assets/images/logo-rio2.png"
     />
     <style>
-      body {
-        background: #00205d;
-        font-family: Arial, sans-serif;
+      /* ===== FONTS ===== */
+      @font-face {
+        font-family: "NewBlackTypeface-Light";
+        src: url("typefaces/NewBlackTypeface-Light.ttf") format("truetype");
+        font-weight: 300;
+      }
+      @font-face {
+        font-family: "NewBlackTypeface-Regular";
+        src: url("typefaces/NewBlackTypeface-Regular.ttf") format("truetype");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "NewBlackTypeface-Bold";
+        src: url("typefaces/NewBlackTypeface-Bold.ttf") format("truetype");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "VastagoGrotesk-Light";
+        src: url("typefaces/VastagoGrotesk-Light.ttf") format("truetype");
+        font-weight: 300;
+      }
+      @font-face {
+        font-family: "VastagoGrotesk-Regular";
+        src: url("typefaces/VastagoGrotesk-Regular.otf") format("opentype");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "VastagoGrotesk-Bold";
+        src: url("typefaces/VastagoGrotesk-Bold.otf") format("opentype");
+        font-weight: 700;
       }
 
-      /* Navbar Styles - from Estado de Paquetes */
+      /* ===== BASE ===== */
+      body {
+        margin: 0;
+        background: #01183d;
+        font-family: Arial, sans-serif;
+        position: relative;
+        overflow-x: hidden;
+        min-height: 100vh;
+        padding-top: 20px;
+      }
+
+      /* ===== BACKGROUND IMAGES ===== */
+      .bg-image {
+        position: absolute;
+        z-index: -1;
+        opacity: 0.9;
+      }
+      .bg-left-top {
+        top: 120px;
+        left: -20px;
+        width: 150px;
+      }
+      .bg-right-top {
+        top: 350px;
+        right: -50px;
+        width: 150px;
+      }
+
+      /* ===== NAVBAR ===== */
       .navbar-container {
         display: flex;
         align-items: center;
-        padding: 10px 0 10px 0;
+        padding: 10px 0;
         position: relative;
         flex-wrap: wrap;
       }
@@ -45,7 +96,6 @@
         padding: 10px 20px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         flex: 1;
-        margin-left: 0;
         width: 100%;
       }
       .logo {
@@ -53,6 +103,7 @@
       }
       .logo img {
         height: 70px;
+        margin-left: 50px;
       }
       .navbar ul {
         display: flex;
@@ -71,6 +122,7 @@
         font-weight: 500;
         transition: color 0.3s;
         font-size: 15px;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
       .navbar ul li a:hover {
         color: #ffd700;
@@ -114,6 +166,7 @@
         color: #fff;
         font-size: 14px;
         white-space: nowrap;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
       }
       .navbar ul li ul.dropdown-menu li a:hover {
         background: #002a99;
@@ -125,15 +178,15 @@
       .profile {
         background: #007bff;
         border-radius: 50%;
-        padding: 6px 6px;
+        padding: 6px;
       }
 
-      /* Dropdown cards */
+      /* ===== DROPDOWN CARDS ===== */
       .dropdown-card {
         position: absolute;
         top: 80px;
         right: 20px;
-        background: #ffffff;
+        background: #fff;
         color: #000;
         width: 220px;
         border-radius: 12px;
@@ -143,11 +196,13 @@
         z-index: 2000;
         animation: fadeInUp 0.3s ease;
         font-size: 13px;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
       }
       .dropdown-card h6 {
         font-weight: bold;
         margin-bottom: 5px;
         font-size: 13px;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
       }
       .dropdown-card hr {
         margin: 8px 0;
@@ -163,7 +218,6 @@
       .dropdown-card a:hover {
         color: #ff9900;
       }
-
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -175,139 +229,363 @@
         }
       }
 
-      .custom-alert {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        min-width: 300px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        border: none;
-        border-left: 4px solid #28a745;
-        opacity: 0;
-        transform: translateX(100%);
-        transition:
-          opacity 0.5s,
-          transform 0.5s;
-      }
-      .custom-alert.show {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      .alert-success {
-        background-color: #d4edda;
-        color: #155724;
+      /* ===== PAGE CONTENT ===== */
+      .page-content {
+        position: relative;
+        z-index: 1;
+        padding: 30px 0 60px;
+        width: 85%;
+        margin: 0 auto;
       }
 
-      /* Page-specific styles */
-      .card-custom {
-        background-color: #0034c5;
-        border-radius: 25px;
-        padding: 25px;
-        color: white;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-        margin-bottom: 20px;
-        font-weight: 600;
-      }
-
-      .video-card {
-        background: #031547;
-        border-radius: 15px;
+      /* ===== TUTORIALS CARD ===== */
+      .tutorials-card {
+        background: #0034c4;
+        border-radius: 30px;
+        padding: 35px 40px 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         overflow: hidden;
-        margin-bottom: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
-      }
-      .video-card:hover {
-        transform: translateY(-5px);
       }
 
-      .video-container {
+      /* ===== HEADER ROW ===== */
+      .tutorials-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 0 0 0 80px;
+      }
+      .tutorials-title {
+        color: white;
+        font-size: 2.6rem;
+        font-weight: 900;
+        margin: 0;
+        font-family:
+          "VastagoGrotesk-Bold",
+          Arial Black,
+          sans-serif;
+      }
+
+      /* ===== SEARCH BAR ===== */
+      .search-bar {
+        display: flex;
+        align-items: stretch;
+        background: #9bade4;
+        border-radius: 15px;
+        padding: 0 0 0 14px;
+        gap: 0;
+        min-width: 260px;
+        overflow: hidden;
+      }
+      .search-bar input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.95rem;
+        flex: 1;
+        padding: 9px 0;
+      }
+      .search-bar input::placeholder {
+        color: #00205d;
+      }
+      .search-btn {
+        background: #fdba00;
+        border: none;
+        border-radius: 0;
+        width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        flex-shrink: 0;
+        align-self: stretch;
+        padding: 0;
+      }
+      .search-btn:hover {
+        background: #e6a800;
+      }
+      .search-btn img {
+        width: 25px;
+        height: 25px;
+        display: block;
+      }
+
+      /* ===== CAROUSEL ===== */
+      .carousel-outer {
+        position: relative;
+        padding: 0 52px;
+      }
+      .carousel-wrapper {
+        overflow: hidden;
+      }
+      .carousel-track {
+        display: flex;
+        gap: 18px;
+        transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform;
+      }
+
+      /* ===== TUTORIAL CARD ===== */
+      .tutorial-card {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        flex: 0 0 calc((100% - 3 * 18px) / 3.5);
+        min-width: 0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        cursor: pointer;
+        /* ↓ KEY: makes all cards same height in a row */
+        display: flex;
+        flex-direction: column;
+      }
+      .tutorial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      /* ===== THUMBNAIL ===== */
+      .card-thumb-wrapper {
+        background: #fff;
+        padding: 10px 10px 0 10px;
+      }
+      .card-thumb-inner {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        height: 130px;
+      }
+      .card-thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .card-thumb-inner::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.08);
+        transition: background 0.2s;
+        border-radius: 10px;
+      }
+      .tutorial-card:hover .card-thumb-inner::after {
+        background: rgba(0, 0, 0, 0.22);
+      }
+
+      /* ===== CARD BODY ===== */
+      .card-body-custom {
+        padding: 12px 14px 16px;
+        background: #fff;
+        /* ↓ KEY: body grows to fill remaining card height */
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-title-text {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 8px;
+        line-height: 1.35;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        /* ↓ KEY: title absorbs all extra space, pushing meta to bottom */
+        flex: 1;
+      }
+      /* ↓ KEY: duration + tag always on one row, pinned to bottom */
+      .card-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: auto;
+      }
+      .card-duration {
+        font-size: 0.8rem;
+        color: #000000;
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-family: "VastagoGrotesk-Regular", Arial, sans-serif;
+      }
+      .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        background: #cde6fc;
+        color: #000000;
+        font-size: 0.72rem;
+        font-weight: 400;
+        padding: 3px 10px;
+        border-radius: 5px;
+        font-family: "NewBlackTypeface-Light", Arial, sans-serif;
+      }
+
+      /* ===== NAV ARROWS ===== */
+      .carousel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        padding: 0;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 5;
+        transition: opacity 0.2s;
+        opacity: 0.85;
+      }
+      .carousel-nav-btn img {
+        width: 28px;
+        height: 28px;
+        display: block;
+      }
+      .carousel-nav-btn:hover {
+        opacity: 1;
+      }
+      .carousel-nav-btn:disabled {
+        opacity: 0.2;
+        cursor: default;
+      }
+      .carousel-prev {
+        left: -18px;
+      }
+      .carousel-next {
+        right: -18px;
+      }
+
+      /* ===== DOTS ===== */
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+        margin-top: 22px;
+      }
+      .dot {
+        height: 10px;
+        width: 10px;
+        border-radius: 5px;
+        background: rgb(255, 255, 255);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition:
+          width 0.3s ease,
+          background 0.3s ease;
+        display: block;
+      }
+      .dot.active {
+        width: 30px;
+        border-radius: 5px;
+        background: #f20302;
+      }
+
+      /* ===== VIDEO MODAL ===== */
+      .video-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 9000;
+        align-items: center;
+        justify-content: center;
+      }
+      .video-modal-overlay.open {
+        display: flex;
+        animation: fadeInOverlay 0.2s ease;
+      }
+      @keyframes fadeInOverlay {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .video-modal-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 22px;
+        width: 90%;
+        max-width: 760px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        position: relative;
+        animation: slideUpModal 0.25s ease;
+      }
+      @keyframes slideUpModal {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .modal-video-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #000000;
+        margin-top: 14px;
+        margin-bottom: 0;
+        font-family: "VastagoGrotesk-Bold", Arial, sans-serif;
+        line-height: 1.3;
+      }
+      .modal-iframe-wrapper {
         position: relative;
         padding-top: 56.25%;
-        background: #001a4b;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #000;
       }
-      .video-container video {
+      .modal-iframe-wrapper iframe {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset: 0;
         width: 100%;
         height: 100%;
         border: none;
       }
 
-      .video-info {
-        padding: 15px;
-      }
-      .video-title {
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #ffcc00;
-      }
-      .video-description {
-        font-size: 14px;
-        margin-bottom: 15px;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .see-more {
-        color: #ff9900;
-        font-weight: bold;
-        text-decoration: none;
-        display: inline-block;
-        margin-top: 10px;
-      }
-      .see-more:hover {
-        color: #ffcc00;
-        text-decoration: underline;
-      }
-
-      .section-divider {
-        border-top: 2px solid #6c7ecb;
-        margin: 40px 0;
-      }
-      .gallery-title {
-        text-align: center;
-        margin: 30px 0;
-        color: white;
-        font-weight: bold;
-      }
-
+      /* ===== RESPONSIVE ===== */
       @media (max-width: 992px) {
-        .navbar {
-          flex-wrap: wrap;
-          border-radius: 20px;
-          padding: 10px;
-          width: 100%;
+        .page-content {
+          width: 95%;
         }
-        .navbar ul {
-          flex-direction: column;
-          align-items: flex-start;
-          width: 100%;
-          margin-top: 10px;
+        .tutorials-title {
+          font-size: 2rem;
         }
-        .nav-icons {
-          margin-top: 10px;
-          width: 100%;
-          justify-content: flex-start;
+        .tutorial-card {
+          flex: 0 0 calc((100% - 2 * 18px) / 2.5);
         }
       }
       @media (max-width: 768px) {
+        .tutorials-title {
+          font-size: 1.6rem;
+        }
+        .tutorials-card {
+          padding: 20px 18px;
+        }
         .logo img {
           height: 50px;
         }
-        .nav-icons a {
-          font-size: 16px;
-          margin-left: 10px;
+        .logo {
+          padding: 0 20px 0 10px;
         }
-        .custom-alert {
-          left: 20px;
-          right: 20px;
-          min-width: auto;
+        .tutorial-card {
+          flex: 0 0 calc((100% - 18px) / 1.5);
         }
       }
       @media (max-width: 576px) {
@@ -318,24 +596,31 @@
         .navbar {
           border-radius: 20px;
         }
+        .logo {
+          padding: 0 20px 15px;
+        }
+        .page-content {
+          width: 100%;
+          padding: 15px 12px 40px;
+        }
+        .tutorials-header {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 0;
+        }
+        .search-bar {
+          min-width: 200px;
+        }
+        .tutorial-card {
+          flex: 0 0 82%;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Custom Alert Container -->
-    <div
-      id="alertContainer"
-      class="custom-alert alert alert-success"
-      role="alert"
-      style="display: none"
-    >
-      <div class="d-flex align-items-center">
-        <i class="fas fa-check-circle mr-2"></i>
-        <span id="alertMessage"></span>
-      </div>
-    </div>
+    <img src="images/whitespark.png" alt="" class="bg-image bg-left-top" />
+    <img src="images/whitespark.png" alt="" class="bg-image bg-right-top" />
 
-    <!-- Navbar -->
     <header class="navbar-container">
       <div class="logo">
         <img
@@ -377,13 +662,12 @@
             ><img src="./images/message.png" alt="Mail"
           /></a>
           <a href="javascript:void(0)" id="userBtn" class="profile"
-            ><img src="./images/user.png" alt="profileLogo"
+            ><img src="./images/user.png" alt="Profile"
           /></a>
         </div>
       </nav>
     </header>
 
-    <!-- Dropdown cards -->
     <div class="dropdown-card" id="alertCard">
       <h6>Alertas</h6>
       <hr />
@@ -419,291 +703,723 @@
       </div>
     </div>
 
-    <!-- Page Content -->
-    <div class="container">
-      <h1 class="gallery-title">Tutorial</h1>
+    <div
+      class="page-content"
+      style="display: flex; flex-direction: column; gap: 30px"
+    >
+      <!-- ===== TUTORIALES WEB ===== -->
+      <div class="tutorials-card">
+        <div class="tutorials-header">
+          <h1 class="tutorials-title">Tutoriales WEB</h1>
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar..." />
+            <button class="search-btn" onclick="filterCards()">
+              <img src="./images/searchTick.png" alt="Buscar" />
+            </button>
+          </div>
+        </div>
 
-      <div class="container mt-3">
-        <div class="row">
-          <div class="col-12">
-            <div class="card-custom">
-              <!-- First Row -->
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+        <div class="carousel-outer">
+          <button class="carousel-nav-btn carousel-prev" id="prevBtn">
+            <img src="./images/sliderLeft.png" alt="Anterior" />
+          </button>
+          <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+              <div
+                class="tutorial-card"
+                data-tags="paquetes"
+                data-title="Cómo registrar tu carga"
+                data-videoid="jNQXAC9IVRw"
+                data-videotitle="Cómo registrar tu carga"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/jNQXAC9IVRw/mqdefault.jpg"
+                      alt="Cómo registrar tu carga"
+                    />
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo registrar tu carga</div>
+                  <div class="card-meta">
+                    <div class="card-duration">3 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#paquetes</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <hr class="section-divider" />
-
-              <!-- Second Row -->
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes herey</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+              <div
+                class="tutorial-card"
+                data-tags="facturas"
+                data-title="Cómo descargar la factura de tu compra"
+                data-videoid="M7lc1UVf-VE"
+                data-videotitle="Cómo descargar la factura de tu compra"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/M7lc1UVf-VE/mqdefault.jpg"
+                      alt="Cómo descargar la factura de tu compra"
+                    />
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
-                    </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo descargar la factura de tu compra
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
+                  <div class="card-meta">
+                    <div class="card-duration">4 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#facturas</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <hr class="section-divider" />
+              <div
+                class="tutorial-card"
+                data-tags="facturas"
+                data-title="Cómo unir facturas o imágenes en un solo archivo PDF"
+                data-videoid="YE7VzlLtp-4"
+                data-videotitle="Cómo unir facturas o imágenes en un solo archivo PDF"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/YE7VzlLtp-4/mqdefault.jpg"
+                      alt="Cómo unir facturas o imágenes en un solo archivo PDF"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo unir facturas o imágenes en un solo archivo PDF
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">2 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#facturas</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              <!-- Third Row -->
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
+              <div
+                class="tutorial-card"
+                data-tags="paquetes"
+                data-title="Cómo subir imágenes al sistema"
+                data-videoid="aqz-KE-bpKQ"
+                data-videotitle="Cómo subir imágenes al sistema"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/aqz-KE-bpKQ/mqdefault.jpg"
+                      alt="Cómo subir imágenes al sistema"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo subir imágenes al sistema
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">3 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#paquetes</span>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
-                    </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="envios"
+                data-title="Cómo rastrear tu paquete"
+                data-videoid="_OBlgSz8sSM"
+                data-videotitle="Cómo rastrear tu paquete"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/_OBlgSz8sSM/mqdefault.jpg"
+                      alt="Cómo rastrear tu paquete"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo rastrear tu paquete</div>
+                  <div class="card-meta">
+                    <div class="card-duration">5 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#envios</span>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="video-card">
-                    <div class="video-container">
-                      <video controls>
-                        <source
-                          src="./src/Video/samplevideo.mp4"
-                          type="video/mp4"
-                        />
-                        Tu navegador no soporta el elemento de video.
-                      </video>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="cuenta"
+                data-title="Cómo actualizar tu perfil"
+                data-videoid="XSGBVzeBUbk"
+                data-videotitle="Cómo actualizar tu perfil"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/XSGBVzeBUbk/mqdefault.jpg"
+                      alt="Cómo actualizar tu perfil"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo actualizar tu perfil</div>
+                  <div class="card-meta">
+                    <div class="card-duration">2 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#cuenta</span>
                     </div>
-                    <div class="video-info">
-                      <div class="video-title">Video title goes here</div>
-                      <div class="video-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam auctor, nisl eu ultricies lacinia, nunc nisl
-                        aliquam nisl, eu aliquam nisl nunc eu nisl.
-                      </div>
-                      <a href="./tutorialesExtended.html" class="see-more"
-                        >See More <i class="fas fa-arrow-right"></i
-                      ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="pagos"
+                data-title="Cómo realizar un pago en línea"
+                data-videoid="ysz5S6PUM-U"
+                data-videotitle="Cómo realizar un pago en línea"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/ysz5S6PUM-U/mqdefault.jpg"
+                      alt="Cómo realizar un pago en línea"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo realizar un pago en línea
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">4 min</div>
+                    <div class="card-tags"><span class="tag">#pagos</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="paquetes"
+                data-title="Cómo gestionar asociados"
+                data-videoid="eRsGyueVLvQ"
+                data-videotitle="Cómo gestionar asociados"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/eRsGyueVLvQ/mqdefault.jpg"
+                      alt="Cómo gestionar asociados"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo gestionar asociados</div>
+                  <div class="card-meta">
+                    <div class="card-duration">6 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#paquetes</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <button class="carousel-nav-btn carousel-next" id="nextBtn">
+            <img src="./images/sliderRight.png" alt="Siguiente" />
+          </button>
         </div>
+
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <!-- ===== TUTORIALES APP ===== -->
+      <div class="tutorials-card">
+        <div class="tutorials-header">
+          <h1 class="tutorials-title">Tutoriales APP</h1>
+          <div class="search-bar">
+            <input type="text" id="searchInput2" placeholder="Buscar..." />
+            <button class="search-btn" onclick="filterCards2()">
+              <img src="./images/searchTick.png" alt="Buscar" />
+            </button>
+          </div>
+        </div>
+
+        <div class="carousel-outer">
+          <button class="carousel-nav-btn carousel-prev" id="prevBtn2">
+            <img src="./images/sliderLeft.png" alt="Anterior" />
+          </button>
+          <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack2">
+              <div
+                class="tutorial-card"
+                data-tags="paquetes"
+                data-title="Cómo registrar tu carga"
+                data-videoid="jNQXAC9IVRw"
+                data-videotitle="Cómo registrar tu carga"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/jNQXAC9IVRw/mqdefault.jpg"
+                      alt="Cómo registrar tu carga"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo registrar tu carga</div>
+                  <div class="card-meta">
+                    <div class="card-duration">3 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#paquetes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="facturas"
+                data-title="Cómo descargar la factura de tu compra"
+                data-videoid="M7lc1UVf-VE"
+                data-videotitle="Cómo descargar la factura de tu compra"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/M7lc1UVf-VE/mqdefault.jpg"
+                      alt="Cómo descargar la factura de tu compra"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo descargar la factura de tu compra
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">4 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#facturas</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="facturas"
+                data-title="Cómo unir facturas o imágenes en un solo archivo PDF"
+                data-videoid="YE7VzlLtp-4"
+                data-videotitle="Cómo unir facturas o imágenes en un solo archivo PDF"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/YE7VzlLtp-4/mqdefault.jpg"
+                      alt="Cómo unir facturas o imágenes en un solo archivo PDF"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo unir facturas o imágenes en un solo archivo PDF
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">2 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#facturas</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="paquetes"
+                data-title="Cómo subir imágenes al sistema"
+                data-videoid="aqz-KE-bpKQ"
+                data-videotitle="Cómo subir imágenes al sistema"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/aqz-KE-bpKQ/mqdefault.jpg"
+                      alt="Cómo subir imágenes al sistema"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo subir imágenes al sistema
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">3 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#paquetes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="envios"
+                data-title="Cómo rastrear tu paquete"
+                data-videoid="_OBlgSz8sSM"
+                data-videotitle="Cómo rastrear tu paquete"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/_OBlgSz8sSM/mqdefault.jpg"
+                      alt="Cómo rastrear tu paquete"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo rastrear tu paquete</div>
+                  <div class="card-meta">
+                    <div class="card-duration">5 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#envios</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="cuenta"
+                data-title="Cómo actualizar tu perfil"
+                data-videoid="XSGBVzeBUbk"
+                data-videotitle="Cómo actualizar tu perfil"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/XSGBVzeBUbk/mqdefault.jpg"
+                      alt="Cómo actualizar tu perfil"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo actualizar tu perfil</div>
+                  <div class="card-meta">
+                    <div class="card-duration">2 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#cuenta</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="pagos"
+                data-title="Cómo realizar un pago en línea"
+                data-videoid="ysz5S6PUM-U"
+                data-videotitle="Cómo realizar un pago en línea"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/ysz5S6PUM-U/mqdefault.jpg"
+                      alt="Cómo realizar un pago en línea"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">
+                    Cómo realizar un pago en línea
+                  </div>
+                  <div class="card-meta">
+                    <div class="card-duration">4 min</div>
+                    <div class="card-tags"><span class="tag">#pagos</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tutorial-card"
+                data-tags="paquetes"
+                data-title="Cómo gestionar asociados"
+                data-videoid="eRsGyueVLvQ"
+                data-videotitle="Cómo gestionar asociados"
+              >
+                <div class="card-thumb-wrapper">
+                  <div class="card-thumb-inner">
+                    <img
+                      class="card-thumb"
+                      src="https://img.youtube.com/vi/eRsGyueVLvQ/mqdefault.jpg"
+                      alt="Cómo gestionar asociados"
+                    />
+                  </div>
+                </div>
+                <div class="card-body-custom">
+                  <div class="card-title-text">Cómo gestionar asociados</div>
+                  <div class="card-meta">
+                    <div class="card-duration">6 min</div>
+                    <div class="card-tags">
+                      <span class="tag">#paquetes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-nav-btn carousel-next" id="nextBtn2">
+            <img src="./images/sliderRight.png" alt="Siguiente" />
+          </button>
+        </div>
+
+        <div class="carousel-dots" id="carouselDots2"></div>
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+    <div class="video-modal-overlay" id="videoModal">
+      <div class="video-modal-card">
+        <div class="modal-iframe-wrapper">
+          <iframe
+            id="modalIframe"
+            src=""
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="modal-video-title" id="modalVideoTitle"></div>
+      </div>
+    </div>
 
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const cards = {
+        /* === NAVBAR DROPDOWNS === */
+        var cardMap = {
           alertBtn: "alertCard",
           bellBtn: "bellCard",
           mailBtn: "mailCard",
           userBtn: "userCard",
         };
-
-        function toggleCard(cardId) {
-          document.querySelectorAll(".dropdown-card").forEach((card) => {
-            if (card.id !== cardId) card.style.display = "none";
+        function toggleCard(id) {
+          document.querySelectorAll(".dropdown-card").forEach(function (c) {
+            if (c.id !== id) c.style.display = "none";
           });
-          const card = document.getElementById(cardId);
-          card.style.display =
-            card.style.display === "block" ? "none" : "block";
+          var c = document.getElementById(id);
+          c.style.display = c.style.display === "block" ? "none" : "block";
+        }
+        Object.keys(cardMap).forEach(function (btn) {
+          var el = document.getElementById(btn);
+          if (el)
+            el.addEventListener("click", function (e) {
+              e.stopPropagation();
+              toggleCard(cardMap[btn]);
+            });
+        });
+        document.addEventListener("click", function () {
+          document.querySelectorAll(".dropdown-card").forEach(function (c) {
+            c.style.display = "none";
+          });
+        });
+        document.querySelectorAll(".dropdown-card").forEach(function (c) {
+          c.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        });
+
+        /* === CAROUSEL (reusable) === */
+        function initCarousel(trackId, prevId, nextId, dotsId) {
+          var track = document.getElementById(trackId);
+          var prevBtn = document.getElementById(prevId);
+          var nextBtn = document.getElementById(nextId);
+          var dotsContainer = document.getElementById(dotsId);
+          var GAP = 18;
+          var allCards = Array.from(track.querySelectorAll(".tutorial-card"));
+          var currentIndex = 0;
+
+          function getCardWidth() {
+            var c = track.querySelector(".tutorial-card");
+            return c ? c.getBoundingClientRect().width + GAP : 0;
+          }
+          function buildDots() {
+            dotsContainer.innerHTML = "";
+            allCards.forEach(function (_, i) {
+              var dot = document.createElement("button");
+              dot.className = "dot" + (i === currentIndex ? " active" : "");
+              dot.addEventListener("click", function () {
+                goTo(i);
+              });
+              dotsContainer.appendChild(dot);
+            });
+          }
+          function updateDots() {
+            dotsContainer.querySelectorAll(".dot").forEach(function (d, i) {
+              d.classList.toggle("active", i === currentIndex);
+            });
+          }
+          function applyTransform() {
+            var cw = getCardWidth();
+            track.style.transform = "translateX(-" + currentIndex * cw + "px)";
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= allCards.length - 1;
+            updateDots();
+          }
+          function goTo(idx) {
+            currentIndex = Math.max(0, Math.min(idx, allCards.length - 1));
+            applyTransform();
+          }
+
+          prevBtn.addEventListener("click", function () {
+            goTo(currentIndex - 1);
+          });
+          nextBtn.addEventListener("click", function () {
+            goTo(currentIndex + 1);
+          });
+          window.addEventListener("resize", applyTransform);
+          buildDots();
+          applyTransform();
+
+          // return filter function for this carousel
+          return function filterFn(query) {
+            var original = Array.from(track.querySelectorAll(".tutorial-card"));
+            original.forEach(function (card) {
+              var match =
+                !query ||
+                card.getAttribute("data-title").toLowerCase().includes(query) ||
+                card.getAttribute("data-tags").toLowerCase().includes(query);
+              card.style.display = match ? "" : "none";
+            });
+            allCards = original.filter(function (c) {
+              return c.style.display !== "none";
+            });
+            currentIndex = 0;
+            buildDots();
+            applyTransform();
+          };
         }
 
-        Object.keys(cards).forEach((btnId) => {
-          document.getElementById(btnId).addEventListener("click", (e) => {
-            e.stopPropagation();
-            toggleCard(cards[btnId]);
+        var filterWeb = initCarousel(
+          "carouselTrack",
+          "prevBtn",
+          "nextBtn",
+          "carouselDots",
+        );
+        var filterApp = initCarousel(
+          "carouselTrack2",
+          "prevBtn2",
+          "nextBtn2",
+          "carouselDots2",
+        );
+
+        /* === VIDEO MODAL === */
+        var modal = document.getElementById("videoModal");
+        var modalIframe = document.getElementById("modalIframe");
+        var modalTitle = document.getElementById("modalVideoTitle");
+
+        function openModal(videoId, title) {
+          modalTitle.textContent = title;
+          modalIframe.src =
+            "https://www.youtube-nocookie.com/embed/" +
+            videoId +
+            "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+          modal.classList.add("open");
+          document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+          modal.classList.remove("open");
+          modalIframe.src = "";
+          document.body.style.overflow = "";
+        }
+
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) closeModal();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeModal();
+        });
+        ["carouselTrack", "carouselTrack2"].forEach(function (tid) {
+          document.getElementById(tid).addEventListener("click", function (e) {
+            var card = e.target.closest(".tutorial-card");
+            if (!card) return;
+            var videoId = card.getAttribute("data-videoid");
+            var title = card.getAttribute("data-videotitle");
+            if (videoId) openModal(videoId, title);
           });
         });
 
-        document.addEventListener("click", function () {
-          document.querySelectorAll(".dropdown-card").forEach((card) => {
-            card.style.display = "none";
-          });
-        });
+        /* === SEARCH === */
+        window.filterCards = function () {
+          var query = document
+            .getElementById("searchInput")
+            .value.toLowerCase()
+            .trim();
+          filterWeb(query);
+        };
+        window.filterCards2 = function () {
+          var query = document
+            .getElementById("searchInput2")
+            .value.toLowerCase()
+            .trim();
+          filterApp(query);
+        };
 
-        document.querySelectorAll(".dropdown-card").forEach((card) => {
-          card.addEventListener("click", (e) => e.stopPropagation());
-        });
+        // Real-time filtering as user types
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", function () {
+            filterCards();
+          });
+        document
+          .getElementById("searchInput")
+          .addEventListener("keyup", function (e) {
+            if (e.key === "Enter") filterCards();
+          });
+        document
+          .getElementById("searchInput2")
+          .addEventListener("input", function () {
+            filterCards2();
+          });
+        document
+          .getElementById("searchInput2")
+          .addEventListener("keyup", function (e) {
+            if (e.key === "Enter") filterCards2();
+          });
       });
     </script>
+    <script src="./js/security.js"></script>
   </body>
 </html>
